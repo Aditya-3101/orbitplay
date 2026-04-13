@@ -2,10 +2,29 @@ import React from 'react'
 import { getVideoDuration } from '../../utility/videoDuration';
 import {format} from 'date-fns'
 
+interface videoObjectResponse {
+    "_id": string,
+    "videoFile": string,
+    "thumbnail": string,
+    "owner": {
+        "_id": string,
+        "username": string,
+        "avatar": string,
+        "fullName"?:string
+    },
+    "title": string,
+    "description": string,
+    "duration": number,
+    "views": number,
+    "isPublished": boolean,
+    "createdAt": string,
+    "updatedAt": string,
+    "__v": number
+}
 
 export const VideoCard_v2 = (props) => {
 
-    const par = props.data
+    const par:videoObjectResponse = props.data
     function getUploadeDate(param:string){
         return format(new Date(param),"dd MMMM yyyy")
     }

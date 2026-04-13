@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import {getChannelDetails} from '../../app/thunks/channelThunk.ts'
 import axios from 'axios';
 import { host } from '../../Constants.ts';
+import { log } from 'console';
 
 
 
@@ -27,6 +28,7 @@ const Account:React.FC = () => {
     },[subscribeStatus])
 
     const currentUser = params.channelName ? channelData.channelUserDetail : user;
+    const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username) ? true : false
 
     
     async function toggleSubscription(par1:string,par2:string){
@@ -53,7 +55,12 @@ const Account:React.FC = () => {
     <div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                <img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />
+                {currentUser?.coverImage&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {
+                    (currentUser?.coverImage==undefined||currentUser?.coverImage.length==0) && <div className='aspect-[16/4] w-[100%] md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>
+                        No Cover Image
+                    </div>
+                }
             </div>
             <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-[100%] mx-auto'>
             <div className=''>
@@ -62,21 +69,22 @@ const Account:React.FC = () => {
             <div className='w-[90%] mx-auto '>
                 <p className='text-gray-100 font-roboto text-2xl text-clip md:text-5xl my-1'>{currentUser?.fullName}</p>
                 <p className='font-roboto text-gray-400 text-sm md:text-xl'>@{currentUser?.username}</p>
-                <p className='py-4 flex items-center justify-between md:w-[60%]'>
-                    <span>
+                <div className='py-4 flex items-center justify-between md:w-[60%]'>
+                    <p>
                     {currentUser && "subscribersCount" in currentUser && (
-                    <p className='font-roboto text-gray-400 text-sm md:text-2xl'>{currentUser.subscribersCount} Subscribers</p>
+                    <span className='font-roboto text-gray-400 text-sm md:text-2xl'>{currentUser.subscribersCount} Subscribers</span>
                     )}
-                    </span>
+                    </p>
                     <span className=''>
-                        {currentUser && "isSubscribed" in currentUser && (
+                        {(currentUser && "isSubscribed" in currentUser) && (
+                            checkUserAsChannel!==true &&
                             <button className={`font-roboto text-gray-400 text-sm ${currentUser.isSubscribed?
                             "border border-gray-300 p-2 my-2 rounded":"bg-red-500 p-2 my-2 text-gray-950 rounded"} md:text-2xl`} onClick={()=>toggleSubscription(currentUser._id,currentUser.username)}>
                                 {currentUser.isSubscribed?"Subscribed":"Subscribe"}
                             </button>
                         )}
                     </span>
-                </p>
+                </div>
             </div>
             </section>
         </section>

@@ -45,18 +45,22 @@ const Results = () => {
     const query = searchParams.get('q')
 
     useEffect(()=>{
-        if (query!==null) fetchSearchResult(query)
+        const abortController = new AbortController()
+
+        if (query!==null) fetchSearchResult(query,abortController)
         dispatch(toggleSideBar(true))
+        return() => abortController.abort()
     },[query])
 
-    async function fetchSearchResult(params:string) {
+    async function fetchSearchResult(params:string,controller:AbortController) {
         try {
             const req = await axios.get(`${host}/api/v1/videos?userId=${userTemp?._id}&query=${params}`,
             {
                 withCredentials:true,
                 headers:{
                     Authorization:`Bearer ${accessToken}`
-                }
+                },
+                signal:controller.signal
             })
 
             if(req.status===200) setQueryResults(req.data.data)

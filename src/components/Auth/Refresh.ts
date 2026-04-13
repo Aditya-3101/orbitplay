@@ -18,7 +18,7 @@ export const refreshUser = async (dispatch: Dispatch<UnknownAction>) => {
       }));
   
     } catch (err) {
-      console.log("User not logged in");
+      console.log("User not logged in",err);
     }
     finally {
         dispatch(setAuthLoading(false)); // 👈 important

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { format } from 'date-fns';
-import { getVideoDuration } from '../../utility/videoDuration';
 import {ListVideo} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
@@ -50,10 +48,6 @@ export const AccountTabs = ({ data }:{ data:channelDataInterface }) => {
         setDefaultTab(e.currentTarget.name)
     }
 
-    function getUploadeDate(param:string){
-        return format(new Date(param),"dd MMMM yyyy")
-    }
-
   return (
     <div>
         <section className='bg-[rgba(0,0,0,0.95)] px-4 py-2'>
@@ -64,34 +58,22 @@ export const AccountTabs = ({ data }:{ data:channelDataInterface }) => {
             </ul>
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
-            {/* {defaultTab==="Videos"&&<main>
-                {data&&data.channelVideos?.allVideos.map((par,index)=>{
-                    return<Link key={index} to={`/v/${par._id}`}>
-                        <div className='grid grid-cols-[40%_60%] gap-4 my-4'>
-                        <section className='aspect-[16/9] relative'>
-                            <img src={par.thumbnail} className='w-[100%] aspect-video object-cover' />
-                            <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
-                        </section>
-                        <section>
-                            <p className='text-slate-50 text-xl font-roboto'>{par.title}</p>
-                            <p className='truncate text-slate-400 text-sm font-roboto'>Uploaded on {getUploadeDate(par.createdAt)}</p>
-                            <p className='text-slate-500 text-sm font-roboto'>{par.views} views</p>
-                        </section>
-                        </div>
-                    </Link>
-                })}
-            </main>} */}
             {defaultTab==="Videos"&&<main>
-                {data&&data.channelVideos?.allVideos.map((par,index)=>{
+                {(data && data.channelVideos?.allVideos.length!==0)&&data.channelVideos?.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={index}>
                     <VideoCard_v2 data={par} />
                     </Link>
                 })}
+                {
+                    (data.channelVideos?.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
+                        No Videos Found
+                    </div>
+                }
                 </main>}
             {defaultTab==="Playlists"&&<main>
                 {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par,index)=>{
                     return<div key={index}>
-                        <div>
+                        <Link to={`/playlists/${par._id}`}>
                         <div className='grid grid-cols-[40%_60%] gap-4 my-4'>
                         <section className='aspect-[16/9] relative flex flex-col items-center justify-center'>
                             <div className='absolute top-0 right-0 left-0 bottom-0 bg-[rgba(0,0,0,0.6)]'></div>
@@ -99,11 +81,11 @@ export const AccountTabs = ({ data }:{ data:channelDataInterface }) => {
                             <p className='text-gray-200 text-xs'>({par.videos.length} Videos)</p>
                         </section>
                         <section>
-                            <p className='text-slate-50 text-xl font-roboto'>{par.name}</p>
+                            <p className='text-slate-50 text-2xl font-roboto'>{par.name}</p>
                             <p className='text-slate-500 text-sm font-roboto'>{par.description} views</p>
                         </section>
                         </div>
-                    </div>
+                    </Link>
                     </div>
                 }):<div className='w-[100%] h-[40rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Playlist found :(</p>

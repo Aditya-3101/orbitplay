@@ -16,6 +16,7 @@ const Account = React.lazy(()=>import('./components/Profile/Account.tsx'))
 const History = React.lazy(()=>import('./components/Pages/History.tsx'))
 const Results = React.lazy(()=>import('./components/Pages/Results.tsx'))
 const Subscriptions = React.lazy(()=>import('./components/Pages/Subscriptions.tsx'))
+const Playlist = React.lazy(()=>import('./components/Pages/Playlist.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
       <Route path="/channel/:channelName" element={<Account key="channel" />} errorElement={<ErrorBoundry/>} />
       <Route path="/history" element={<History/>} errorElement={<ErrorBoundry/>} />
       <Route path="/subscriptions" element={<Subscriptions/>} errorElement={<ErrorBoundry/>} />
+      <Route path="/playlists/:playlistId" element={<Playlist/>} errorElement={<ErrorBoundry/>} />
     </Route>
     </Route>
     <Route path='*' element={<h2>Not Found!!!</h2>} />

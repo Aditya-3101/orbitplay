@@ -19,9 +19,12 @@ export const LikeVideo = ({uploadTime}) => {
         const v_id: string|unknown = videoDetails?._id?videoDetails._id:videoId
         fetchLikes(v_id);
     },[])
+
+    
     
 
     async function fetchLikes(par:string|unknown) {
+
         try {
             const req = await axios.get(`${host}/api/v1/likes/v/${par}`,{
                 withCredentials:true,
@@ -41,9 +44,6 @@ export const LikeVideo = ({uploadTime}) => {
         }
     }
 
-    useEffect(()=>{
-        if(videoDetails?._id!==null && String(videoDetails?._id).length!==0) toggleLikes()
-    },[likes.likedByUser])
 
     async function toggleLikes() {
         
@@ -56,7 +56,10 @@ export const LikeVideo = ({uploadTime}) => {
             })
 
             if(req.status===200){
-                fetchLikes(videoDetails?._id)
+                setLikes((prev)=>({
+                    count:req.data.data.likeCount,
+                    likedByUser:req.data.data.likedByUser
+                }))
             }
 
         } catch (error) {
@@ -70,6 +73,8 @@ export const LikeVideo = ({uploadTime}) => {
             ...prev,
             likedByUser:!initialState
         }))
+
+        toggleLikes()
     }
 
   return (
