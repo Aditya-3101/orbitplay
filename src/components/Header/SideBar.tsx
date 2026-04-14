@@ -21,10 +21,10 @@ export const SideBar = () => {
                 <Tv />
                 <p>Subscriptions</p>
             </Link>
-            <div className='flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200'>
+            <Link to="/history" className='flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200'>
                 <History />
                 <p>History</p>
-            </div>
+            </Link>
             <Link to="/account" className='flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200'>
                 <UserRound />
                 <p>My Account</p>
