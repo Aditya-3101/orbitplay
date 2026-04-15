@@ -2,8 +2,7 @@ import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import {host} from '../../Constants.ts';
 import { VideoCard } from './VideoCard.tsx';
-import { useSelector,useDispatch } from 'react-redux';
-import {RootState} from '../../app/store/store.ts';
+import { useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../app/slices/toggleSlice.ts';
 
 interface Video {
@@ -33,9 +32,7 @@ interface GetVideosResponse {
 
 export const MainPage:React.FC = () => {
 
-  const token = useSelector((state:RootState) => state.user.accessToken);
   const dispatch = useDispatch()
-  const sideBarToggle = useSelector((state:RootState)=>state.toggle.sideBar)
 
   const [videos,setVideos] = useState<GetVideosResponse|null>()
   const [error,setError] = useState('')
@@ -47,10 +44,7 @@ export const MainPage:React.FC = () => {
 
   async function fetchHomeVideos(){
     try{
-    const req = await axios.get<GetVideosResponse>(`${host}/api/v1/videos/all/v`,{withCredentials:true,
-    headers:{
-        Authorization: `Bearer ${token}`
-    }})
+    const req = await axios.get<GetVideosResponse>(`${host}/api/v1/videos/all/v`,{withCredentials:true,})
     if(req.status===200) setVideos(req.data)
     }catch(err){
       console.log(err)

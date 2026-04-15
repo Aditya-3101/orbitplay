@@ -1,7 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { useSelector } from 'react-redux'
 import axios from 'axios'
-import { RootState } from '../../app/store/store.ts'
 import { useParams } from 'react-router'
 import { host } from '../../Constants.ts'
 import { SectionHeader } from '../Header/sectionHeader.tsx'
@@ -45,7 +43,6 @@ interface playlistVidsResponse{
 
 
 const Playlist = () => {
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
     const [playlistVideos,setPlaylistVideos] = useState<playlistVideos>()
     const [playlistVids,setPlaylistVids] = useState<playlistVidsResponse>()
     const {playlistId} = useParams()
@@ -63,9 +60,6 @@ const Playlist = () => {
             const request = await axios.get(`${host}/api/v1/playlist/${par}`,
             {
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
             if(request.status===200) {
                 setPlaylistVideos(request.data.data)
@@ -83,9 +77,6 @@ const Playlist = () => {
                 },
                 {
                     withCredentials:true,
-                    headers:{
-                        Authorization:`Bearer ${accessToken}`
-                    }
                 })
                 if(req.status===200) setPlaylistVids(req.data)
             } catch (error) {

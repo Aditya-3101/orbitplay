@@ -7,14 +7,12 @@ import { useParams } from 'react-router';
 import {getChannelDetails} from '../../app/thunks/channelThunk.ts'
 import axios from 'axios';
 import { host } from '../../Constants.ts';
-import { log } from 'console';
 
 
 
 const Account:React.FC = () => {
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
     const [subscribeStatus,setSubscribeStatus] = useState()
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams();
@@ -37,9 +35,6 @@ const Account:React.FC = () => {
             {},
             {
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
 
             if(request.status===200) {

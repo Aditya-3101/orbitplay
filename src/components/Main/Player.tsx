@@ -5,7 +5,7 @@ import { saveTheVideo } from '../../app/thunks/videothunk.ts';
 import { RootState } from '../../app/store/store.ts';
 import { Plus } from 'lucide-react';
 import { Comments } from './Comments.tsx';
-import { LikeVideo } from './LikeVideo.tsx';
+import { VideoMenu } from './VideoMenu.tsx';
 import type {AppDispatch} from '../../app/store/store.ts';
 import { format } from 'date-fns';
 import { MoreVids } from './MoreVids.tsx';
@@ -19,8 +19,8 @@ const Player:React.FC = () => {
     const {videoId} = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
     const [didUserPlayed,setDidUserPlayed] = useState(false)
+    const video = useSelector((state:RootState)=>state.video)
 
     useEffect(()=>{
         if(videoId){
@@ -31,7 +31,7 @@ const Player:React.FC = () => {
         dispatch(toggleSideBar(false))
     },[videoId])
 
-    const video = useSelector((state:RootState)=>state.video)   
+       
 
     async function pushVideosIntoHistory(vidId:string){
         try {
@@ -39,9 +39,6 @@ const Player:React.FC = () => {
                 "videoId":vidId
             },{
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
             if(request.status==200) {
                 console.log("video is added into watch history")
@@ -66,7 +63,7 @@ const Player:React.FC = () => {
     async function trackUserPlay(param:string|undefined){
         if(didUserPlayed) return 
         if(param!==undefined){
-        setTimeout(()=>pushVideosIntoHistory(param),5000)
+        setTimeout(()=>pushVideosIntoHistory(param),2000)
         setDidUserPlayed(true)
         }
     }
@@ -80,7 +77,7 @@ const Player:React.FC = () => {
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
             <span className='text-slate-200'>{video.video?.views} views</span>
         </p>
-        <LikeVideo uploadTime={uploadedDate}/>
+        <VideoMenu uploadTime={uploadedDate}/>
         <div className='flex justify-between items-center p-4 border-t border-[rgba(255,255,255,0.2)]'>
             <div className='flex items-center gap-3'>
                 {video.video.owner.avatar&&<img src={video.video.owner.avatar} className='aspect-square w-[2rem] rounded-full object-cover' />}

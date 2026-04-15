@@ -3,7 +3,8 @@ import axios from 'axios';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router';
+
 
 interface loginUser  {
     email:string;
@@ -46,6 +47,10 @@ export const Login:React.FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation()
+
+    const from = location.state?.from || "/"
+
 
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
         const {name,value} = e.target;
@@ -96,7 +101,7 @@ export const Login:React.FC = () => {
         }
 
         dispatch(addUserDetails({user:payload,accessToken:para.accessToken,isLoggedIn:true}))
-        navigate('/')
+        navigate(from,{replace:true})
     }
 
   return (

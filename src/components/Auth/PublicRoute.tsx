@@ -5,10 +5,9 @@ import React from 'react';
 
 export const PublicRoute:React.FC = () => {
     const isLoggedIn = useSelector((state:RootState)=>state.user.isLoggedIn)
+    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
 
-    console.log(isLoggedIn)
-
-    if(isLoggedIn){
+    if(accessToken){
         return <Navigate to="/" replace />
     }
 

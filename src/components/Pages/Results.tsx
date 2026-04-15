@@ -7,7 +7,6 @@ import { RootState } from '../../app/store/store'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import { Link } from 'react-router'
 import {toggleSideBar} from "../../app/slices/toggleSlice.ts"
-import { SectionHeader } from '../Header/sectionHeader.tsx'
 
 interface allVideosInterface {
 createdAt:string,
@@ -39,7 +38,7 @@ const Results = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [queryResults,setQueryResults] = useState<searchResultsInterface>()
-    const {accessToken,userTemp} = useSelector((state:RootState)=>state.user)
+    const {userTemp} = useSelector((state:RootState)=>state.user)
     const dispatch = useDispatch()
 
     const query = searchParams.get('q')
@@ -57,9 +56,6 @@ const Results = () => {
             const req = await axios.get(`${host}/api/v1/videos?userId=${userTemp?._id}&query=${params}`,
             {
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                },
                 signal:controller.signal
             })
 
@@ -72,7 +68,6 @@ const Results = () => {
 
   return (
     <div className='bg-[rgba(0,0,0,0.9)] flex flex-col gap-4 justify-center items-center'>
-        <SectionHeader title="Subscriptions" size="2rem" />
         <section className='w-[90%]'>
             <p className='font-roboto text-slate-200 py-2'>Results for : {query}</p>
             {queryResults&&queryResults.allVideos.map((par,index)=>{
@@ -80,6 +75,11 @@ const Results = () => {
                 <VideoCard_v2 data={par} />
             </Link>
             })}
+        </section>
+        <section className='w-[90%]'>
+            {queryResults&&queryResults.allVideos.length===0&&<div className='flex items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>
+                No Videos found
+                </div>}
         </section>
     </div>
   )

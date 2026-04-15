@@ -8,8 +8,6 @@ export const refreshUser = async (dispatch: Dispatch<UnknownAction>) => {
       const res = await axios.post("http://localhost:8000/api/v1/users/refresh-token",{}, {
         withCredentials: true
       });
-
-      console.log(res.data)
   
       dispatch(addUserDetails({
         user:res.data.data.safeUser,

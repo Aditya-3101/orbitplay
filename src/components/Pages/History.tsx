@@ -2,8 +2,6 @@ import React,{useEffect, useState} from 'react';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import axios from 'axios';
 import { host } from '../../Constants.ts';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store.ts';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import { dateAgo } from '../../utility/timeStamp.ts';
 import { Link } from 'react-router';
@@ -48,7 +46,6 @@ interface sortWatchHistoryType{
 
 const History:React.FC = () => {
 
-  const accessToken = useSelector((state:RootState)=>state.user.accessToken)
   const [sortWatchHistory,setSortWatchHistory] = useState<sortWatchHistoryType>()
 
   useEffect(()=>{
@@ -59,9 +56,6 @@ const History:React.FC = () => {
     try {
       const request = await axios.get<watchHistoryResponse>(`${host}/api/v1/users/history`,{
         withCredentials:true,
-        headers:{
-          Authorization:`Bearer ${accessToken}`
-        }
       })
       if(request.status===200){
         //setWatchHistory(request.data)
@@ -89,7 +83,6 @@ const History:React.FC = () => {
         globalArr.yesterday.push(arr[i])
       }else{
         if(!globalArr.remaining[dateFlag]){
-          console.log(arr[i])
           globalArr.remaining[dateFlag] = []
         }
           globalArr.remaining[dateFlag].push(arr[i])
@@ -98,8 +91,6 @@ const History:React.FC = () => {
 
       setSortWatchHistory(globalArr)
     }
-
-    console.log(sortWatchHistory);
 
   return (
     <div>

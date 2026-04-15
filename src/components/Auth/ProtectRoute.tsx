@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux';
 import {RootState} from '../../app/store/store.ts';
-import {Outlet, Navigate} from 'react-router-dom';
+import {Outlet, Navigate,useLocation} from 'react-router';
 import React from 'react';
 
 export const ProtectRoute:React.FC = () => {
-    const isLoggedIn = useSelector((state:RootState)=>state.user.isLoggedIn)
+    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
+    const location = useLocation()
 
-    if(!isLoggedIn){
-        return <Navigate to="/login" replace />
+    if(!accessToken){
+        return <Navigate to="/login" state={{from:location}} replace />
     }
 
     return <Outlet/>

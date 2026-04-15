@@ -57,7 +57,7 @@ interface videosFromChannelInterface{
 
 
 const Subscriptions:React.FC = () => {
-    const {accessToken, userTemp} = useSelector((state:RootState)=>state.user)
+    const {userTemp} = useSelector((state:RootState)=>state.user)
     const [userSubscriptions,setUserSubscriptions] = useState<userSubscriptionsResponse>()
     const [videosFromChannel,setVideosFromChannel] = useState<videosFromChannelInterface>()
     const [defaultChannel,setDefaultChannel] = useState<string>()
@@ -73,9 +73,6 @@ const Subscriptions:React.FC = () => {
             const req = await axios.get<videosFromChannelInterface>(`${host}/api/v1/videos/subscriptions/v/${params}`,
             {
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
             if(req.status===200) {
                 setVideosFromChannel(req.data)
@@ -90,9 +87,6 @@ const Subscriptions:React.FC = () => {
             const req = await axios.get<userSubscriptionsResponse>(`${host}/api/v1/subscriptions/c/${userTemp?._id}`,
             {
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
             if(req.status===200){
                 setUserSubscriptions(req.data)
@@ -113,7 +107,8 @@ const Subscriptions:React.FC = () => {
 
   return (
     <div>
-        <main className='bg-[rgba(0,0,0,0.95)]'>
+        <main className='bg-[rgba(0,0,0,0.95)] relative'>
+            <article className='w-[96%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
             <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2'>
             {userSubscriptions&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
@@ -135,6 +130,7 @@ const Subscriptions:React.FC = () => {
                     {videosFromChannel?.data.length==0&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
                 </div>
             </section>
+            </article>
         </main>
     </div>
   )

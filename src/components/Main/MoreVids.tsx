@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { host } from '../../Constants';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store';
 import { VideoCard } from './VideoCard';
 
 
@@ -37,8 +35,6 @@ export const MoreVids = () => {
 
     const [vids,setVids] = useState<GetVideosResponse|null>()
     
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
-
     useEffect(()=>{
         if (videoId?.length!==0 && videoId!==undefined) fetchMoreVids()
     },[videoId])
@@ -47,9 +43,6 @@ export const MoreVids = () => {
         try {
             const req = await axios.get<GetVideosResponse>(`${host}/api/v1/videos/v/${videoId}`,{
                 withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
             if(req.status===200) setVids(req.data)
         } catch (error) {
