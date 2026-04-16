@@ -54,7 +54,9 @@ export const MoreVids = () => {
     <div className='bg-[#222] grid grid-cols-1'>
         <main className='bg-[#222222] relative py-4 '>
         {vids&&vids.data.map((par,index)=>{
-          return<VideoCard key={index} data={par}  />
+          return<div key={index} className='py-2'>
+          <VideoCard data={par}  />
+          </div>
         })}
         </main>
     </div>

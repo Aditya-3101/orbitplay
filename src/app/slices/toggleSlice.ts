@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateInterface {
-    sideBar:boolean
+    sideBar:boolean,
+    msg:string|null
 }
 
 const initialState:initialStateInterface = {
-    sideBar:true
+    sideBar:true,
+    msg:null
 }
 
 export const toggleSlice = createSlice({
@@ -14,10 +16,13 @@ export const toggleSlice = createSlice({
     reducers:{
         toggleSideBar:(state,action)=>{
             state.sideBar = action.payload
+        },
+        messageModal:(state,action)=>{
+            state.msg = action.payload
         }
     }
 })
 
-export const {toggleSideBar} = toggleSlice.actions;
+export const {toggleSideBar,messageModal} = toggleSlice.actions;
 
 export default toggleSlice.reducer

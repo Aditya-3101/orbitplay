@@ -108,13 +108,13 @@ const Subscriptions:React.FC = () => {
   return (
     <div>
         <main className='bg-[rgba(0,0,0,0.95)] relative'>
-            <article className='w-[96%] mx-auto'>
+            <article className='w-[90%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
             <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2'>
             {userSubscriptions&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
                 return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
                     <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
-                        <img src={param.avatar} className={`aspect-square rounded-full object-cover w-[100%] ${defaultChannel===param._id?"outline-2 outline-gray-200":''}`} />
+                        <img src={param.avatar} className={`aspect-square rounded-full object-cover w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
                         <p className='font-roboto text-gray-200'>{param.fullName}</p>
                     </div>
                 </div>

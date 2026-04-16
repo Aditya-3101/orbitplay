@@ -18,6 +18,7 @@ const Results = React.lazy(()=>import('./components/Pages/Results.tsx'))
 const Subscriptions = React.lazy(()=>import('./components/Pages/Subscriptions.tsx'))
 const Playlist = React.lazy(()=>import('./components/Pages/Playlist.tsx'))
 const LikedVideos = React.lazy(()=>import('./components/Pages/LikedVideos.tsx'))
+const UploadVideo = React.lazy(()=>import('./components/Pages/UploadVideo.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
       <Route path="/subscriptions" element={<Subscriptions/>} errorElement={<ErrorBoundry/>} />
       <Route path="/playlists/:playlistId" element={<Playlist/>} errorElement={<ErrorBoundry/>} />
       <Route path="/Liked-videos" element={<LikedVideos/>} errorElement={<ErrorBoundry/>} />
+      <Route path="/upload" element={<UploadVideo />} errorElement={<ErrorBoundry/>} />
     </Route>
     </Route>
     <Route path='*' element={<h2>Not Found!!!</h2>} />

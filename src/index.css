@@ -55,6 +55,7 @@
 
 
 .layout_player{
+    display: grid;
     grid-template-areas:"header" "content";
     grid-template-columns: 100%;
 }

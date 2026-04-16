@@ -28,7 +28,7 @@ export const Header:React.FC = () => {
 
   return (
     <div className='w-[100%] border grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_15%] md:grid-cols-[5%_5%_50%_10%_15%] gap-[4px] md:gap-[8px] bg-gray-950'>
-        <p className='hidden md:block' onClick={changeSideBar}><Menu color="gray"/></p>
+        <p className='hidden cursor-pointer md:block' onClick={changeSideBar}><Menu color="gray"/></p>
         <NavLink className='text-gray-200 text-center flex flex-col items-center justify-center' to="/">
             <Video className='text-gray-200 text-4xl' />
             <span className='text-[8px]'>VideoTube</span>
@@ -37,8 +37,8 @@ export const Header:React.FC = () => {
             <input className='w-[80%] md:w-[90%] h-[40px] p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
             <Search className='text-gray-200 w-[20%] md:w-[10%]' onClick={onSubmit} />
         </form>
-        <NavLink className='hidden md:block font-oswald' to="/Notifications">
-            <p className='text-xl text-gray-200'>Notifications</p>
+        <NavLink className='hidden md:block font-oswald' to="/upload">
+            <p className='text-xl text-gray-200'>Upload</p>
         </NavLink>
         <NavLink className='w-[100%] font-oswald text-center flex items-center justify-center' to="/Account">
             <img src={user?.avatar} className='aspect-square rounded-full w-[2.4rem] object-cover' />

@@ -12,6 +12,7 @@ import { MoreVids } from './MoreVids.tsx';
 import {toggleSideBar} from '../../app/slices/toggleSlice.ts'
 import axios from 'axios';
 import { host } from '../../Constants.ts';
+import OverLayDialouge from '../Layouts/OverLayDialouge.tsx'
 
 
 
@@ -20,11 +21,13 @@ const Player:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
     const [didUserPlayed,setDidUserPlayed] = useState(false)
+    const [checkSubscription,setCheckSubscription] = useState<null|boolean>()
     const video = useSelector((state:RootState)=>state.video)
 
     useEffect(()=>{
         if(videoId){
             dispatch(saveTheVideo(videoId))
+            checkSubscriptionStatus()
         }else{
             navigate('/')   
         }
@@ -60,11 +63,36 @@ const Player:React.FC = () => {
         return <div>Loading..</div>
     }
 
+    async function checkSubscriptionStatus() {
+        try {
+            const request = await axios.get(`${host}/api/v1/subscriptions/check/${video.video?.owner._id}`,{withCredentials:true})
+            if(request.status===200){
+                if(request.data.data===null){
+                    setCheckSubscription(false)
+                }else{
+                    setCheckSubscription(true)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async function trackUserPlay(param:string|undefined){
         if(didUserPlayed) return 
         if(param!==undefined){
         setTimeout(()=>pushVideosIntoHistory(param),2000)
         setDidUserPlayed(true)
+        }
+    }
+
+    async function followChannel(par:string|undefined){
+        try {
+            const request = await axios.post(`${host}/api/v1/subscriptions/c/${par}`,{},{withCredentials:true})
+            if(request.status===200)  checkSubscriptionStatus()
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -86,15 +114,17 @@ const Player:React.FC = () => {
                     <span className='text-[#AAAAAA] text-[12px]'>{video.subscribers} subscriber</span>
                 </p>
             </div>
-            <div className='text-slate-500 flex items-center justify-center'>
-            <Plus />
-                Follow
+            <div className='text-slate-500 flex items-center justify-center' onClick={()=>followChannel(video.video?.owner._id)}>
+            {!checkSubscription?
+            <><Plus />
+                Follow</>:<><Plus /> Following</>}
             </div>
         </div>
         </div>}
         <Comments />
         </section>
         <MoreVids/>
+        <OverLayDialouge/>
     </div>
   )
 }

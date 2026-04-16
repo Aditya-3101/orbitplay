@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { RootState } from '../../app/store/store.ts';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { host } from '../../Constants.ts';
 import { ListPlus, ThumbsUp } from 'lucide-react';
 import { timeAgo } from '../../utility/timeStamp.ts';
+import {messageModal} from '../../app/slices/toggleSlice.ts'
 
 interface playlistType{
         "_id": string,
@@ -27,6 +28,7 @@ interface playlistFormat{
 export const VideoMenu = ({uploadTime}) => {
     const videoDetails = useSelector((state:RootState)=>state.video.video)
     const user = useSelector((state:RootState)=>state.user.userTemp)
+    const dispatch = useDispatch()
     const {videoId} = useParams()
     const [likes,setLikes] = useState({
         count:0,
@@ -49,9 +51,17 @@ export const VideoMenu = ({uploadTime}) => {
         let par = selectedPlayList.id;
         try {
             const request = await axios.patch(`${host}/api/v1/playlist/add/${videoDetails?._id}/${par}`,{},{withCredentials:true})
-            if(request.status===200 ) setPlaylistToggle(false)
+            if(request.status===200 ) {
+                setPlaylistToggle(false)
+                dispatch(messageModal("Video added into playlist"))
+            }
+            
         } catch (error) {
-            console.log(error)
+            const errorCode = String(error.message).includes('409')
+            if(errorCode){
+                setPlaylistToggle(false)
+                dispatch(messageModal("Video is already part of playlist"))
+            }
         }
     }
 
@@ -102,6 +112,8 @@ export const VideoMenu = ({uploadTime}) => {
                     count:req.data.data.likeCount,
                     likedByUser:req.data.data.likedByUser
                 }))
+
+                dispatch(messageModal(`you have ${req.data.data.likedByUser?"liked":"disliked"} the video`))
             }
 
         } catch (error) {
