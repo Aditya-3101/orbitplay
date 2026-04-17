@@ -14,7 +14,6 @@ const OverLayDialouge= () => {
   },[modalMessage])
 
   function togglemessage(){
-    console.log("this function is running")
     dispatch(messageModal(null))
   }
 

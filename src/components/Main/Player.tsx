@@ -87,7 +87,7 @@ const Player:React.FC = () => {
     }
 
     async function followChannel(par:string|undefined){
-        try {
+        try {//{{server}}/subscriptions/c/:channeld
             const request = await axios.post(`${host}/api/v1/subscriptions/c/${par}`,{},{withCredentials:true})
             if(request.status===200)  checkSubscriptionStatus()
 

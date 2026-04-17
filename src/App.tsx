@@ -19,6 +19,7 @@ const Subscriptions = React.lazy(()=>import('./components/Pages/Subscriptions.ts
 const Playlist = React.lazy(()=>import('./components/Pages/Playlist.tsx'))
 const LikedVideos = React.lazy(()=>import('./components/Pages/LikedVideos.tsx'))
 const UploadVideo = React.lazy(()=>import('./components/Pages/UploadVideo.tsx'))
+const Register = React.lazy(()=>import('./components/Auth/Register.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
     <Route path='*' element={<h2>Not Found!!!</h2>} />
     <Route element={<PublicRoute/>}>
     <Route path="/login" element={<Login/>} errorElement={<ErrorBoundry/>} />
+    <Route path="/register" element={<Register/>} errorElement={<ErrorBoundry/>}/>
     </Route>
     </>
   )
@@ -74,6 +76,7 @@ const App:React.FC = () => {
   if (isAuthLoading) {
     return <h2>Loading...</h2>; // or spinner
   }
+
 
   return (
     <>

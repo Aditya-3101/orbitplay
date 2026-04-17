@@ -4,12 +4,13 @@ import {Outlet, Navigate,useLocation} from 'react-router';
 import React from 'react';
 
 export const ProtectRoute:React.FC = () => {
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
+    const {isLoggedIn} = useSelector((state:RootState)=>state.user)
     const location = useLocation()
 
-    if(!accessToken){
+    if(!isLoggedIn){
         return <Navigate to="/login" state={{from:location}} replace />
     }
+
 
     return <Outlet/>
 }

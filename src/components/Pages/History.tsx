@@ -47,6 +47,7 @@ interface sortWatchHistoryType{
 const History:React.FC = () => {
 
   const [sortWatchHistory,setSortWatchHistory] = useState<sortWatchHistoryType>()
+  const [checkIfEmpty,setCheckIfEmpty] = useState(false)
 
   useEffect(()=>{
     fetchHistory()
@@ -59,7 +60,11 @@ const History:React.FC = () => {
       })
       if(request.status===200){
         //setWatchHistory(request.data)
-        sortHistory(request.data)
+        if(request.data.data.length!==0) {
+          sortHistory(request.data)
+        }else{
+          setCheckIfEmpty(true)
+        }
       }
     } catch (error) {
       console.log(error)
@@ -133,8 +138,10 @@ const History:React.FC = () => {
             ))
           }
           </div>
-          
       </div>
+      {checkIfEmpty&&<div className='flex justify-center items-center h-[5rem] md:h-[15rem]'>
+        <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
+        </div>}
       </div>
     </div>
   )

@@ -90,8 +90,8 @@ const Subscriptions:React.FC = () => {
             })
             if(req.status===200){
                 setUserSubscriptions(req.data)
-                fetchVideosFromSubscribedChannels(req.data.data[0].subscribedTo[0]._id)
-                setDefaultChannel(req.data.data[0].subscribedTo[0]._id)
+                if(req.data.data[0].subscribedTo[0]._id!==undefined) fetchVideosFromSubscribedChannels(req.data.data[0].subscribedTo[0]._id)
+                if(req.data.data[0].subscribedTo[0]._id!==undefined) setDefaultChannel(req.data.data[0].subscribedTo[0]._id)
             }
         } catch (error) {
             console.log(error)   
@@ -111,7 +111,7 @@ const Subscriptions:React.FC = () => {
             <article className='w-[90%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
             <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2'>
-            {userSubscriptions&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
+            {(userSubscriptions && userSubscriptions.data.length!==0)&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
                 return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
                     <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
                         <img src={param.avatar} className={`aspect-square rounded-full object-cover w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
@@ -130,6 +130,9 @@ const Subscriptions:React.FC = () => {
                     {videosFromChannel?.data.length==0&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
                 </div>
             </section>
+            {(userSubscriptions&&userSubscriptions.data.length===0)&&<section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
+                <p className='font-roboto text-lg text-gray-500'>No Subscriptions found</p>
+            </section>}
             </article>
         </main>
     </div>

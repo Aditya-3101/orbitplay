@@ -8,9 +8,9 @@ interface userInterface {
     avatar:string,
     coverImage?:string,
     watchHistory:Array<string>,
-    createdAt:string,
-    updatedAt:string,
-    __v:string,
+    createdAt?:string,
+    updatedAt?:string,
+    __v?:string,
 }
 
 interface initialStateInterface{
@@ -53,8 +53,8 @@ export const userDetailSlice = createSlice({
                 avatar:action.payload.avatar,
                 coverImage:action.payload?.coverImage||'',
                 watchHistory:action.payload?.watchHistory||[],
-                createdAt:action.payload.createdAt,
-                updatedAt:action.payload.updatedAt,
+                createdAt:action.payload?.createdAt,
+                updatedAt:action.payload?.updatedAt,
                 __v:action.payload?.__v,
             }
             state.userTemp = action.payload.user

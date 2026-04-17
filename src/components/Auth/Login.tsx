@@ -1,10 +1,9 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
-import { useNavigate,useLocation } from 'react-router';
-
+import { useNavigate,useLocation,Link } from 'react-router';
 
 interface loginUser  {
     email:string;
@@ -48,7 +47,6 @@ export const Login:React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation()
-
     const from = location.state?.from || "/"
 
 
@@ -104,6 +102,10 @@ export const Login:React.FC = () => {
         navigate(from,{replace:true})
     }
 
+    function navigateToRegister(){
+        navigate('/register')
+    }
+
   return (
     <div className='bg-black w-[100%] h-[100dvh] flex flex-col items-center justify-center'>
         <section className='grid grid-cols-1 md:grid-cols-[50%_50%]'>
@@ -131,7 +133,7 @@ export const Login:React.FC = () => {
                     No account yet?
                 </p>
             </div>
-            <button className='text-gray-400 w-[50%] mt-8 p-2 rounded-2xl ml-[25%] border-[#593d88] border'>
+            <button className='text-gray-400 w-[50%] mt-8 p-2 rounded-2xl ml-[25%] border-[#593d88] border cursor-pointer' onClick={navigateToRegister}>
                 Sign up
             </button>
         </div>

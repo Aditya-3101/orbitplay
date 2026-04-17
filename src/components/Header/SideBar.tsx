@@ -1,5 +1,5 @@
 import React from 'react'
-import {House,CircleUserRound,Tv,History, UserRound,ThumbsUp} from 'lucide-react'
+import {House,CircleUserRound,Tv,History, UserRound,ThumbsUp, Upload} from 'lucide-react'
 import { NavLink } from 'react-router'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store/store'
@@ -32,6 +32,10 @@ export const SideBar = () => {
             <NavLink to="/Liked-videos" className={({isActive})=>(isActive?"text-[rgb(37,192,239)] flex items-center gap-4 p-4 border-b border-gray-400":'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200')}>
                 <ThumbsUp />
                 <p>Liked Videos</p>
+            </NavLink>
+            <NavLink to="/upload" className={({isActive})=>(isActive?"text-[rgb(37,192,239)] flex items-center gap-4 p-4 border-b border-gray-400":'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200')}>
+                <Upload/>
+                <p>Upload video</p>
             </NavLink>
         </div>
     </div>

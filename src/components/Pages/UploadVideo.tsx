@@ -22,12 +22,11 @@ const UploadVideo = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
   const [loading,setLoading] = useState(false)
-  const [uploadStatus,setUploadStatus] = useState<boolean|string>(false)
+  const [uploadStatus,setUploadStatus] = useState<boolean|string>('')
 
 
   function handleDrop(e:React.DragEvent){
     e.preventDefault();
-    console.log(e.dataTransfer.files)
 
     if (e.dataTransfer.files[0].type !== "video/mp4") {
       alert("Only MP4 allowed")
