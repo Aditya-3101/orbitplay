@@ -10,9 +10,8 @@ import type {AppDispatch} from '../../app/store/store.ts';
 import { format } from 'date-fns';
 import { MoreVids } from './MoreVids.tsx';
 import {toggleSideBar} from '../../app/slices/toggleSlice.ts'
-import axios from 'axios';
-import { host } from '../../Constants.ts';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx'
+import { api } from '../../api/AxiosInterceptor.ts';
 
 
 
@@ -26,8 +25,8 @@ const Player:React.FC = () => {
 
     useEffect(()=>{
         if(videoId){
-            dispatch(saveTheVideo(videoId))
-            checkSubscriptionStatus()
+            dispatch(saveTheVideo(videoId));
+            (video!==null) && checkSubscriptionStatus()
         }else{
             navigate('/')   
         }
@@ -38,10 +37,8 @@ const Player:React.FC = () => {
 
     async function pushVideosIntoHistory(vidId:string){
         try {
-            const request = await axios.post(`${host}/api/v1/users/history/add`,{
+            const request = await api.post(`/users/history/add`,{
                 "videoId":vidId
-            },{
-                withCredentials:true,
             })
             if(request.status==200) {
                 console.log("video is added into watch history")
@@ -65,7 +62,7 @@ const Player:React.FC = () => {
 
     async function checkSubscriptionStatus() {
         try {
-            const request = await axios.get(`${host}/api/v1/subscriptions/check/${video.video?.owner._id}`,{withCredentials:true})
+            const request = await api.get(`/subscriptions/check/${video.video?.owner._id}`)
             if(request.status===200){
                 if(request.data.data===null){
                     setCheckSubscription(false)
@@ -88,7 +85,7 @@ const Player:React.FC = () => {
 
     async function followChannel(par:string|undefined){
         try {//{{server}}/subscriptions/c/:channeld
-            const request = await axios.post(`${host}/api/v1/subscriptions/c/${par}`,{},{withCredentials:true})
+            const request = await api.post(`/subscriptions/c/${par}`,{})
             if(request.status===200)  checkSubscriptionStatus()
 
         } catch (error) {

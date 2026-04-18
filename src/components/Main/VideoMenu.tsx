@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { RootState } from '../../app/store/store.ts';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { host } from '../../Constants.ts';
 import { ListPlus, ThumbsUp } from 'lucide-react';
 import { timeAgo } from '../../utility/timeStamp.ts';
 import {messageModal} from '../../app/slices/toggleSlice.ts'
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface playlistType{
         "_id": string,
@@ -50,7 +49,7 @@ export const VideoMenu = ({uploadTime}) => {
     async function addTheVideoInPlaylist() {
         let par = selectedPlayList.id;
         try {
-            const request = await axios.patch(`${host}/api/v1/playlist/add/${videoDetails?._id}/${par}`,{},{withCredentials:true})
+            const request = await api.patch(`/playlist/add/${videoDetails?._id}/${par}`,{})
             if(request.status===200 ) {
                 setPlaylistToggle(false)
                 dispatch(messageModal("Video added into playlist"))
@@ -68,9 +67,7 @@ export const VideoMenu = ({uploadTime}) => {
     async function fetchLikes(par:string|unknown) {
 
         try {
-            const req = await axios.get(`${host}/api/v1/likes/v/${par}`,{
-                withCredentials:true,
-            })
+            const req = await api.get(`/likes/v/${par}`)
             if(req.status===200){
                 setLikes((prev)=>({
                     ...prev,
@@ -85,7 +82,7 @@ export const VideoMenu = ({uploadTime}) => {
 
     async function fetchPlaylist() {
         try {
-            const request = await axios.get(`${host}/api/v1/playlist/user/${user?._id}`,{withCredentials:true})
+            const request = await api.get(`/playlist/user/${user?._id}`)
             if(request.status===200) setUserPlaylist(request.data)
         } catch (error) {
             console.log(error)
@@ -103,7 +100,7 @@ export const VideoMenu = ({uploadTime}) => {
     async function toggleLikes() {
         
         try {
-            const req = await axios.post(`${host}/api/v1/likes/toggle/v/${videoDetails?._id}`,{},{
+            const req = await api.post(`/likes/toggle/v/${videoDetails?._id}`,{},{
                 withCredentials:true,
             })
 

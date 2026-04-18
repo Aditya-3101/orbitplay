@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from 'react';
-import axios from 'axios';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
 import { useNavigate,useLocation,Link } from 'react-router';
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface loginUser  {
     email:string;
@@ -73,7 +73,7 @@ export const Login:React.FC = () => {
 
     const callLogin = async(param1:string,param2:string) => {
         try{
-        const request = await axios.post<LoginResponse>('http://localhost:8000/api/v1/users/login',{email:param1,password:param2},{ withCredentials: true })
+        const request = await api.post<LoginResponse>('/users/login',{email:param1,password:param2})
 
         if(request.status===200){
             saveUser(request.data.data)

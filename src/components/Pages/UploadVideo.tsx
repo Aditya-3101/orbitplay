@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React,{useRef, useState} from 'react';
-import { host } from '../../Constants';
 import { X } from 'lucide-react';
+import { api } from '../../api/AxiosInterceptor';
 
 interface uploadFormType{
   file:File|null,
@@ -100,13 +99,12 @@ const UploadVideo = () => {
 
     try {
       setLoading(true)
-      const request = await axios.post(`${host}/api/v1/videos`,{
+      const request = await api.post(`/videos`,{
         title:formData.title,
         description:formData.description,
         videoFile:formData.file,
         thumbnail:formData.thumbnail
       },{
-        withCredentials:true,
         headers:{
           "Content-Type":"multipart/form-data"
         }

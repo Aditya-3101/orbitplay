@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {ListVideo} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
+import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 
 
 interface channelVideoInterface{
@@ -40,7 +41,7 @@ interface channelDataInterface {
     error:string|unknown
 }
 
-export const AccountTabs = ({ data }:{ data:channelDataInterface }) => {
+export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading:boolean }) => {
 
     const [defaultTab,setDefaultTab] = useState("Videos")
 
@@ -58,17 +59,21 @@ export const AccountTabs = ({ data }:{ data:channelDataInterface }) => {
             </ul>
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
-            {defaultTab==="Videos"&&<main>
-                {(data && data.channelVideos?.allVideos.length!==0)&&data.channelVideos?.allVideos.map((par,index)=>{
+            {defaultTab==="Videos"&&
+            <main>
+                {(!loading && data.channelVideos?.allVideos.length!==0)&&data.channelVideos?.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={index}>
                     <VideoCard_v2 data={par} />
                     </Link>
                 })}
                 {
-                    (data.channelVideos?.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
+                    (!loading&&data.channelVideos?.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
                         No Videos Found
                     </div>
                 }
+                {loading&&([...Array(9)].map((index)=>{
+                    return<VideoCard_v2_skeleton key={index} />
+                }))}
                 </main>}
             {defaultTab==="Playlists"&&<main>
                 {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par,index)=>{

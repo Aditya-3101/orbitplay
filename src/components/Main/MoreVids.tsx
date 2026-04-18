@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { host } from '../../Constants';
 import { VideoCard } from './VideoCard';
+import { api } from '../../api/AxiosInterceptor';
 
 
 interface Video {
@@ -41,9 +40,7 @@ export const MoreVids = () => {
 
     const fetchMoreVids = async() =>{
         try {
-            const req = await axios.get<GetVideosResponse>(`${host}/api/v1/videos/v/${videoId}`,{
-                withCredentials:true,
-            })
+            const req = await api.get<GetVideosResponse>(`/videos/v/${videoId}`)
             if(req.status===200) setVids(req.data)
         } catch (error) {
             console.log(error);

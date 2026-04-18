@@ -1,15 +1,13 @@
-import axios from "axios";
 import { addUserDetails,setAuthLoading } from "../../app/slices/userSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { api } from "../../api/AxiosInterceptor.ts";
 
 export const refreshUser = async (dispatch: Dispatch<UnknownAction>) => {
 
   dispatch(setAuthLoading(true))
     
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/users/current-user", {
-        withCredentials: true
-      });
+      const res = await api.get("/users/current-user");
 
       if(res.status===200){
 
@@ -35,7 +33,6 @@ export const refreshUser = async (dispatch: Dispatch<UnknownAction>) => {
     }
   
     } catch (err) {
-      console.log("User not logged in",err);
       dispatch(addUserDetails({
         user:null,
         isLoggedIn:false

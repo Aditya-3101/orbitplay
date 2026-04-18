@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from 'react';
-import axios from 'axios';
-import {host} from '../../Constants.ts';
 import { VideoCard } from './VideoCard.tsx';
 import { useDispatch } from 'react-redux';
 import { toggleSideBar } from '../../app/slices/toggleSlice.ts';
+import VideoCardSkeleton from './VideoCardSkeleton.tsx';
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface Video {
   _id: string;
@@ -36,6 +36,7 @@ export const MainPage:React.FC = () => {
 
   const [videos,setVideos] = useState<GetVideosResponse|null>()
   const [error,setError] = useState('')
+  const [loading,setLoading] = useState(false)
 
   useEffect(()=>{
     fetchHomeVideos();
@@ -43,21 +44,29 @@ export const MainPage:React.FC = () => {
   },[])
 
   async function fetchHomeVideos(){
+    setLoading(true)
     try{
-    const req = await axios.get<GetVideosResponse>(`${host}/api/v1/videos/all/v`,{withCredentials:true,})
-    if(req.status===200) setVideos(req.data)
+    const req = await api.get<GetVideosResponse>(`/videos/all/v`)
+    if(req.status===200) {
+      setVideos(req.data)
+      setLoading(false)
+    }
     }catch(err){
-      console.log(err)
       setError(err?.message)
+      setLoading(false)
     }
   }
 
   return (
     <div className={`relative grid`}>
-      <main className='bg-[#222222] py-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-        {videos&&videos.data.map((par,index)=>{
+      <main className='bg-[#222222] py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+        {(!loading&&videos)&&videos.data.map((par,index)=>{
           return<VideoCard key={index} data={par}  />
         })}
+        {loading&&[...Array(12)].map((index)=>{
+          return<VideoCardSkeleton key={index}/>
+        })
+        }
       </main>
     </div>
   )

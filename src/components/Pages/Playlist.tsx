@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router'
-import { host } from '../../Constants.ts'
 import { SectionHeader } from '../Header/sectionHeader.tsx'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
+import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
+import { api } from '../../api/AxiosInterceptor.ts'
 
 
 interface playlistVideos{
@@ -45,6 +45,7 @@ interface playlistVidsResponse{
 const Playlist = () => {
     const [playlistVideos,setPlaylistVideos] = useState<playlistVideos>()
     const [playlistVids,setPlaylistVids] = useState<playlistVidsResponse>()
+    const [loading,setLoading] = useState(false)
     const {playlistId} = useParams()
 
     if(!playlistId){
@@ -57,28 +58,32 @@ const Playlist = () => {
 
     async function fetchPlaylist(par:string){
         try {
-            const request = await axios.get(`${host}/api/v1/playlist/${par}`,
-            {
-                withCredentials:true,
-            })
+            const request = await api.get(`/playlist/${par}`)
             if(request.status===200) {
                 setPlaylistVideos(request.data.data)
                 fetchVideosFromPlaylist(request.data.data.videos)
+                setLoading(false)
             }
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
 
     async function fetchVideosFromPlaylist(params:[]) {
+        setLoading(true)
+
             try {
-                const req = await axios.post<playlistVidsResponse>(`${host}/api/v1/videos/playlist`,{
+                const req = await api.post<playlistVidsResponse>(`/videos/playlist`,{
                     videos:params
                 },
                 {
                     withCredentials:true,
                 })
-                if(req.status===200) setPlaylistVids(req.data)
+                if(req.status===200) {
+                    setPlaylistVids(req.data);
+                    setLoading(false)
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -97,17 +102,20 @@ const Playlist = () => {
                 }
             </div>
             <div className='w-[90%] mx-auto py-2'>
-                {(playlistVids?.data.length!==0 &&playlistVids!==undefined)&&playlistVids.data.map((par,index)=>{
+                {(!loading&&(playlistVids?.data.length!==0 && playlistVids!==undefined))&&playlistVids.data.map((par,index)=>{
                     return<div key={index}>
                         <VideoCard_v2 data={par}/>
                         </div>
                 })}
                 {
-                    playlistVids?.data.length===0&&
-                    <div className='font-roboto flex items-center justify-center h-[8rem] text-gray-200'>
+                    (!loading&&playlistVids?.data.length===0)&&
+                    <div className='font-roboto flex items-center justify-center h-[4rem] md:h-[8rem] text-gray-200'>
                         No Videos found in Playlist
                     </div>
                 }
+                {(loading)&&([...Array(9)].map((index)=>{
+                    return<VideoCard_v2_skeleton key={index} />
+                }))}
             </div>
         </main>
     </div>

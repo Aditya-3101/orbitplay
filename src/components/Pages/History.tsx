@@ -1,10 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
-import axios from 'axios';
-import { host } from '../../Constants.ts';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import { dateAgo } from '../../utility/timeStamp.ts';
 import { Link } from 'react-router';
+import { api } from '../../api/AxiosInterceptor.ts';
+import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 interface watchHistoryVideoType{
     "_id": string,
     "video": {
@@ -48,16 +48,16 @@ const History:React.FC = () => {
 
   const [sortWatchHistory,setSortWatchHistory] = useState<sortWatchHistoryType>()
   const [checkIfEmpty,setCheckIfEmpty] = useState(false)
+  const [loading,setLoading] = useState(false)
 
   useEffect(()=>{
     fetchHistory()
   },[])
 
   async function fetchHistory(){
+    setLoading(true)
     try {
-      const request = await axios.get<watchHistoryResponse>(`${host}/api/v1/users/history`,{
-        withCredentials:true,
-      })
+      const request = await api.get<watchHistoryResponse>(`/users/history`)
       if(request.status===200){
         //setWatchHistory(request.data)
         if(request.data.data.length!==0) {
@@ -65,9 +65,11 @@ const History:React.FC = () => {
         }else{
           setCheckIfEmpty(true)
         }
+        setLoading(false)
       }
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
   }
 
@@ -142,6 +144,9 @@ const History:React.FC = () => {
       {checkIfEmpty&&<div className='flex justify-center items-center h-[5rem] md:h-[15rem]'>
         <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
         </div>}
+        {loading&&([...Array(9)].map((index)=>{
+          return<div key={index} className='p-4'><VideoCard_v2_skeleton /></div>
+        }))}
       </div>
     </div>
   )

@@ -1,12 +1,11 @@
-import React,{useState,useEffect,useRef} from 'react';
-import axios from 'axios';
-import { host } from '../../Constants';
+import React,{useState,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import { timeAgo } from '../../utility/timeStamp.ts';
 import { useParams } from 'react-router';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import {ChevronDown,ChevronUp} from 'lucide-react';
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface commentsInterfaceDocs {
     "_id": string,
@@ -50,9 +49,8 @@ export const  Comments:React.FC = () => {
 
     async function fetchComments(params:string|undefined) {
         try {
-            const req = await axios.get(`${host}/api/v1/comments/${params}`,
+            const req = await api.get(`/comments/${params}`,
             {
-                withCredentials:true,
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }
@@ -72,10 +70,9 @@ export const  Comments:React.FC = () => {
 
     async function submitComment(){
         try {
-            const req = await axios.post(`${host}/api/v1/comments/${videoDetails.video?._id?videoDetails.video?._id:videoId}`,{
+            const req = await api.post(`/comments/${videoDetails.video?._id?videoDetails.video?._id:videoId}`,{
                 "comment":userComment
             },{
-                withCredentials:true,
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }

@@ -7,7 +7,7 @@ import { RootState } from "../../app/store/store.ts";
 
 export const HomeLayout:React.FC = () => {
     const sideBarStatus = useSelector((state:RootState)=>state.toggle.sideBar)
-    return<main className={sideBarStatus?"layout transition-transform duration-500 ease-in-out":"layout_player"}>
+    return<main className={sideBarStatus?"layout transition-transform duration-500 ease-in-out bg-[rgba(0,0,0,0.9)] overflow-hidden":"layout_player"}>
         <div className="grid-area-header">
         <Header />
         </div>

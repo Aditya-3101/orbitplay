@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { X } from 'lucide-react';
-import axios from 'axios';
-import { host } from '../../Constants.ts';
-import { useSelector,useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate,Link } from 'react-router';
-import {addUserDetails} from '../../app/slices/userSlice.ts'
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface userFormType{
   username:string,
@@ -110,7 +108,7 @@ const Register = () => {
   async function callRegisterUserApi(par:userFormType){
     setLoading(true)
     try {
-      const request = await axios.post(`${host}/api/v1/users/register`,{
+      const request = await api.post(`/users/register`,{
         username:par.username,
         fullName:par.fullName,
         email:par.email,

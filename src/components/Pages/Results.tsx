@@ -1,12 +1,10 @@
-import axios from 'axios'
 import React,{useEffect, useState} from 'react'
 import { useSearchParams } from 'react-router'
-import { host } from '../../Constants'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../app/store/store'
+import { useDispatch } from 'react-redux'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import { Link } from 'react-router'
 import {toggleSideBar} from "../../app/slices/toggleSlice.ts"
+import { api } from '../../api/AxiosInterceptor.ts'
 
 interface allVideosInterface {
 createdAt:string,
@@ -38,7 +36,6 @@ const Results = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [queryResults,setQueryResults] = useState<searchResultsInterface>()
-    const {userTemp} = useSelector((state:RootState)=>state.user)
     const dispatch = useDispatch()
 
     const query = searchParams.get('q')
@@ -53,7 +50,7 @@ const Results = () => {
 
     async function fetchSearchResult(params:string,controller:AbortController) {
         try {
-            const req = await axios.get(`${host}/api/v1/videos?userId=${userTemp?._id}&query=${params}`,
+            const req = await api.get(`/videos?query=${params}`,
             {
                 withCredentials:true,
                 signal:controller.signal

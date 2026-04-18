@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
-import axios from 'axios';
-import { host } from '../../Constants.ts';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
+import { api } from '../../api/AxiosInterceptor.ts';
 
 interface likedVideoDataType{
     "likedVideo": {
@@ -44,9 +43,7 @@ const LikedVideos = () => {
 
     async function fetchLikedVideos() {
         try {
-            const request = await axios.get<likedVideoType>(`${host}/api/v1/likes/videos`,{
-                withCredentials:true
-            })
+            const request = await api.get<likedVideoType>(`/likes/videos`)
             if(request.status===200){
                 setLikedVideos(request.data)
             }

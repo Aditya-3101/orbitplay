@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import axios from 'axios';
+import { api } from '../../api/AxiosInterceptor.ts';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
-import { host } from '../../Constants';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 
@@ -61,6 +60,10 @@ const Subscriptions:React.FC = () => {
     const [userSubscriptions,setUserSubscriptions] = useState<userSubscriptionsResponse>()
     const [videosFromChannel,setVideosFromChannel] = useState<videosFromChannelInterface>()
     const [defaultChannel,setDefaultChannel] = useState<string>()
+    const [loading,setLoading] = useState({
+        profile:false,
+        videos:false
+    })
 
 
     useEffect(()=>{
@@ -69,12 +72,11 @@ const Subscriptions:React.FC = () => {
 
     
     async function fetchVideosFromSubscribedChannels(params:string) {
+        setLoading((prev)=>({...prev,videos:true}))
         try {
-            const req = await axios.get<videosFromChannelInterface>(`${host}/api/v1/videos/subscriptions/v/${params}`,
-            {
-                withCredentials:true,
-            })
+            const req = await api.get<videosFromChannelInterface>(`/videos/subscriptions/v/${params}`)
             if(req.status===200) {
+                setLoading((prev)=>({...prev,videos:false}))
                 setVideosFromChannel(req.data)
             }
         } catch (error) {
@@ -84,14 +86,11 @@ const Subscriptions:React.FC = () => {
 
     async function fetchSubscribedChannels() {
         try {
-            const req = await axios.get<userSubscriptionsResponse>(`${host}/api/v1/subscriptions/c/${userTemp?._id}`,
-            {
-                withCredentials:true,
-            })
+            const req = await api.get<userSubscriptionsResponse>(`/subscriptions/c/${userTemp?._id}`)
             if(req.status===200){
                 setUserSubscriptions(req.data)
-                if(req.data.data[0].subscribedTo[0]._id!==undefined) fetchVideosFromSubscribedChannels(req.data.data[0].subscribedTo[0]._id)
-                if(req.data.data[0].subscribedTo[0]._id!==undefined) setDefaultChannel(req.data.data[0].subscribedTo[0]._id)
+                if(req.data?.data[0]!==undefined) fetchVideosFromSubscribedChannels(req.data.data[0].subscribedTo[0]._id)
+                if(req.data?.data[0]!==undefined) setDefaultChannel(req.data.data[0].subscribedTo[0]._id)
             }
         } catch (error) {
             console.log(error)   
@@ -102,7 +101,6 @@ const Subscriptions:React.FC = () => {
         setDefaultChannel(id)
         fetchVideosFromSubscribedChannels(id)
     }
-    
 
 
   return (
@@ -122,12 +120,17 @@ const Subscriptions:React.FC = () => {
             </div>
             <section>
                 <div>
-                    {videosFromChannel?.data.length!==0&&videosFromChannel?.data.map((par,index)=>{
+                    {(!loading.videos&&videosFromChannel?.data.length!==0)&&videosFromChannel?.data.map((par,index)=>{
                         return <div className='mx-auto w-[90%] py-2' key={index}>
                             <VideoCard_v2 data={par} />
                             </div>
                     })}
-                    {videosFromChannel?.data.length==0&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
+                    {(!loading.videos&&videosFromChannel?.data.length==0)&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
+                {/* {(!loading.videos)&&([...Array(9)].map((index)=>{
+                    return<div className='mx-auto w-[90%] py-2' key={index}>
+                    <VideoCard_v2_skeleton />
+                    </div>
+                }))} */}
                 </div>
             </section>
             {(userSubscriptions&&userSubscriptions.data.length===0)&&<section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>

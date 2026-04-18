@@ -5,25 +5,44 @@ import { AccountTabs } from './AccountTabs'
 import type {AppDispatch} from '../../app/store/store.ts';
 import { useParams } from 'react-router';
 import {getChannelDetails} from '../../app/thunks/channelThunk.ts'
-import axios from 'axios';
-import { host } from '../../Constants.ts';
-
+import { api } from '../../api/AxiosInterceptor.ts';
+import { Wrench } from 'lucide-react';
+import {Link} from 'react-router'
 
 
 const Account:React.FC = () => {
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
     const [subscribeStatus,setSubscribeStatus] = useState()
+    const [loading,setLoading] = useState({
+        profile:false,
+        videos:false
+    })
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams();
 
     useEffect(()=>{
+        setLoading((prev)=>({
+            ...prev,
+            videos:true
+        }))
+
+        async function fetchData() {
+            try{
         if(params.channelName) {
-            dispatch(getChannelDetails({userId:'',username:params.channelName}))
+            await dispatch(getChannelDetails({userId:'',username:params.channelName}))
         }else{
-            dispatch(getChannelDetails({userId:user?._id,username:''}))
+            await dispatch(getChannelDetails({userId:user?._id,username:''}))
         }
-    },[subscribeStatus])
+    }finally{
+        setLoading((prev)=>({
+            ...prev,
+            videos:false
+        }))
+    }
+    }
+    fetchData()
+    },[subscribeStatus,params])
 
     const currentUser = params.channelName ? channelData.channelUserDetail : user;
     const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username) ? true : false
@@ -31,11 +50,8 @@ const Account:React.FC = () => {
     
     async function toggleSubscription(par1:string,par2:string){
         try {
-            const request = await axios.post(`${host}/api/v1/subscriptions/c/${par1}`,
-            {},
-            {
-                withCredentials:true,
-            })
+            const request = await api.post(`/subscriptions/c/${par1}`,
+            {})
 
             if(request.status===200) {
                 setSubscribeStatus(request.data.data)
@@ -79,11 +95,14 @@ const Account:React.FC = () => {
                             </button>
                         )}
                     </span>
+                    {(currentUser===user)&&<Link className='text-gray-300' to="/settings">
+                        <Wrench/>
+                    </Link>}
                 </div>
             </div>
             </section>
         </section>
-        {channelData!==undefined&&<AccountTabs data={channelData} />}
+        {channelData!==undefined&&<AccountTabs data={channelData} loading={loading.videos} />}
     </div>
   )
 }
