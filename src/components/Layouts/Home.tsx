@@ -14,7 +14,7 @@ export const HomeLayout:React.FC = () => {
         <div className={sideBarStatus?"grid-area-sideBar":"hidden"}>
         <SideBar/>
         </div>
-        <div className="grid-area-content">
+        <div className="grid-area-content min-h-[100dvh]">
         <Suspense fallback={<h2 className="p-4 text-xl">Loading....</h2>}>
             <Outlet/>
         </Suspense>

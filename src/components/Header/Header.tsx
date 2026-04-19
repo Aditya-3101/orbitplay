@@ -44,12 +44,13 @@ export const Header:React.FC = () => {
         <div className='w-[100%] font-oswald text-center flex items-center justify-center relative'>
             <img src={user?.avatar} className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
             onClick={()=>setOpenAccountBar(!openAccountBar)} />
-            <div className={` ${!openAccountBar&&"hidden"} absolute flex flex-col top-[100%] left-[-60%] bg-[rgba(0,0,0,0.9)] [&_a]:border [&_a]:border-gray-200 font-roboto z-10`}>
+            <div className={` ${!openAccountBar&&"hidden"} absolute flex flex-col top-[100%] left-[-60%] md:left-0 bg-[rgba(0,0,0,0.9)] [&_a]:border [&_a]:border-gray-200 font-roboto z-10`}>
                 <Link to={`/upload`} className='text-gray-300 bg-black px-4 py-1'>Upload</Link>
                 <Link to={`/Account`} className='text-gray-300 bg-black px-4 py-1'>My Account</Link>
                 <Link to={`/subscriptions`} className='text-gray-300 bg-black px-4 py-1'>Subscriptions</Link>
                 <Link to={`/Liked-videos`} className='text-gray-300 bg-black px-4 py-1'>Liked Videos</Link>
                 <Link to={`/history`} className='text-gray-300 bg-black px-4 py-1'>Watch history</Link>
+                <Link to={`/settings`} className='text-gray-300 bg-black px-4 py-1'>settings</Link>
                 <Link to={`/login`} className='text-gray-300 bg-black px-4 py-1'>Logout</Link>
             </div>
         </div>

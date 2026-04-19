@@ -20,6 +20,7 @@ const UploadVideo = React.lazy(()=>import('./components/Pages/UploadVideo.tsx'))
 const Register = React.lazy(()=>import('./components/Auth/Register.tsx'))
 const ErrorWall = React.lazy(()=>import('./components/ErrorBoundry/ErrorWall.tsx'))
 const Settings = React.lazy(()=>import('./components/Pages/Settings.tsx'))
+const OptionsPage = React.lazy(()=>import('./components/Pages/settings/Options.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -50,6 +51,7 @@ const router = createBrowserRouter(
       <Route path="/Liked-videos" element={<LikedVideos/>} errorElement={<ErrorBoundry/>} />
       <Route path="/upload" element={<UploadVideo />} errorElement={<ErrorBoundry/>} />
       <Route path="/settings" element={<Settings/>} errorElement={<ErrorBoundry/>} />
+      <Route path="/settings/update-avatar" element={<OptionsPage key="update-avatar" />} errorElement={<ErrorBoundry/>} />
     </Route>
     </Route>
     <Route path='*' element={<h2>Not Found!!!</h2>} />
