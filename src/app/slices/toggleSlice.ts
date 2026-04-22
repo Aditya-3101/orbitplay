@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateInterface {
     sideBar:boolean,
-    msg:string|null
+    msg:string|null,
+    accountOptionToggle:boolean
 }
 
 const initialState:initialStateInterface = {
     sideBar:true,
-    msg:null
+    msg:null,
+    accountOptionToggle:false
 }
 
 export const toggleSlice = createSlice({
@@ -19,10 +21,13 @@ export const toggleSlice = createSlice({
         },
         messageModal:(state,action)=>{
             state.msg = action.payload
+        },
+        openAccountBar:(state,action)=>{
+            state.accountOptionToggle=action.payload
         }
     }
 })
 
-export const {toggleSideBar,messageModal} = toggleSlice.actions;
+export const {toggleSideBar,messageModal,openAccountBar} = toggleSlice.actions;
 
 export default toggleSlice.reducer

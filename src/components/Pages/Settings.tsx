@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { SectionHeader } from '../Header/sectionHeader';
-import {Mail, KeyRound, Image, UserPen, LogOut} from 'lucide-react'
+import {Image, UserPen, LogOut, CircleUser} from 'lucide-react'
 import { Link } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { openAccountBar } from '../../app/slices/toggleSlice';
 
 const Settings = () => {
 
@@ -20,30 +22,30 @@ const Settings = () => {
         },
         {
             id:3,
-            text:"Change Password",
-            icon:"KeyRound",
-            path:"change-password"
+            text:"Update Account",
+            icon:"CircleUser",
+            path:"update-account"
         },
         {
             id:4,
-            text:"Update Email",
-            icon:"Mail",
-            path:"update-mail"
-        },
-        {
-            id:5,
             text:"Logout",
             icon:"LogOut",
             path:"logout"
         }
     ]
 
+    const dispatch = useDispatch()
+    
+
+    useEffect(()=>{
+        dispatch(openAccountBar(false))
+    },[])
+
     function getIcon(par:string){
         switch(par){
             case 'UserPen': return <UserPen/>;
             case 'Image':return <Image/>;
-            case 'KeyRound':return <KeyRound/>;
-            case 'Mail':return <Mail/>;
+            case 'CircleUser':return <CircleUser />;
             case 'LogOut':return <LogOut/>;
         }
     }

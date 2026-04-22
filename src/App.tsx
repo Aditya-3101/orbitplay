@@ -52,6 +52,9 @@ const router = createBrowserRouter(
       <Route path="/upload" element={<UploadVideo />} errorElement={<ErrorBoundry/>} />
       <Route path="/settings" element={<Settings/>} errorElement={<ErrorBoundry/>} />
       <Route path="/settings/update-avatar" element={<OptionsPage key="update-avatar" />} errorElement={<ErrorBoundry/>} />
+      <Route path="/settings/update-cover" element={<OptionsPage key="update-cover" />} errorElement={<ErrorBoundry/>} />
+      <Route path="/settings/update-Account" element={<OptionsPage key="update-account" />} errorElement={<ErrorBoundry/>} />
+
     </Route>
     </Route>
     <Route path='*' element={<h2>Not Found!!!</h2>} />

@@ -63,11 +63,23 @@ export const userDetailSlice = createSlice({
         },
         setAuthLoading:(state,action)=>{
             state.isAuthLoading = action.payload
+        },
+        updateUserAvatar:(state,action)=>{
+            if(state.userTemp) state.userTemp.avatar = action.payload
+        },
+        updateUserCover:(state,action)=>{
+            if(state.userTemp) state.userTemp.coverImage = action.payload
+        },
+        updateUserAccount:(state,action)=>{
+            if(state.userTemp){
+                state.userTemp.fullName=action.payload.fullName,
+                state.userTemp.email=action.payload.email
+            }
         }
     }
 
 })
 
-export const {addUserDetails,setAuthLoading} = userDetailSlice.actions
+export const {addUserDetails,setAuthLoading,updateUserAvatar,updateUserCover,updateUserAccount} = userDetailSlice.actions
 
 export default userDetailSlice.reducer;

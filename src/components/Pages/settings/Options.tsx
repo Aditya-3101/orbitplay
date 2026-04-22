@@ -1,10 +1,11 @@
 import React from 'react';
 import { useLocation,Link } from 'react-router';
 import { ChangeAvatar } from './ChangeAvatar.tsx';
+import { ChangeCover } from './ChangeCover.tsx';
+import { UpdateAccountDetails } from './UpdateAccountDetails.tsx';
 
 const options = () => {
     const location = useLocation()
-
     const currentPath = getpath(location.pathname)
 
     function getpath(par:string){
@@ -15,8 +16,8 @@ const options = () => {
                 return 'update-cover';
             case '/settings/change-password':
                 return 'change-password';
-            case '/settings/update-mail':
-                return 'update-mail'
+            case '/settings/update-account':
+                return 'update-account'
         }
     }    
 
@@ -28,6 +29,8 @@ const options = () => {
             </div>
             <div className='w-[90%] mx-auto border-t border-gray-400'>
                 {currentPath==="update-avatar"&&<ChangeAvatar/>}
+                {currentPath==="update-cover"&&<ChangeCover/>}
+                {currentPath==="update-account"&&<UpdateAccountDetails/>}
             </div>
         </section>
     </div>
