@@ -48,7 +48,7 @@ export const MoreVids = () => {
     }
 
   return (
-    <div className='bg-[#222] grid grid-cols-1'>
+    <div className='bg-[#222] border-l border-gray-300 grid grid-cols-1'>
         <main className='bg-[#222222] relative py-4 '>
         {vids&&vids.data.map((par,index)=>{
           return<div key={index} className='py-2'>

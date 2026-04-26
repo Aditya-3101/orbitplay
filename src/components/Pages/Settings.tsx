@@ -64,7 +64,7 @@ const Settings = () => {
 
   return (
     <div>
-        <section>
+        <section className='bg-[rgb(0,0,0,0.9)]'>
             <div>
                 <SectionHeader title="Settings" size="text-lg md:text-xl" />
             </div>

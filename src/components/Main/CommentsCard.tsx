@@ -58,20 +58,20 @@ export const CommentsCard = (props) => {
                     <p></p>
                     <p className='text-base text-[#f1f1f1] font-roboto'>{par.comment}</p>
         </div>}
-        {post&&<div className='grid grid-cols-[10%_90%] place-content-center border-b border-[rgba(0,0,0,0.5)] p-1.5 md:w-[90%]'>
+        {post&&<div className='grid grid-cols-[10%_90%] place-content-center border-b border-gray-600 p-1.5 md:w-[90%]'>
                    <div className='flex items-center justify-center'>
-                    <img src={post.avatar} className='aspect-square w-[1.5rem] object-cover' />
+                    <img src={post.avatar} className='aspect-square w-[1.5rem] md:w-[2.5rem] object-cover' />
                    </div>
                     <p className='flex justify-between'> 
                         <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{post.username}</span>
                         <span className='text-sm text-[#f1f1f1d0]'>{timeAgo(post.createdAt)}</span>
                     </p>
                     <p></p>
-                    <p className='text-base text-[#f1f1f1] font-roboto'>{post.content}</p>
+                    <p className='text-base md:text-xl text-[#f1f1f1] font-roboto'>{post.content}</p>
                     <p></p>
                     <div className='flex flex-col items-end justify-center'>
                         <p className='text-center text-sm'>
-                        <span onClick={toggleLike}>{post.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='cursor-pointer' onClick={toggleLike}>{post.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
                         <span className='text-gray-600'>{post.likeCount}</span>
                         </p>
                     </div>
