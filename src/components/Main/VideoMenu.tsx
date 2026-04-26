@@ -83,7 +83,9 @@ export const VideoMenu = ({uploadTime}) => {
     async function fetchPlaylist() {
         try {
             const request = await api.get(`/playlist/user/${user?._id}`)
-            if(request.status===200) setUserPlaylist(request.data)
+            if(request.status===200) {
+                setUserPlaylist(request.data)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -128,6 +130,13 @@ export const VideoMenu = ({uploadTime}) => {
         toggleLikes()
     }
 
+    function togglePlaylistBtn(){
+        setPlaylistToggle(!playlistToggle)
+        if(userPlaylist?.data.length===0)  dispatch(messageModal(`No Playlists Found`))
+
+    }
+    
+
   return (
     <div>
         <section className='text-[#f1f1f1] p-2 flex justify-between relative'>
@@ -138,11 +147,11 @@ export const VideoMenu = ({uploadTime}) => {
          <div className='w-[80%] flex items-center justify-evenly'>
             <div className='font-roboto text-sm rounded-2xl  relative'>
             
-                <p className='flex items-center gap-1 cursor-pointer' onClick={()=>setPlaylistToggle(!playlistToggle)}>
+                <p className='flex items-center gap-1 cursor-pointer' onClick={togglePlaylistBtn}>
                 <ListPlus />
                 <span>Add to Playlist</span></p>
                 <div>
-                {(playlistToggle&&userPlaylist)&&<section className='z-10 absolute top-[100%] bottom-0 right-0 left-[50%] md:left-[100%] w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
+                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-[100%] bottom-0 right-0 left-[50%] md:left-[100%] w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
                     {userPlaylist.data.map((par)=>{
                         return<div key={par._id} className={`p-1 flex items-center gap-2 border-b border-gray-300 cursor-pointer ${par._id===selectedPlayList.id?"bg-[rgba(255,255,255,0.2)]":""}`} onClick={()=>onSelectPlaylist(par._id)}>
                             <ListPlus />
@@ -158,15 +167,6 @@ export const VideoMenu = ({uploadTime}) => {
             <p className='text-[#f1f1f190] text-[14px]'>{timeAgo(uploadTime)}</p>
          </div>
         </section>
-        {/* {(playlistToggle&&userPlaylist)&&<section className='absolute top-0 bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.6)]'>
-            <div>
-                {userPlaylist.data.map((par)=>{
-                    return<div key={par._id}>
-
-                    </div>
-                })} */}
-            {/* </div> */}
-            {/* </section>} */}
     </div>
   )
 }

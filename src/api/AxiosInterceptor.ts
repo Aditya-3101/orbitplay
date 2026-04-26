@@ -24,7 +24,12 @@ async(error)=>{
         return Promise.reject(error)
     }
 
-    if(originalRequest.url.includes('/refresh-token')){
+    // if(originalRequest.url.includes('/refresh-token')){
+    //     return Promise.reject(error)
+    // }
+
+    if(originalRequest.url?.includes('/refresh-token')){
+        console.log("returning promise")
         return Promise.reject(error)
     }
 
@@ -35,6 +40,8 @@ async(error)=>{
 
             if(tokenRequest.status===200) return api.request(originalRequest)
         } catch (err) {
+
+           // window.location.href="/login"
             return Promise.reject(err)
         }
 

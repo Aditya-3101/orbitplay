@@ -75,11 +75,17 @@ export const userDetailSlice = createSlice({
                 state.userTemp.fullName=action.payload.fullName,
                 state.userTemp.email=action.payload.email
             }
+        },
+        clearUser:(state,action)=>{
+            state.userTemp=null;
+            state.accessToken=null;
+            state.isLoggedIn=false,
+            state.isAuthLoading=false
         }
     }
 
 })
 
-export const {addUserDetails,setAuthLoading,updateUserAvatar,updateUserCover,updateUserAccount} = userDetailSlice.actions
+export const {addUserDetails,setAuthLoading,updateUserAvatar,updateUserCover,updateUserAccount,clearUser} = userDetailSlice.actions
 
 export default userDetailSlice.reducer;

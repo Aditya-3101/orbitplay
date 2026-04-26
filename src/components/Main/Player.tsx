@@ -107,8 +107,8 @@ const Player:React.FC = () => {
             <div className='flex items-center gap-3'>
                 {video.video.owner.avatar&&<img src={video.video.owner.avatar} className='aspect-square w-[2rem] rounded-full object-cover' />}
                 <p className='flex flex-col'>
-                    <span className='text-slate-300 text-base font-poppins'>{video.video?.owner.username}</span>
-                    <span className='text-[#AAAAAA] text-[12px]'>{video.subscribers} subscriber</span>
+                    <span className='text-slate-300 text-base md:text-lg font-poppins'>{video.video?.owner.username}</span>
+                    <span className='text-[#AAAAAA] text-[12px]'>{video.subscribers} subscribers</span>
                 </p>
             </div>
             <div className='text-slate-500 flex items-center justify-center' onClick={()=>followChannel(video.video?.owner._id)}>

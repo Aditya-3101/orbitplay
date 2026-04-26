@@ -4,14 +4,14 @@ import {getChannelDetails} from '../thunks/channelThunk.ts';
 
 interface channelUserDetailsInterface{
     "_id": string
-        "username": string,
-        "email": string,
-        "fullName": string,
-        "avatar": string,
-        "coverImage": string,
-        "subscribersCount": number
-        "channelSubscribedToCount": number
-        "isSubscribed":boolean
+    "username": string,
+    "email": string,
+    "fullName": string,
+    "avatar": string,
+    "coverImage": string,
+    "subscribersCount": number
+    "channelSubscribedToCount": number
+    "isSubscribed":boolean
 }
 
 interface channelVideoInterface{

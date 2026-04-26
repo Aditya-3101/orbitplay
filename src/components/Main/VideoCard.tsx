@@ -35,7 +35,7 @@ export const VideoCard = ({data}) => {
                 <div className='grid grid-cols-[100%] w-[100%] relative'>
                     <span className='font-poppins text-white text-lg md:text-base overflow-auto '>{title}</span>
                     <p className='flex items-center justify-between pr-2'>
-                    <Link className='text-slate-400 md:text-sm' to={`/Channel/${owner.username}`}>{owner?.username}</Link>
+                    <Link className='text-slate-400 md:text-sm' to={`/Channel/${owner.username}`}>{owner?.fullName}</Link>
                     <span className='text-slate-400 flex items-center justify-end'>{views} views</span>
                     </p>
                 </div>

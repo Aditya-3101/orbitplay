@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
-import { timeAgo } from '../../utility/timeStamp.ts';
 import { useParams } from 'react-router';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import {ChevronDown,ChevronUp} from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor.ts';
+import { CommentsCard } from './CommentsCard.tsx';
 
 interface commentsInterfaceDocs {
     "_id": string,
@@ -41,7 +41,7 @@ export const  Comments:React.FC = () => {
     const videoDetails = useSelector((state:RootState)=>state.video)
     const userDetails = useSelector((state:RootState)=>state.user)
     const accessToken = useSelector((state:RootState)=>state.user.accessToken)
-    const [openComment,setOpenComments] = useState<boolean>(false)
+    const [openComment,setOpenComments] = useState<boolean>(true)
 
     useEffect(()=>{
         fetchComments(videoDetails.video?._id?videoDetails.video?._id:videoId);
@@ -115,17 +115,7 @@ export const  Comments:React.FC = () => {
         </section>
         <section className='flex flex-col bg-[rgba(0,0,0,0.8)]'>
             {comment && comment?.data.docs?.map((par,index)=>{
-                return<div className='grid grid-cols-[10%_90%] place-content-center border-b border-[rgba(0,0,0,0.5)] p-1.5 md:w-[90%]' key={index}>
-                   <div className='flex items-center justify-center'>
-                    <img src={par.owner.avatar} className='aspect-square w-[1.5rem] object-cover' />
-                   </div>
-                    <p className='flex justify-between'> 
-                        <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{par.owner.username}</span>
-                        <span className='text-sm text-[#f1f1f1d0]'>{timeAgo(par.createdAt)}</span>
-                    </p>
-                    <p></p>
-                    <p className='text-base text-[#f1f1f1] font-roboto'>{par.comment}</p>
-                </div>
+                return<CommentsCard par={par} key={index}  />
             })}
         </section>
         </main>

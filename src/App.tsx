@@ -21,6 +21,7 @@ const Register = React.lazy(()=>import('./components/Auth/Register.tsx'))
 const ErrorWall = React.lazy(()=>import('./components/ErrorBoundry/ErrorWall.tsx'))
 const Settings = React.lazy(()=>import('./components/Pages/Settings.tsx'))
 const OptionsPage = React.lazy(()=>import('./components/Pages/settings/Options.tsx'))
+const PostPage = React.lazy(()=>import('./components/Pages/Posts.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -49,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="/subscriptions" element={<Subscriptions/>} errorElement={<ErrorBoundry/>} />
       <Route path="/playlists/:playlistId" element={<Playlist/>} errorElement={<ErrorBoundry/>} />
       <Route path="/Liked-videos" element={<LikedVideos/>} errorElement={<ErrorBoundry/>} />
+      <Route path="/my-posts" element={<PostPage/>} errorElement={<ErrorBoundry/>} />
       <Route path="/upload" element={<UploadVideo />} errorElement={<ErrorBoundry/>} />
       <Route path="/settings" element={<Settings/>} errorElement={<ErrorBoundry/>} />
       <Route path="/settings/update-avatar" element={<OptionsPage key="update-avatar" />} errorElement={<ErrorBoundry/>} />

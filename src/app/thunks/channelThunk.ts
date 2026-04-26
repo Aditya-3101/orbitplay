@@ -1,7 +1,6 @@
-import axios from "axios";
-import { host } from "../../Constants";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
+import { api } from "../../api/AxiosInterceptor";
 
 export const getChannelDetails = createAsyncThunk(
     "channel/channelDetails",
@@ -14,7 +13,7 @@ export const getChannelDetails = createAsyncThunk(
 
             if(!finalUserId && username){
 
-            const channelUser = await axios.get(`${host}/api/v1/users/c/${username}`,
+            const channelUser = await api.get(`/users/c/${username}`,
             {
                 withCredentials:true,
                 headers:{
@@ -31,7 +30,7 @@ export const getChannelDetails = createAsyncThunk(
             throw new Error("No userId or username provided");
           }
 
-            const req = await axios.get(`${host}/api/v1/videos?userId=${finalUserId}`,{
+            const req = await api.get(`/videos?userId=${finalUserId}`,{
                 withCredentials:true,
                 headers:{
                     Authorization:`Bearer ${token}`
@@ -40,7 +39,7 @@ export const getChannelDetails = createAsyncThunk(
 
             const userVideos = req.data.data
 
-            const userPlaylists = await axios.get(`${host}/api/v1/playlist/user/${finalUserId}`,
+            const userPlaylists = await api.get(`/playlist/user/${finalUserId}`,
             {  withCredentials:true,
                 headers:{
                     Authorization:`Bearer ${token}`

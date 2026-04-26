@@ -19,7 +19,7 @@ const OverLayDialouge= () => {
 
   return (
     <div>
-      {modalMessage!==null&&<div className={`absolute right-0 top-[70dvh] md:top-[85dvh] left-0 w-fit h-fit mx-auto  bg-transparent flex items-center justify-center`}>
+      {modalMessage!==null&&<div className={`fixed right-0 top-[70dvh] md:top-[85dvh] left-0 w-fit h-fit mx-auto  bg-transparent flex items-center justify-center`}>
         <p className='text-gray-300 bg-[rgba(0,0,0,0.6)] w-fit font-roboto py-1.5 px-2.5 rounded-xl z-40'>{modalMessage}</p>
       </div>}
     </div>

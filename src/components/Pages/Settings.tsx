@@ -4,6 +4,9 @@ import {Image, UserPen, LogOut, CircleUser} from 'lucide-react'
 import { Link } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { openAccountBar } from '../../app/slices/toggleSlice';
+import {clearUser} from '../../app/slices/userSlice'
+import { useNavigate } from 'react-router-dom';
+import { api } from '../../api/AxiosInterceptor';
 
 const Settings = () => {
 
@@ -26,15 +29,10 @@ const Settings = () => {
             icon:"CircleUser",
             path:"update-account"
         },
-        {
-            id:4,
-            text:"Logout",
-            icon:"LogOut",
-            path:"logout"
-        }
     ]
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     
 
     useEffect(()=>{
@@ -46,9 +44,23 @@ const Settings = () => {
             case 'UserPen': return <UserPen/>;
             case 'Image':return <Image/>;
             case 'CircleUser':return <CircleUser />;
-            case 'LogOut':return <LogOut/>;
         }
     }
+
+    async function logOutSession() {
+        try {
+            const request = await api.post('/users/logout',{})
+    
+            if(request.status===200){
+                dispatch(clearUser(null))
+                // navigate("/login")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
 
   return (
     <div>
@@ -63,6 +75,9 @@ const Settings = () => {
                         <span>{par.text}</span>
                     </Link>
                 })}
+                <div className='text-gray-300 font-roboto flex flex-row px-4 py-2 gap-2 cursor-pointer' onClick={logOutSession}>
+                    <LogOut/>
+                    Logout</div>
             </div>
         </section>
     </div>

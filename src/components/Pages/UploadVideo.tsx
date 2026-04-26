@@ -133,7 +133,7 @@ const UploadVideo = () => {
 
   return (
     <div className='bg-[rgba(0,0,0,0.9)] px-4 relative py-2'>
-      <p className='text-gray-400 p-2 font-bold'>Upload Video</p>
+      <p className='text-gray-400 font-bold font-roboto'>Upload Video</p>
       {uploadStatus===false&&<div className='w-[100%] flex items-center justify-between border border-red-800 p-1'><div className='font-roboto text-lg text-gray-300 '>Kindly fill all the details!!</div><X className='text-gray-300' onClick={()=>setUploadStatus('')} /></div>}
       {uploadStatus&&<div className='w-[100%] flex items-center justify-between border border-green-700 p-1'>
         <div className='font-roboto text-lg text-gray-300'>Video Uploaded Successfully!!</div>
