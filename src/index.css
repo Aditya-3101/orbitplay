@@ -38,6 +38,37 @@
     }
 } */
 
+.postcontainer{
+    display: grid;
+    grid-template-columns: 15% 35% 35% 15%;
+    grid-template-areas: "userAvatar username userlastupdated userlastupdated"
+    "blank content content reaction";
+}
+
+.userAvatar{
+    grid-area: userAvatar;
+}
+
+.username{
+    grid-area: username;
+}
+
+.lastupdated{
+    grid-area:userlastupdated;
+    text-align: end;
+}
+
+.blank{
+    grid-area:blank
+}
+
+.userContent{
+    grid-area:content
+}
+
+.postReactions{
+    grid-area: reaction;
+}
 
 @media (min-width: 768px) {
     .layout {
@@ -49,6 +80,13 @@
 
     .sidebar{
         display:block;
+    }
+
+    .postcontainer{
+        display: grid;
+        grid-template-columns: 10% 40% 40% 10%;
+        grid-template-areas: "userAvatar username userlastupdated userlastupdated"
+        "blank content content reaction";
     }
 
 }

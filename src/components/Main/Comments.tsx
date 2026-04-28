@@ -7,6 +7,11 @@ import {ChevronDown,ChevronUp} from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor.ts';
 import { CommentsCard } from './CommentsCard.tsx';
 
+
+interface CommentLikeType{
+    "_id": string,
+    "likedBy": string
+}
 interface commentsInterfaceDocs {
     "_id": string,
     "comment": string,
@@ -15,7 +20,10 @@ interface commentsInterfaceDocs {
         username:string,
         avatar:string
     },
-    "createdAt": string
+    "createdAt": string,
+    "comment_likes": CommentLikeType[],
+    "commentLikeCount": number,
+    "isLiked": boolean
 }
 
 interface commentInterface{
