@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../api/AxiosInterceptor.ts';
 
@@ -9,13 +8,18 @@ export const saveTheVideo = createAsyncThunk(
             const req = await api.get(`/videos/${videoId}`)
             const video = req.data.data;
 
-            const channerlRes=await axios.get(
+            let channerlRes
+
+            if(video){
+            const commentReq=await api.get(
                 `/subscriptions/s/${video.owner._id}`
             )
+            if(commentReq.status===200) channerlRes = commentReq
+            }
 
             return {
                 video,
-                subscribers:channerlRes.data.data
+                subscribers:channerlRes.data.data||0
             }
 
         }catch(err){

@@ -21,12 +21,12 @@ const Player:React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const [didUserPlayed,setDidUserPlayed] = useState(false)
     const [checkSubscription,setCheckSubscription] = useState<null|boolean>()
-    const video = useSelector((state:RootState)=>state.video)
+    const video = useSelector((state:RootState)=>state.video)    
 
     useEffect(()=>{
         if(videoId){
             dispatch(saveTheVideo(videoId));
-            (video!==null) && checkSubscriptionStatus()
+            if (video!==null&&video.video?._id.length!==0) checkSubscriptionStatus()
         }else{
             navigate('/')   
         }
@@ -56,11 +56,12 @@ const Player:React.FC = () => {
         return <div>Error....</div>
     }
 
-    if(video.loading){
+    if(video.loadingVideoId===video.video?._id){
         return <div>Loading..</div>
     }
 
     async function checkSubscriptionStatus() {
+        
         try {
             const request = await api.get(`/subscriptions/check/${video.video?.owner._id}`)
             if(request.status===200){

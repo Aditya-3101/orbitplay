@@ -1,9 +1,11 @@
-import React,{useEffect, useState} from 'react';
+import React,{useCallback, useEffect, useRef, useState} from 'react';
 import { VideoCard } from './VideoCard.tsx';
 import { useDispatch } from 'react-redux';
-import { toggleSideBar } from '../../app/slices/toggleSlice.ts';
+import { messageModal, toggleSideBar } from '../../app/slices/toggleSlice.ts';
 import VideoCardSkeleton from './VideoCardSkeleton.tsx';
 import { api } from '../../api/AxiosInterceptor.ts';
+import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.tsx';
+import { AppDispatch } from '../../app/store/store.ts';
 
 interface Video {
   _id: string;
@@ -23,51 +25,83 @@ interface Video {
   updatedAt: string;
 }
 
+interface videoDataType{
+  result:Video[],
+  videosCount: number,
+  page: number,
+  limit: number
+}
+
 interface GetVideosResponse {
   statusCode: number;
-  data: Video[];
+  data: videoDataType;
   message: string;
   success: number;
 }
 
 export const MainPage:React.FC = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
-  const [videos,setVideos] = useState<GetVideosResponse|null>()
-  const [error,setError] = useState('')
+  const [videos,setVideos] = useState<Video[]>([])
   const [loading,setLoading] = useState(false)
+  const [page,setPage] = useState(1)
+  const videoContainerRef = useRef<HTMLDivElement>(null)
+  const [hasMore,setHasmore]=useState(false)
+  
+  const pageCallback = useCallback(()=>{
+    if(!loading&&hasMore){
+      setPage(prev=>prev+1)
+    }
+    },[loading,hasMore])
+
+  useIntersectionObserver(videoContainerRef,pageCallback)
 
   useEffect(()=>{
-    fetchHomeVideos();
+    fetchHomeVideos(page);
     dispatch(toggleSideBar(true))
-  },[])
+  },[page])
 
-  async function fetchHomeVideos(){
+
+  async function fetchHomeVideos(par){
     setLoading(true)
+    
     try{
-    const req = await api.get<GetVideosResponse>(`/videos/all/v`)
+    const req = await api.get<GetVideosResponse>(`/videos/all/v?page=${par}`)
     if(req.status===200) {
-      setVideos(req.data)
+      const newVideos = req.data.data.result
+      setVideos((prev)=>{
+        const existingIds = new Set(prev.map(v => v._id));
+
+        const filtered = newVideos.filter(v => !existingIds.has(v._id));
+      
+        return [...prev, ...filtered];
+      });
       setLoading(false)
+      setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount)
     }
     }catch(err){
-      setError(err?.message)
-      setLoading(false)
+      dispatch(messageModal("Encountered error while fetching videos :("))
+    }finally {
+      setLoading(false);
     }
-  }
+  }  
 
   return (
     <div className={`relative grid`}>
       <main className='bg-[#222222] py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-        {(!loading&&videos)&&videos.data.map((par,index)=>{
-          return<VideoCard key={index} data={par}  />
+        {(!loading&&videos.length!==0)&&videos.map((par,index)=>{
+          return<VideoCard key={par._id} data={par}  />
         })}
         {loading&&[...Array(12)].map((index)=>{
           return<VideoCardSkeleton key={index}/>
         })
         }
       </main>
+      <div
+      ref={videoContainerRef}
+      style={{ height: "20px" }}
+      />
     </div>
   )
 }

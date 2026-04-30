@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { openAccountBar } from '../../app/slices/toggleSlice';
 import {clearUser} from '../../app/slices/userSlice'
-import { useNavigate } from 'react-router-dom';
 import { api } from '../../api/AxiosInterceptor';
 
 const Settings = () => {
@@ -32,7 +31,6 @@ const Settings = () => {
     ]
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     
 
     useEffect(()=>{

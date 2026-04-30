@@ -1,75 +1,27 @@
 import React,{useState,useEffect} from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store.ts';
+import { useSelector,useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../app/store/store.ts';
 import { useParams } from 'react-router';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import {ChevronDown,ChevronUp} from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor.ts';
 import { CommentsCard } from './CommentsCard.tsx';
+import { getVideoComments } from '../../app/thunks/CommentThunk.ts';
 
-
-interface CommentLikeType{
-    "_id": string,
-    "likedBy": string
-}
-interface commentsInterfaceDocs {
-    "_id": string,
-    "comment": string,
-    "owner": {
-        _id:string,
-        username:string,
-        avatar:string
-    },
-    "createdAt": string,
-    "comment_likes": CommentLikeType[],
-    "commentLikeCount": number,
-    "isLiked": boolean
-}
-
-interface commentInterface{
-    "data": {
-        "docs": commentsInterfaceDocs[],
-        "totalDocs": number,
-        "limit": number,
-        "page": number,
-        "totalPages": number,
-        "pagingCounter": number,
-        "hasPrevPage": boolean,
-        "hasNextPage": boolean,
-        "prevPage": null|unknown,
-        "nextPage": null|unknown
-    },
-}
 
 export const  Comments:React.FC = () => {
-    const [comment,setComments] = useState<commentInterface>()
     const [userComment,setUserComment] = useState<string>('')
     const {videoId} = useParams()
-    const [error,setError] = useState('')
     const videoDetails = useSelector((state:RootState)=>state.video)
     const userDetails = useSelector((state:RootState)=>state.user)
-    const accessToken = useSelector((state:RootState)=>state.user.accessToken)
     const [openComment,setOpenComments] = useState<boolean>(true)
+    const dispatch = useDispatch<AppDispatch>()
+    const comments = useSelector((state:RootState)=>state.video.comments)
 
     useEffect(()=>{
-        fetchComments(videoDetails.video?._id?videoDetails.video?._id:videoId);
+        dispatch(getVideoComments(videoDetails.video?._id?videoDetails.video?._id:videoId))
     },[])
 
-    async function fetchComments(params:string|undefined) {
-        try {
-            const req = await api.get(`/comments/${params}`,
-            {
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
-            })
-            if(req.status===200) {
-                setComments(req.data)
-            }
-        } catch (error) {
-            setError("Something went wrong while fetching comments")
-        }
-    }
 
     function commentHandler(e:React.ChangeEvent<HTMLTextAreaElement>){
         const {name,value} = e.target;
@@ -80,15 +32,11 @@ export const  Comments:React.FC = () => {
         try {
             const req = await api.post(`/comments/${videoDetails.video?._id?videoDetails.video?._id:videoId}`,{
                 "comment":userComment
-            },{
-                headers:{
-                    Authorization:`Bearer ${accessToken}`
-                }
             })
 
             if(req.status===201){
                 setUserComment('')
-                fetchComments(videoDetails.video?._id?videoDetails.video?._id:videoId)
+                dispatch(getVideoComments(videoDetails.video?._id?videoDetails.video?._id:videoId))
             }
 
         } catch (error) {
@@ -122,7 +70,7 @@ export const  Comments:React.FC = () => {
             </div>
         </section>
         <section className='flex flex-col bg-[rgba(0,0,0,0.8)]'>
-            {comment && comment?.data.docs?.map((par,index)=>{
+            {comments && comments?.data.docs?.map((par,index)=>{
                 return<CommentsCard par={par} key={index}  />
             })}
         </section>

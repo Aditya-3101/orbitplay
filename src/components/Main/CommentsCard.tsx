@@ -5,7 +5,7 @@ import { api } from '../../api/AxiosInterceptor.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch} from "../../app/store/store.ts"
 import {updateIsLikedBy} from '../../app/slices/postSlice.ts'
-
+import {toggleCommentLikes} from '../../app/slices/videoSlice.ts'
 
 interface CommentLikeType{
     "_id": string,
@@ -52,6 +52,17 @@ export const CommentsCard = (props) => {
             console.log(error)
         }
     }
+
+    async function toggleCommentLike(){
+        try {
+            const request = await api.post(`/likes/toggle/c/${par._id}`,{})
+            if(request.status===200) {
+                dispatch(toggleCommentLikes(par._id))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
 
   return (
@@ -69,7 +80,7 @@ export const CommentsCard = (props) => {
                     <p className='text-base text-[#f1f1f1] font-roboto userContent'>{par.comment}</p>
                     <div className='flex flex-col items-end justify-center postReactions'>
                         <p className='text-center text-sm'>
-                        <span className='cursor-pointer' onClick={toggleLike}>{par?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='cursor-pointer' onClick={toggleCommentLike}>{par?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
                         <span className='text-gray-600'>{par.commentLikeCount}</span>
                         </p>
                     </div>

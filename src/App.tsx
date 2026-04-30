@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,Suspense} from 'react';
 import {Route, createBrowserRouter,createRoutesFromElements,RouterProvider, useRouteError} from "react-router-dom";
 import {HomeLayout} from './components/Layouts/Home.tsx';
 import {MainPage} from './components/Main/MainPage.tsx';
@@ -80,14 +80,14 @@ const App:React.FC = () => {
   
   const isAuthLoading = useSelector((state: RootState) => state.user.isAuthLoading);
   if (isAuthLoading) {
-    return <h2>Loading...</h2>;
+    return <h2>auth is loading</h2>;
   }
 
 
   return (
-    <>
+    <Suspense fallback={<h2>Loading....</h2>}>
     <RouterProvider router={router}/>
-    </>
+    </Suspense>
   )
 }
 

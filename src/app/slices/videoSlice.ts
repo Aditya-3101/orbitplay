@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { saveTheVideo } from "../thunks/videothunk.ts";
+import { getVideoComments } from "../thunks/CommentThunk.ts";
 
 interface videoInterface{
     _id:string,
@@ -20,9 +21,44 @@ interface videoInterface{
     createdAt:string
 }
 
+interface CommentLikeType{
+    "_id": string,
+    "likedBy": string
+}
+interface commentsInterfaceDocs {
+    "_id": string,
+    "comment": string,
+    "owner": {
+        _id:string,
+        username:string,
+        avatar:string
+    },
+    "createdAt": string,
+    "comment_likes": CommentLikeType[],
+    "commentLikeCount": number,
+    "isLiked": boolean
+}
+
+interface commentInterface{
+    "data": {
+        "docs": commentsInterfaceDocs[],
+        "totalDocs": number,
+        "limit": number,
+        "page": number,
+        "totalPages": number,
+        "pagingCounter": number,
+        "hasPrevPage": boolean,
+        "hasNextPage": boolean,
+        "prevPage": null|unknown,
+        "nextPage": null|unknown
+    },
+}
+
 interface initialStateInterface{
     video:videoInterface|null;
     loading:boolean,
+    loadingVideoId:unknown|null,
+    comments:commentInterface|null;
     error:string|unknown,
     subscribers:number
 }
@@ -46,7 +82,9 @@ const initialState:initialStateInterface = {
     description:'',
     createdAt:''
 },
+comments:null,
 loading:true,
+loadingVideoId:'',
 error:'',
 subscribers:0
 }
@@ -54,11 +92,20 @@ subscribers:0
 export const videoDetailSlice = createSlice({
     name:"video",
     initialState,
-    reducers:{},
+    reducers:{
+        toggleCommentLikes:(state,action)=>{
+            const selectedComment = state.comments?.data.docs.find(c=>c._id===action.payload);
+            if (selectedComment){
+                selectedComment.isLiked=!selectedComment.isLiked
+                selectedComment.commentLikeCount=selectedComment.isLiked?selectedComment.commentLikeCount+1:selectedComment.commentLikeCount-1;
+            }
+        }
+    },
     extraReducers(builder) {
-        builder.addCase(saveTheVideo.pending,(state)=>{
+        builder.addCase(saveTheVideo.pending,(state,action)=>{
             state.loading=true,
             state.error=null;
+            state.loadingVideoId=action.meta.arg
         })
         .addCase(saveTheVideo.fulfilled,(state,action)=>{
             const videoDetails = {
@@ -82,13 +129,26 @@ export const videoDetailSlice = createSlice({
             state.loading=false,
             state.video=videoDetails;
             state.subscribers=action.payload.subscribers
+            state.loadingVideoId=null
+
         })
         .addCase(saveTheVideo.rejected,(state,action)=>{
             state.loading=false;
-            state.error=action.payload
+            state.error=action.payload;
+            state.loadingVideoId=null
+        })
+
+        .addCase(getVideoComments.rejected,(state,action)=>{
+            state.comments=null;
+        })
+
+        .addCase(getVideoComments.fulfilled,(state,action)=>{
+            state.comments=action.payload
         })
     },
 })
+
+export const {toggleCommentLikes} = videoDetailSlice.actions
 
 //export const {addVideoDetails} = videoDetailSlice.actions
 
