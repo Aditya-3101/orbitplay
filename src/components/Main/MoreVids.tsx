@@ -65,7 +65,6 @@ export const MoreVids = () => {
                 const filtered = newResults.filter(v => !existingIds.has(v._id));
                 return [...prev, ...filtered];
             })
-              console.log(req.data);
               setLoading(false)
               setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount)
             }
@@ -75,8 +74,6 @@ export const MoreVids = () => {
           setLoading(false)
         }
     }
-
-    console.log(page);
 
   return (
     <div className='bg-[#222] border-l border-gray-300 grid grid-cols-1'>
