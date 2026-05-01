@@ -33,6 +33,9 @@ const Player:React.FC = () => {
         dispatch(toggleSideBar(false))
     },[videoId])
 
+    console.log(video);
+    
+
        
 
     async function pushVideosIntoHistory(vidId:string){
@@ -119,9 +122,9 @@ const Player:React.FC = () => {
             </div>
         </div>
         </div>}
-        <Comments />
+        {video&&<Comments />}
         </section>
-        <MoreVids/>
+        {!video.loading&&<MoreVids/>}
         <OverLayDialouge/>
     </div>
   )

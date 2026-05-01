@@ -45,9 +45,9 @@ export const MainPage:React.FC = () => {
 
   const [videos,setVideos] = useState<Video[]>([])
   const [loading,setLoading] = useState(false)
-  const [page,setPage] = useState(1)
+  const [page,setPage] = useState<number>(1)
   const videoContainerRef = useRef<HTMLDivElement>(null)
-  const [hasMore,setHasmore]=useState(false)
+  const [hasMore,setHasmore]=useState<boolean>(false)
   
   const pageCallback = useCallback(()=>{
     if(!loading&&hasMore){
@@ -63,7 +63,7 @@ export const MainPage:React.FC = () => {
   },[page])
 
 
-  async function fetchHomeVideos(par){
+  async function fetchHomeVideos(par:number){
     setLoading(true)
     
     try{
