@@ -1,15 +1,13 @@
 import { useEffect } from "react"
 
-export const useIntersectionObserver = (ref
-    ,callback) => {
+export const useIntersectionObserver = (ref:React.RefObject<HTMLDivElement | null>
+    ,callback:Function) => {
         
     useEffect(()=>{
         if(!ref.current)return;
         const observer = new IntersectionObserver((entries)=>{
             if(entries[0].isIntersecting){
                 callback()
-                console.log("visible");
-                
             }
         })
         observer.observe(ref.current)

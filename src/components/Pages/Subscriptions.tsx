@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
+import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 
 interface userSubscriptionsInterface{
     _id: string;
@@ -81,6 +82,8 @@ const Subscriptions:React.FC = () => {
             }
         } catch (error) {
             console.log(error)
+        }finally{
+            setLoading((prev)=>({...prev,videos:false}))
         }
     }
 
@@ -126,11 +129,11 @@ const Subscriptions:React.FC = () => {
                             </div>
                     })}
                     {(!loading.videos&&videosFromChannel?.data.length==0)&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
-                {/* {(!loading.videos)&&([...Array(9)].map((index)=>{
+                {(loading.videos)&&([...Array(9)].map((index)=>{
                     return<div className='mx-auto w-[90%] py-2' key={index}>
                     <VideoCard_v2_skeleton />
                     </div>
-                }))} */}
+                }))}
                 </div>
             </section>
             {(userSubscriptions&&userSubscriptions.data.length===0)&&<section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>

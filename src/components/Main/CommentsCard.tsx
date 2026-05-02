@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { timeAgo } from '../../utility/timeStamp.ts';
-import { Heart } from 'lucide-react';
+import { EllipsisVertical, Heart, Pencil, Trash } from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor.ts';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch} from "../../app/store/store.ts"
-import {updateIsLikedBy} from '../../app/slices/postSlice.ts'
+import {updateIsLikedBy,deletePostById} from '../../app/slices/postSlice.ts'
 import {toggleCommentLikes} from '../../app/slices/videoSlice.ts'
+import { messageModal } from '../../app/slices/toggleSlice.ts';
 
 interface CommentLikeType{
     "_id": string,
@@ -35,12 +36,14 @@ interface commentsInterfaceDocs {
         "isLiked": boolean,
         "avatar": string,
         "username": string
-    }
+    },
+    onEdit:Function
 }
 
 export const CommentsCard = (props) => {
-    const {par,post} = props as commentsInterfaceDocs
+    const {par,post,onEdit} = props as commentsInterfaceDocs
     const dispatch = useDispatch<AppDispatch>()
+    const [options,setOptions] = useState<boolean>(false)
 
     async function toggleLike(){
         try {
@@ -61,6 +64,22 @@ export const CommentsCard = (props) => {
             }
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const toggleOptions=()=>{
+        setOptions(!options)
+    }
+
+    const deletePost = async(postId:string) =>{
+        try {
+            const request = await api.delete(`/tweets/${postId}`)
+            if(request.status===200) {
+                dispatch(deletePostById(postId))
+                dispatch(messageModal("Post deleted successfully"))
+            }
+        } catch (error) {
+            dispatch(messageModal("Something went wrong while deleting post"))
         }
     }
     
@@ -92,8 +111,16 @@ export const CommentsCard = (props) => {
                     <p className='flex justify-between username'> 
                         <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{post.username}</span>
                     </p>
-                    <p className='text-sm text-[#f1f1f1d0] lastupdated'>{timeAgo(post.createdAt)}</p>
-                    <i className='blank'></i>
+                    <div className='text-sm text-[#f1f1f1d0] lastupdated flex justify-end gap-1 items-center h-min relative'>
+                        <span>{timeAgo(post.createdAt)}</span>
+                    <div className='blank relative'>
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
+                        {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
+                        <p className='flex items-center gap-1' onClick={()=>onEdit(post)}><Pencil className='w-[12px] h-[12x]' />Edit</p>
+                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x]' />Delete</p>
+                    </section>}
+                    </div>
+                    </div>
                     <p className='text-base md:text-xl text-[#f1f1f1] font-roboto userContent'>{post.content}</p>
                     <div className='flex flex-col items-end justify-center postReactions'>
                         <p className='text-center text-sm'>

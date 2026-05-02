@@ -89,8 +89,8 @@ export const MainPage:React.FC = () => {
 
   return (
     <div className={`relative grid`}>
-      <main className='bg-[#222222] py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-        {(!loading&&videos.length!==0)&&videos.map((par,index)=>{
+      <main className=' py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+        {(videos&&videos.length!==0)&&videos.map((par,index)=>{
           return<VideoCard key={par._id} data={par}  />
         })}
         {loading&&[...Array(12)].map((index)=>{

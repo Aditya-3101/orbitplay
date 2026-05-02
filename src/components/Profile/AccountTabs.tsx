@@ -75,19 +75,19 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
                     return<VideoCard_v2_skeleton key={index} />
                 }))}
                 </main>}
-            {defaultTab==="Playlists"&&<main>
+            {defaultTab==="Playlists"&&<main className=' w-[90%] mx-auto'>
                 {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par,index)=>{
-                    return<div key={index}>
+                    return<div key={index} className=' mb-2'>
                         <Link to={`/playlists/${par._id}`}>
-                        <div className='grid grid-cols-[40%_60%] gap-4 my-4'>
-                        <section className='aspect-[16/9] relative flex flex-col items-center justify-center'>
-                            <div className='absolute top-0 right-0 left-0 bottom-0 bg-[rgba(0,0,0,0.6)]'></div>
-                            <ListVideo size={40} color="rgba(240,240,240,0.9)" />
+                        <div className='grid grid-cols-[40%_60%] gap-4 my-'>
+                        <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
+                            <div className='absolute top-0 right-0 left-0 bottom-0'></div>
+                            <ListVideo size={36} color="rgba(240,240,240,0.9)" />
                             <p className='text-gray-200 text-xs'>({par.videos.length} Videos)</p>
                         </section>
                         <section>
-                            <p className='text-slate-50 text-2xl font-roboto'>{par.name}</p>
-                            <p className='text-slate-500 text-sm font-roboto'>{par.description} views</p>
+                            <p className='text-slate-50 text-base md:text-2xl font-roboto'>{par.name}</p>
+                            <p className='text-slate-500 text-xs md:text-sm font-roboto'>{par.description} views</p>
                         </section>
                         </div>
                     </Link>

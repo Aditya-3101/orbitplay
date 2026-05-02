@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { VideoCard } from './VideoCard';
 import { api } from '../../api/AxiosInterceptor';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import VideoCard_v2_skeleton from './VideoCard_v2_skeleton';
 
 
 interface Video {
@@ -79,10 +80,15 @@ export const MoreVids = () => {
     <div className='bg-[#222] border-l border-gray-300 grid grid-cols-1'>
         <main className='bg-[#222222] relative py-4 '>
         {vids&&vids.map((par,index)=>{
-          return<div key={index} className='py-2'>
+          return<div key={par._id} className='py-2'>
           <VideoCard data={par}  />
           </div>
         })}
+        <div className='mx-auto py-2 w-[90%]'>
+          {loading&&([...Array(9)].map((index)=>{
+            return<VideoCard_v2_skeleton key={index} />
+            }))}
+        </div>
         </main>
         <div ref={videoContainerRef} className='w-[100%] h-[20px]'/>
     </div>

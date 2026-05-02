@@ -33,11 +33,6 @@ const Player:React.FC = () => {
         dispatch(toggleSideBar(false))
     },[videoId])
 
-    console.log(video);
-    
-
-       
-
     async function pushVideosIntoHistory(vidId:string){
         try {
             const request = await api.post(`/users/history/add`,{
@@ -106,7 +101,7 @@ const Player:React.FC = () => {
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
             <span className='text-slate-200'>{video.video?.views} views</span>
         </p>
-        <VideoMenu uploadTime={uploadedDate}/>
+        {(uploadedDate!==undefined&&uploadedDate!==null)&&<VideoMenu uploadTime={uploadedDate}/>}
         <div className='flex justify-between items-center p-4 border-t border-[rgba(255,255,255,0.2)]'>
             <div className='flex items-center gap-3'>
                 {video.video.owner.avatar&&<img src={video.video.owner.avatar} className='aspect-square w-[2rem] rounded-full object-cover' />}

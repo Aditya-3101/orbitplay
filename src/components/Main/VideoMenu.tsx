@@ -8,13 +8,12 @@ import {messageModal} from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 
 interface playlistType{
-        "_id": string,
-        "name": string,
-        "description": string,
-        "videos": [],
-        "owner": string,
-        "__v": number
-    
+    "_id": string,
+    "name": string,
+    "description": string,
+    "videos": [],
+    "owner": string,
+    "__v": number
 }
 
 interface playlistFormat{
@@ -164,7 +163,7 @@ export const VideoMenu = ({uploadTime}) => {
             </div>
                 </div>
 
-            <p className='text-[#f1f1f190] text-[14px]'>{timeAgo(uploadTime)}</p>
+            {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{timeAgo(uploadTime)}</p>}
          </div>
         </section>
     </div>

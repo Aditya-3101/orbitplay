@@ -42,7 +42,26 @@ export const userPostsDetail = createSlice({
                   : post.likeCount - 1
               }
             }
-        }
+        },
+        deletePostById:(state,action)=>{
+            const postId = action.payload
+            if(state.data){
+                const filtered = state.data.filter(v=>v._id!==postId)
+                state.data=filtered
+            }
+        },
+        updateUserPost:(state,action)=>{
+            const updatedPost = action.payload
+
+            if (state.data) {
+              const post = state.data.find(p => p._id === updatedPost.id)
+          
+              if (post) {
+                post.content = updatedPost.content,
+                post.createdAt = updatedPost.createdAt
+              }
+            }
+        },
     },
     extraReducers(builder) {
         builder.addCase(getUserPosts.pending,(state)=>{
@@ -66,6 +85,6 @@ export const userPostsDetail = createSlice({
     },
 })
 
-export const {updateIsLikedBy} = userPostsDetail.actions
+export const {updateIsLikedBy,deletePostById,updateUserPost} = userPostsDetail.actions
 
 export default userPostsDetail.reducer;
