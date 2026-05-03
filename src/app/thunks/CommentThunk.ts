@@ -3,9 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getVideoComments = createAsyncThunk(
     "video/videoCommentDetails",
-    async(videoId:string|unknown,{getState,rejectWithValue})=>{
+    async({videoId,page}:{videoId:string|unknown,page:number},{getState,rejectWithValue})=>{
         try {
-            const request = await api.get(`/comments/${videoId}`)
+            const request = await api.get(`/comments/${videoId}?page=${page}`)
 
             if(request.status===200) return request.data
 

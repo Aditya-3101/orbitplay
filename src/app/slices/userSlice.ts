@@ -20,8 +20,6 @@ interface initialStateInterface{
     isAuthLoading:boolean
 }
 
-
-
 const initialState:initialStateInterface = {
     userTemp :{
         _id :'',

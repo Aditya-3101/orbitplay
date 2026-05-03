@@ -33,7 +33,7 @@ const Posts = () => {
     const dispatch= useDispatch<AppDispatch>()
     const userPosts = useSelector((state:RootState)=>state.posts)
     const [userComment,setUserComment] = useState<string>('')
-    const [currentlyEditing,setCurrentlyEditing] = useState<PostType|null>()
+    const [currentlyEditing,setCurrentlyEditing] = useState<PostType|null>(null)
 
     useEffect(()=>{
         if(user?._id!==undefined&&user._id!==null) dispatch(getUserPosts(user?._id))
@@ -71,7 +71,6 @@ const Posts = () => {
             })
 
             if(request.status===200) {
-                console.log(request.data)
                 dispatch(messageModal("Post updated.."))
                 dispatch(updateUserPost(request.data.data))
                 setUserComment('')
@@ -85,15 +84,12 @@ const Posts = () => {
             setCurrentlyEditing(null)
         }
     }
-
-    console.log(currentlyEditing);
     
 
     const postHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => setUserComment(e.target.value)
 
     const editPost = (post:PostType) => {
         setCurrentlyEditing(post)
-        console.log(post);
         setUserComment(post.content)
     }
 

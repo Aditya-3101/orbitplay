@@ -31,6 +31,7 @@ const Player:React.FC = () => {
             navigate('/')   
         }
         dispatch(toggleSideBar(false))
+        window.scrollTo(0,0)
     },[videoId])
 
     async function pushVideosIntoHistory(vidId:string){
@@ -117,7 +118,7 @@ const Player:React.FC = () => {
             </div>
         </div>
         </div>}
-        {video&&<Comments />}
+        {video.loadingVideoId===null&&<Comments />}
         </section>
         {!video.loading&&<MoreVids/>}
         <OverLayDialouge/>

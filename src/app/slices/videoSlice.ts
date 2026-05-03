@@ -57,7 +57,9 @@ interface commentInterface{
 interface initialStateInterface{
     video:videoInterface|null;
     loading:boolean,
+    loadingComments:boolean,
     loadingVideoId:unknown|null,
+    hasMoreComments:boolean,
     comments:commentInterface|null;
     error:string|unknown,
     subscribers:number
@@ -83,6 +85,8 @@ const initialState:initialStateInterface = {
     createdAt:''
 },
 comments:null,
+loadingComments:true,
+hasMoreComments:false,
 loading:true,
 loadingVideoId:'',
 error:'',
@@ -96,9 +100,31 @@ export const videoDetailSlice = createSlice({
         toggleCommentLikes:(state,action)=>{
             const selectedComment = state.comments?.data.docs.find(c=>c._id===action.payload);
             if (selectedComment){
-                selectedComment.isLiked=!selectedComment.isLiked
+                selectedComment.isLiked=!selectedComment.isLiked;
                 selectedComment.commentLikeCount=selectedComment.isLiked?selectedComment.commentLikeCount+1:selectedComment.commentLikeCount-1;
             }
+        },
+        updateUserComment:(state,action)=>{
+            const updatedComment = action.payload
+            if (state.comments) {
+              const userComment = state.comments?.data?.docs?.find(p => p._id === updatedComment._id)
+              if (userComment) {
+                userComment.comment = updatedComment.comment;
+                userComment.createdAt = updatedComment.createdAt;
+              }
+            }
+        },
+        deleteCommentById:(state,action)=>{
+            const commentId = action.payload
+            if(state.comments!==undefined&&state.comments!==null){
+                const filtered = state.comments?.data.docs.filter(v=>v._id!==commentId)
+                if(filtered!==undefined&&filtered!==null){
+                state.comments.data.docs=filtered;
+                }
+            }
+        },
+        addComment:(state,action)=>{
+            state.comments?.data.docs.push(action.payload)
         }
     },
     extraReducers(builder) {
@@ -138,17 +164,32 @@ export const videoDetailSlice = createSlice({
             state.loadingVideoId=null
         })
 
+        .addCase(getVideoComments.pending,(state,action)=>{
+            state.loadingComments=true
+        })
+
         .addCase(getVideoComments.rejected,(state,action)=>{
             state.comments=null;
+            state.loadingComments=false
         })
 
         .addCase(getVideoComments.fulfilled,(state,action)=>{
-            state.comments=action.payload
+            let newComments = action.payload.data.docs
+
+            if(!state.comments || state.comments.data.docs.length === 0){
+                state.comments = action.payload;
+            }else{
+                if(newComments!==undefined){
+                state.comments?.data.docs.push(...newComments)
+                }
+            }
+            state.loadingComments=false
+            state.hasMoreComments= (action.payload.data.limit*action.payload?.data.page)<action.payload?.data.totalDocs
         })
     },
 })
 
-export const {toggleCommentLikes} = videoDetailSlice.actions
+export const {toggleCommentLikes,updateUserComment,deleteCommentById,addComment} = videoDetailSlice.actions
 
 //export const {addVideoDetails} = videoDetailSlice.actions
 

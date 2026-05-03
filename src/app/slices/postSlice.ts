@@ -36,7 +36,7 @@ export const userPostsDetail = createSlice({
               const post = state.data.find(p => p._id === postId)
           
               if (post) {
-                post.isLiked = !post.isLiked
+                post.isLiked = !post.isLiked;
                 post.likeCount = post.isLiked
                   ? post.likeCount + 1
                   : post.likeCount - 1
@@ -47,18 +47,18 @@ export const userPostsDetail = createSlice({
             const postId = action.payload
             if(state.data){
                 const filtered = state.data.filter(v=>v._id!==postId)
-                state.data=filtered
+                state.data=filtered;
             }
         },
         updateUserPost:(state,action)=>{
-            const updatedPost = action.payload
+            const updatedPost = action.payload;
 
             if (state.data) {
-              const post = state.data.find(p => p._id === updatedPost.id)
+              const post = state.data.find(p => p._id === updatedPost._id)
           
               if (post) {
-                post.content = updatedPost.content,
-                post.createdAt = updatedPost.createdAt
+                post.content = updatedPost.content;
+                post.createdAt = updatedPost.createdAt;
               }
             }
         },
