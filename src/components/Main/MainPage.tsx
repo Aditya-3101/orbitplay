@@ -6,6 +6,7 @@ import VideoCardSkeleton from './VideoCardSkeleton.tsx';
 import { api } from '../../api/AxiosInterceptor.ts';
 import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.tsx';
 import { AppDispatch } from '../../app/store/store.ts';
+import { emptyArr } from '../../utility/emptyArrays.ts';
 
 interface Video {
   _id: string;
@@ -93,8 +94,8 @@ export const MainPage:React.FC = () => {
         {(videos&&videos.length!==0)&&videos.map((par,index)=>{
           return<VideoCard key={par._id} data={par}  />
         })}
-        {loading&&[...Array(12)].map((index)=>{
-          return<VideoCardSkeleton key={index}/>
+        {loading&&emptyArr.map((par)=>{
+          return<VideoCardSkeleton key={par.id}/>
         })
         }
       </main>

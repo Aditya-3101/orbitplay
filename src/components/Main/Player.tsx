@@ -12,6 +12,9 @@ import { MoreVids } from './MoreVids.tsx';
 import {toggleSideBar} from '../../app/slices/toggleSlice.ts'
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx'
 import { api } from '../../api/AxiosInterceptor.ts';
+import { Player_Skeleton } from './Player_Skeleton.tsx';
+import { emptyArr } from '../../utility/emptyArrays.ts';
+import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 
 
 
@@ -55,10 +58,6 @@ const Player:React.FC = () => {
         return <div>Error....</div>
     }
 
-    if(video.loadingVideoId===video.video?._id){
-        return <div>Loading..</div>
-    }
-
     async function checkSubscriptionStatus() {
         
         try {
@@ -94,9 +93,10 @@ const Player:React.FC = () => {
     }
 
   return (
+    <>
     <div className='grid grid-cols-1 md:grid-cols-[70%_30%] relative'>
         <section>
-        {video.video&&<div className='aspect-video bg-[#222222]'>
+        {(video.video)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
         {video.video.videoFile&&<video src={video.video.videoFile} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-[100%]'/>}
         <p className='p-2 flex justify-between'>
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
@@ -118,11 +118,20 @@ const Player:React.FC = () => {
             </div>
         </div>
         </div>}
-        {video.loadingVideoId===null&&<Comments />}
+        {!video.loading&&<Comments />}
         </section>
         {!video.loading&&<MoreVids/>}
+        {video.loading&&<div className='bg-[rgba(20,20,20,0.9)] relative py-4 '>
+            <div className='mx-auto py-1 w-[90%]'>
+            {emptyArr.map((par)=>{
+                return<VideoCard_v2_skeleton key={par.id} />
+            })}</div>
+            </div>}
         <OverLayDialouge/>
     </div>
+    {/* {video.loading===true&&<Player_Skeleton/>}         */}
+
+    </>
   )
 }
 

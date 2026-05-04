@@ -164,7 +164,8 @@ export const  Comments:React.FC = () => {
   return (
     <div className='relative'>
         <section className='bg-[rgba(0,0,0,0.8)] flex items-center justify-between px-2 border-b border-gray-600'>
-        <section className='flex items-center'><SectionHeader title="Comments" size="text-lg" /><span className='text-gray-400'>({comments?.data.docs.length})</span></section>
+        <section className='flex items-center'><SectionHeader title="Comments" size="text-lg" />
+        {comments?.data!==undefined&&<span className='text-gray-400'>{comments?.data.docs?.length>0?`(${comments?.data.docs.length})`:"(0)"}</span>}</section>
         {openComment?<ChevronUp className='text-[#f1f1f1]' onClick={showComments} />:<ChevronDown className='text-[#f1f1f1]' onClick={showComments} />}
         </section>
         <main className={`transition-all duration-300 overflow-hidden ${

@@ -94,9 +94,7 @@ export const CommentsCard = (props) => {
             dispatch(messageModal("Something went wrong while deleting comment"))
         }
     }
-    
-    console.log(par);
-    
+        
   return (
     <div>
         {par&&<div className='postcontainer place-content-center border-b border-[rgba(0,0,0,0.5)] p-1.5 md:w-[90%]'>

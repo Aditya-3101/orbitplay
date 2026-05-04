@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { VideoCard } from './VideoCard';
 import { api } from '../../api/AxiosInterceptor';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
-import VideoCard_v2_skeleton from './VideoCard_v2_skeleton';
-
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
+import { emptyArr } from '../../utility/emptyArrays.ts';
+import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 
 interface Video {
     _id: string;
@@ -77,16 +77,16 @@ export const MoreVids = () => {
     }
 
   return (
-    <div className='bg-[#222] border-l border-gray-300 grid grid-cols-1'>
-        <main className='bg-[#222222] relative py-4 '>
+    <div className='bg-[rgba(20,20,20,0.9)] border-l border-gray-300 grid grid-cols-1'>
+        <main className=' relative py-4 '>
         {vids&&vids.map((par,index)=>{
-          return<div key={par._id} className='py-2'>
+          return<div key={par._id} className='py-1'>
           <VideoCard data={par}  />
           </div>
         })}
-        <div className='mx-auto py-2 w-[90%]'>
-          {loading&&([...Array(9)].map((index)=>{
-            return<VideoCard_v2_skeleton key={index} />
+        <div className='mx-auto py-1 w-[90%]'>
+          {loading&&(emptyArr.map((par)=>{
+            return<VideoCard_v2_skeleton key={par.id} />
             }))}
         </div>
         </main>
