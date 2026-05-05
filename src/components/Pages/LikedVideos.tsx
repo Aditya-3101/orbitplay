@@ -3,6 +3,9 @@ import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import { api } from '../../api/AxiosInterceptor.ts';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
+import { emptyArr } from '../../utility/emptyArrays.ts';
+import { ErrorPage } from './ErrorPage.tsx';
+import { Link } from 'react-router';
 
 interface likedVideoDataType{
     "likedVideo": {
@@ -34,10 +37,11 @@ interface likedVideoType{
         "success": number
 }
 
-const LikedVideos = () => {
+const LikedVideos = ():React.JSX.Element => {
 
     const [likedVideos,setLikedVideos] = useState<likedVideoType>()
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState<boolean>(false)
+    const [error,setError] = useState<string|null>(null)
 
     useEffect(()=>{
         fetchLikedVideos()
@@ -50,12 +54,17 @@ const LikedVideos = () => {
             if(request.status===200){
                 setLikedVideos(request.data)
                 setLoading(false)
+                setError(null)
             }
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            setError(err?.message)
         }finally{
             setLoading(false)
         }
+    }
+
+    if(error!==null){
+        return<ErrorPage msg="Liked videos"/>
     }
 
 
@@ -67,17 +76,17 @@ const LikedVideos = () => {
                 {((!loading&&likedVideos)&&likedVideos.data.length!==0)&&<div>
                     <section>
                         {likedVideos.data.map((par)=>{
-                            return<div key={par._id}>
+                            return<Link key={par._id} to={`/v/${par.likedVideo._id}`}>
                                 <VideoCard_v2 data={par.likedVideo} />
-                            </div>
+                            </Link>
                         })}
                     </section>
                     </div>}
             </section>
             <div className='mx-auto py-2 w-[90%]'>
-            {loading&&([...Array(9)].map((index)=>{
-                    return<VideoCard_v2_skeleton key={index} />
-                }))}
+            {loading&&emptyArr.map((par)=>{
+                    return<VideoCard_v2_skeleton key={par.id} />
+                })}
             </div>
             {(!likedVideos||likedVideos.data.length===0)&&<section>
                 <div className='h-[14rem] font-roboto text-gray-300 flex items-center justify-center'>

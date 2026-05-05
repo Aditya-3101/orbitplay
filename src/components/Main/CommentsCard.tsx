@@ -97,9 +97,9 @@ export const CommentsCard = (props) => {
         
   return (
     <div>
-        {par&&<div className='postcontainer place-content-center border-b border-[rgba(0,0,0,0.5)] p-1.5 md:w-[90%]'>
+        {par&&<div className='postcontainer place-content-center border-b border-[rgba(124,124,124,0.5)] p-1.5 md:w-[98%] mx-auto'>
                    <div className='flex items-center justify-center userAvatar'>
-                    {par.owner.avatar!==undefined&&<img src={par.owner.avatar} className='aspect-square w-[1.5rem] object-cover' />}
+                    {par.owner.avatar!==undefined&&<img src={par.owner.avatar} className='aspect-square w-[1.5rem] md:w-[2rem] lg:w-[2.5rem] object-cover' />}
                    </div>
                     <p className='flex justify-between username'> 
                         <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{par.owner.username}</span>

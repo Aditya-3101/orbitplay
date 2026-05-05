@@ -113,7 +113,8 @@ export const ChangeCover = () => {
                 </div>
                 </div>
             </div>
-            {msg.loading&&<div className='absolute top-0 left-0 right-0 bottom-0 h-[6rem] md:h-[20rem] bg-[rgba(0,0,0,0.9)] flex items-center justify-center'>
+            {msg.loading&&<div className='absolute top-0 left-0 right-0 bottom-0 h-[8rem] md:h-[50dvh] lg:h-[70dvh] bg-[rgba(0,0,0,0.9)] flex items-center justify-center gap-1 flex-col'>
+            <div className="loader"></div>
                 <p>Loading....</p>
                 </div>}
         </div>

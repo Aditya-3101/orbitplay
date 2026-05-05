@@ -217,13 +217,17 @@ export const UpdateAccountDetails = () => {
 
   return (
     <div className='py-4'>
-        <div className='font-roboto flex flex-col gap-4 w-[90%] md:w-[60%] lg:w-[50%] mx-auto md:ml-0'>
+        <div className='relative font-roboto flex flex-col gap-4 w-[90%] md:w-[60%] lg:w-[50%] mx-auto md:ml-0'>
             <p className='text-lg text-gray-200'>Update Account</p>
             {msg.error!==null&&<div className='text-gray-300 p-2 border border-red-600'>
                 {msg.error}
                 </div>}
             {msg.success!==null&&<div className='text-gray-300 p-2 border border-green-700'>
                 {msg.success}
+                </div>}
+            {msg.loading&&<div className='text-gray-300 p-2 border border-gray-600 flex items-center gap-2'>
+            <div className="loader" id="small-loader"></div>
+                Updating...
                 </div>}
             <div>
                 <p className='text-gray-400'>
@@ -266,6 +270,7 @@ export const UpdateAccountDetails = () => {
                 <button className='border border-gray-400 p-2 rounded-xl text-gray-200' onClick={updateDetail}>Update</button>
             </div>
         </div>
+
     </div>
   )
 }

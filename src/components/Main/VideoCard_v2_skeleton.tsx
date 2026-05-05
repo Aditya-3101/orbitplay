@@ -4,7 +4,7 @@ const VideoCard_v2_skeleton = () => {
   return (
     <div>
         <div>
-        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[8rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] gap-2 my-4 border border-gray-500'>
+        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] gap-2 my-4 border border-gray-500'>
             <section className='relative flex justify-center'>
                 <div className='w-[100%] h-[100%] aspect-video object-cover block animate-pulse bg-[rgba(240,240,240,0.16)]'></div>
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'></p>

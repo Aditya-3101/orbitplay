@@ -7,6 +7,8 @@ import { api } from '../../api/AxiosInterceptor.ts';
 import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.tsx';
 import { AppDispatch } from '../../app/store/store.ts';
 import { emptyArr } from '../../utility/emptyArrays.ts';
+import { ErrorPage } from '../Pages/ErrorPage.tsx';
+import { Link } from 'react-router';
 
 interface Video {
   _id: string;
@@ -43,12 +45,12 @@ interface GetVideosResponse {
 export const MainPage:React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>()
-
   const [videos,setVideos] = useState<Video[]>([])
   const [loading,setLoading] = useState(false)
   const [page,setPage] = useState<number>(1)
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const [hasMore,setHasmore]=useState<boolean>(false)
+  const [error,setError] = useState<string|null>(null)
   
   const pageCallback = useCallback(()=>{
     if(!loading&&hasMore){
@@ -78,15 +80,21 @@ export const MainPage:React.FC = () => {
       
         return [...prev, ...filtered];
       });
+      setError(null)
       setLoading(false)
       setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount)
     }
     }catch(err){
+      setError(err?.message)
       dispatch(messageModal("Encountered error while fetching videos :("))
     }finally {
       setLoading(false);
     }
   }  
+
+  if(error!==null){
+    return<ErrorPage msg="Videos"/>
+  }
 
   return (
     <div className={`relative grid`}>

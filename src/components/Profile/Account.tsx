@@ -8,6 +8,7 @@ import {getChannelDetails} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench } from 'lucide-react';
 import {Link} from 'react-router'
+import { ErrorPage } from '../Pages/ErrorPage.tsx';
 
 
 const Account:React.FC = () => {
@@ -44,6 +45,10 @@ const Account:React.FC = () => {
     fetchData()
     },[subscribeStatus,params])
 
+    if(channelData.error!==null){
+        return<ErrorPage msg="Channel Details"/>
+    }
+
     const currentUser = params.channelName ? channelData.channelUserDetail : user;
     const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username) ? true : false
 
@@ -72,6 +77,7 @@ const Account:React.FC = () => {
                         No Cover Image
                     </div>
                 }
+                {loading.profile&&<div className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto animate-pulse bg-gray-800'></div>}
             </div>
             <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-[100%] mx-auto'>
             <div className=''>

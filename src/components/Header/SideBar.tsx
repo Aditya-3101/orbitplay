@@ -1,5 +1,5 @@
 import React from 'react'
-import {House,CircleUserRound,Tv,History, UserRound,ThumbsUp, Upload, Rss} from 'lucide-react'
+import {House,CircleUserRound,Tv,History, UserRound,ThumbsUp, Upload, Rss, Cog} from 'lucide-react'
 import { NavLink } from 'react-router'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store/store'
@@ -8,7 +8,7 @@ export const SideBar = () => {
     const username = useSelector((state:RootState)=>state.user.userTemp?.username)
   return (
     <div>
-        <div className='bg-[rgba(0,0,0,0.9)] border-r border-gray-400 sidebar '>
+        <div className='bg-[rgba(0,0,0,0.9)] h-full border-r border-gray-400 sidebar '>
             <NavLink to="/"  className={({isActive})=>(isActive?"text-[rgb(37,192,239)] flex items-center gap-4 p-4 border-b border-gray-400":'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200')}>
                 <House />
                 <p>Home</p>
@@ -40,6 +40,10 @@ export const SideBar = () => {
             <NavLink to="/upload" className={({isActive})=>(isActive?"text-[rgb(37,192,239)] flex items-center gap-4 p-4 border-b border-gray-400":'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200')}>
                 <Upload/>
                 <p>Upload video</p>
+            </NavLink>
+            <NavLink to="/settings" className={({isActive})=>(isActive?"text-[rgb(37,192,239)] flex items-center gap-4 p-4 border-b border-gray-400":'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200')}>
+                <Cog />
+                <p>Settings</p>
             </NavLink>
         </div>
     </div>

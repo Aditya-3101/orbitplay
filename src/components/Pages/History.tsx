@@ -5,6 +5,8 @@ import { dateAgo } from '../../utility/timeStamp.ts';
 import { Link } from 'react-router';
 import { api } from '../../api/AxiosInterceptor.ts';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
+import { ErrorPage } from './ErrorPage.tsx';
+import { emptyArr } from '../../utility/emptyArrays.ts';
 interface watchHistoryVideoType{
     "_id": string,
     "video": {
@@ -49,6 +51,7 @@ const History:React.FC = () => {
   const [sortWatchHistory,setSortWatchHistory] = useState<sortWatchHistoryType>()
   const [checkIfEmpty,setCheckIfEmpty] = useState(false)
   const [loading,setLoading] = useState(false)
+  const [error,setError] = useState<null|string>(null)
 
   useEffect(()=>{
     fetchHistory()
@@ -66,11 +69,16 @@ const History:React.FC = () => {
           setCheckIfEmpty(true)
         }
         setLoading(false)
+        setError(null)
       }
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      setError(err?.message)
       setLoading(false)
     }
+  }
+
+  if(error!==null){
+    return<ErrorPage msg="Watch history"/>
   }
 
   function sortHistory(par:watchHistoryResponse) {
@@ -141,11 +149,11 @@ const History:React.FC = () => {
           }
           </div>
       </div>
-      {checkIfEmpty&&<div className='flex justify-center items-center h-[5rem] md:h-[15rem]'>
+      {checkIfEmpty&&<div className='flex justify-center items-center h-[6rem] md:h-[15rem]'>
         <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
         </div>}
-        {loading&&([...Array(9)].map((index)=>{
-          return<div key={index} className='p-4'><VideoCard_v2_skeleton /></div>
+        {loading&&(emptyArr.map((par)=>{
+          return<div key={par.id} className='p-2'><VideoCard_v2_skeleton /></div>
         }))}
       </div>
     </div>

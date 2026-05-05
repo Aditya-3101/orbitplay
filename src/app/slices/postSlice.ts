@@ -16,13 +16,15 @@ interface userPostResponseType{
     "data": userPostDataType[]|null,
     "message": string|null,
     "success": number|null
+    "error": string|null
 }
 
 const initialState:userPostResponseType = {
     statusCode:null,
     data:null,
     message:null,
-    success:null
+    success:null,
+    error:null
 }
 
 export const userPostsDetail = createSlice({
@@ -69,18 +71,21 @@ export const userPostsDetail = createSlice({
             state.statusCode=null
             state.message=null
             state.success=null
+            state.error=null
         })
         .addCase(getUserPosts.fulfilled,(state,action)=>{
             state.statusCode=action.payload.statusCode,
             state.data=action.payload.data,
             state.message=action.payload.message,
             state.success=action.payload.success
+            state.error=null
         })
         .addCase(getUserPosts.rejected,(state,action)=>{
             state.statusCode=500,
             state.data=null,
             state.message="failed to fetch user posts",
             state.success=null
+            state.error="failed to fetch user posts"
         })
     },
 })

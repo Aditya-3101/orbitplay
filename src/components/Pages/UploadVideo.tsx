@@ -179,7 +179,9 @@ const UploadVideo = () => {
         </form>
       </div>
       {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>
-        <div className='font-roboto text-lg text-gray-100 bg-gray-700 px-2 py-1 rounded-2xl'>Uploading....</div>
+        <div className='font-roboto text-lg text-gray-100 px-2 py-1 rounded-2xl flex flex-col items-center justify-center gap-1'>
+        <div className="loader"></div>
+          Uploading....</div>
         </div>}
     </div>
   )

@@ -5,6 +5,9 @@ import { RootState } from '../../app/store/store';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
+import { emptyArr } from '../../utility/emptyArrays.ts';
+import { ErrorPage } from './ErrorPage.tsx';
+import { Link } from 'react-router';
 
 interface userSubscriptionsInterface{
     _id: string;
@@ -54,7 +57,10 @@ interface videosFromChannelInterface{
     "success": number
 }
 
-
+interface ErrorType{
+    subscribedChannel:string|null;
+    subscribedChannelVideos:string|null
+}
 
 const Subscriptions:React.FC = () => {
     const {userTemp} = useSelector((state:RootState)=>state.user)
@@ -65,7 +71,10 @@ const Subscriptions:React.FC = () => {
         profile:false,
         videos:false
     })
-
+    const [error,setError] = useState<ErrorType>({
+        subscribedChannel:null,
+        subscribedChannelVideos:null
+    })
 
     useEffect(()=>{
         fetchSubscribedChannels()
@@ -79,9 +88,16 @@ const Subscriptions:React.FC = () => {
             if(req.status===200) {
                 setLoading((prev)=>({...prev,videos:false}))
                 setVideosFromChannel(req.data)
+                setError((prev)=>({
+                    ...prev,
+                    subscribedChannelVideos:null
+                }))
             }
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            setError((prev)=>({
+                ...prev,
+                subscribedChannel:err?.message
+            }))
         }finally{
             setLoading((prev)=>({...prev,videos:false}))
         }
@@ -94,15 +110,27 @@ const Subscriptions:React.FC = () => {
                 setUserSubscriptions(req.data)
                 if(req.data?.data[0]!==undefined) fetchVideosFromSubscribedChannels(req.data.data[0].subscribedTo[0]._id)
                 if(req.data?.data[0]!==undefined) setDefaultChannel(req.data.data[0].subscribedTo[0]._id)
+                setError((prev)=>({
+                    ...prev,
+                    subscribedChannelVideos:null
+                }))
             }
-        } catch (error) {
-            console.log(error)   
+        } catch (err) {
+            setError((prev)=>({
+                ...prev,
+                subscribedChannelVideos:err?.message
+            }))
+            console.log(err)   
         }
     }
 
     function onChangeChannel(id:string){
         setDefaultChannel(id)
         fetchVideosFromSubscribedChannels(id)
+    }
+
+    if(error.subscribedChannel!==null||error.subscribedChannelVideos!==null){
+        return<ErrorPage msg="Subscribed channels"/>
     }
 
 
@@ -123,14 +151,14 @@ const Subscriptions:React.FC = () => {
             </div>
             <section>
                 <div>
-                    {(!loading.videos&&videosFromChannel?.data.length!==0)&&videosFromChannel?.data.map((par,index)=>{
-                        return <div className='mx-auto w-[90%] py-2' key={index}>
+                    {(!loading.videos&&videosFromChannel?.data.length!==0)&&videosFromChannel?.data.map((par)=>{
+                        return <Link className='mx-auto w-[90%] py-2' key={par._id} to={`/v/${par._id}`}>
                             <VideoCard_v2 data={par} />
-                            </div>
+                            </Link>
                     })}
                     {(!loading.videos&&videosFromChannel?.data.length==0)&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
-                {(loading.videos)&&([...Array(9)].map((index)=>{
-                    return<div className='mx-auto w-[90%] py-2' key={index}>
+                {(loading.videos)&&(emptyArr.map((par)=>{
+                    return<div className='mx-auto w-[90%] py-2' key={par.id}>
                     <VideoCard_v2_skeleton />
                     </div>
                 }))}

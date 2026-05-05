@@ -166,7 +166,7 @@ export const  Comments:React.FC = () => {
         <section className='bg-[rgba(0,0,0,0.8)] flex items-center justify-between px-2 border-b border-gray-600'>
         <section className='flex items-center'><SectionHeader title="Comments" size="text-lg" />
         {comments?.data!==undefined&&<span className='text-gray-400'>{comments?.data.docs?.length>0?`(${comments?.data.docs.length})`:"(0)"}</span>}</section>
-        {openComment?<ChevronUp className='text-[#f1f1f1]' onClick={showComments} />:<ChevronDown className='text-[#f1f1f1]' onClick={showComments} />}
+        {openComment?<ChevronUp className='text-[#f1f1f1] cursor-pointer' onClick={showComments} />:<ChevronDown className='text-[#f1f1f1] cursor-pointer' onClick={showComments} />}
         </section>
         <main className={`transition-all duration-300 overflow-hidden ${
           openComment ? "max-h-[700px] overflow-y-auto" : "max-h-0"
@@ -179,8 +179,8 @@ export const  Comments:React.FC = () => {
                 <textarea className='w-[100%] border border-[rgba(68,68,68,0.9)] text-[#f1f1f1] resize-y min-h-10 max-h-20 px-1' autoCorrect='false' value={userComment} name="userComment" onChange={commentHandler} />
             </div>
             <div className='ml-auto py-2'>
-                <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline' onClick={cancelChanges}>Cancel</button>
-                {currentlyEditing===null&&<button className='font-sans bg-[#f1f1f1d0] ml-2 px-2 py-0.5 rounded' disabled={userComment.length!==0?false:true} onClick={submitComment}>Post</button>}
+                <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline cursor-pointer' onClick={cancelChanges}>Cancel</button>
+                {currentlyEditing===null&&<button className='font-sans bg-[#f1f1f1d0] ml-2 px-2 py-0.5 rounded cursor-pointer' disabled={userComment.length!==0?false:true} onClick={submitComment}>Post</button>}
                 {currentlyEditing!==null&&<button className='font-sans bg-[#f1f1f1d0] ml-2 px-2 py-0.5 rounded cursor-pointer' disabled={userComment.length!==0?false:true} onClick={updateComment}>Update</button>}
             </div>
         </section>

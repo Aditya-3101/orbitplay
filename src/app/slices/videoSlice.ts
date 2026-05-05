@@ -176,6 +176,7 @@ export const videoDetailSlice = createSlice({
         .addCase(getVideoComments.fulfilled,(state,action)=>{
             state.loadingComments=false
             state.hasMoreComments= (action.payload.data.limit*action.payload?.data.page)<action.payload?.data.totalDocs
+            state.comments=action.payload
         })
     },
 })

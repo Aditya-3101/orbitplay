@@ -76,8 +76,8 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
                 }))}
                 </main>}
             {defaultTab==="Playlists"&&<main className=''>
-                {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par,index)=>{
-                    return<div key={index} className=' mb-2'>
+                {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par)=>{
+                    return<div key={par._id} className=' mb-2'>
                         <Link to={`/playlists/${par._id}`}>
                         <div className='grid grid-cols-[40%_60%] gap-4'>
                         <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>

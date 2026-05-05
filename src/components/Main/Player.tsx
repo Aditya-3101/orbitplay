@@ -12,11 +12,9 @@ import { MoreVids } from './MoreVids.tsx';
 import {toggleSideBar} from '../../app/slices/toggleSlice.ts'
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx'
 import { api } from '../../api/AxiosInterceptor.ts';
-import { Player_Skeleton } from './Player_Skeleton.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
-
-
+import { ErrorPage } from '../Pages/ErrorPage.tsx';
 
 const Player:React.FC = () => {
     const {videoId} = useParams()
@@ -37,6 +35,7 @@ const Player:React.FC = () => {
         window.scrollTo(0,0)
     },[videoId])
 
+
     async function pushVideosIntoHistory(vidId:string){
         try {
             const request = await api.post(`/users/history/add`,{
@@ -53,10 +52,6 @@ const Player:React.FC = () => {
     let uploadedDate:string|undefined
 
     if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) uploadedDate = format(new Date(video?.video.createdAt),"dd MMMM yyyy");    
-
-    if(video.error!==null){
-        return <div>Error....</div>
-    }
 
     async function checkSubscriptionStatus() {
         
@@ -92,6 +87,10 @@ const Player:React.FC = () => {
         }
     }
 
+    if(video.error!==null){
+        return<ErrorPage msg="video" />
+    }
+
   return (
     <>
     <div className='grid grid-cols-1 md:grid-cols-[70%_30%] relative'>
@@ -102,7 +101,7 @@ const Player:React.FC = () => {
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
             <span className='text-slate-200'>{video.video?.views} views</span>
         </p>
-        {(uploadedDate!==undefined&&uploadedDate!==null)&&<VideoMenu uploadTime={uploadedDate}/>}
+        {(uploadedDate!==undefined&&!video.loading)&&<VideoMenu uploadTime={uploadedDate}/>}
         <div className='flex justify-between items-center p-4 border-t border-[rgba(255,255,255,0.2)]'>
             <div className='flex items-center gap-3'>
                 {video.video.owner.avatar&&<img src={video.video.owner.avatar} className='aspect-square w-[2rem] rounded-full object-cover' />}

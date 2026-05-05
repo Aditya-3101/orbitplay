@@ -22,6 +22,7 @@ const ErrorWall = React.lazy(()=>import('./components/ErrorBoundry/ErrorWall.tsx
 const Settings = React.lazy(()=>import('./components/Pages/Settings.tsx'))
 const OptionsPage = React.lazy(()=>import('./components/Pages/settings/Options.tsx'))
 const PostPage = React.lazy(()=>import('./components/Pages/Posts.tsx'))
+const UnknownPage = React.lazy(()=>import('./components/Pages/EmptyPage.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -59,7 +60,7 @@ const router = createBrowserRouter(
 
     </Route>
     </Route>
-    <Route path='*' element={<h2>Not Found!!!</h2>} />
+    <Route path='*' element={<UnknownPage/>} />
     <Route element={<PublicRoute/>}>
     <Route path="/login" element={<Login/>} errorElement={<ErrorBoundry/>} />
     <Route path="/register" element={<Register/>} errorElement={<ErrorBoundry/>}/>

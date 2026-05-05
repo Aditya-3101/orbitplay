@@ -73,6 +73,7 @@ export const channelDetailSlice = createSlice({
             state.channelVideos=action.payload.userVideos;
             state.channelPlaylist=action.payload.userPlaylist;
             state.loading=false;
+            state.error=null;
         })
         .addCase(getChannelDetails.rejected,(state,action)=>{
             state.loading=false;

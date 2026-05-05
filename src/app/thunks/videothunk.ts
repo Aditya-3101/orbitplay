@@ -23,6 +23,7 @@ export const saveTheVideo = createAsyncThunk(
             }
 
         }catch(err){
+            console.log(err)
             return rejectWithValue(err?.message||"failed to fetch video")
         }
     }

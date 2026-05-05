@@ -9,6 +9,7 @@ import { SectionHeader } from '../Header/sectionHeader.tsx'
 import { messageModal } from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts'
 import {updateUserPost} from '../../app/slices/postSlice.ts'
+import { ErrorPage } from './ErrorPage.tsx'
 
 interface PostType{
 avatar:string
@@ -96,6 +97,10 @@ const Posts = () => {
     const cancelChanges = () => {
         setCurrentlyEditing(null)
         setUserComment('')
+    }
+
+    if(userPosts.error!==null){
+        return<ErrorPage msg="User posts"/>
     }
 
   return (
