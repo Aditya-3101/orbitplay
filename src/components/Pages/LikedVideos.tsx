@@ -47,7 +47,7 @@ const LikedVideos = ():React.JSX.Element => {
         fetchLikedVideos()
     },[])
 
-    async function fetchLikedVideos() {
+    async function fetchLikedVideos():Promise<void> {
         setLoading(true)
         try {
             const request = await api.get<likedVideoType>(`/likes/videos`)

@@ -53,7 +53,7 @@ const Player:React.FC = () => {
 
     if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) uploadedDate = format(new Date(video?.video.createdAt),"dd MMMM yyyy");    
 
-    async function checkSubscriptionStatus() {
+    async function checkSubscriptionStatus():Promise<void> {
         
         try {
             const request = await api.get(`/subscriptions/check/${video.video?.owner._id}`)
@@ -69,7 +69,7 @@ const Player:React.FC = () => {
         }
     }
 
-    async function trackUserPlay(param:string|undefined){
+    async function trackUserPlay(param:string|undefined):Promise<void>{
         if(didUserPlayed) return 
         if(param!==undefined){
         setTimeout(()=>pushVideosIntoHistory(param),2000)
@@ -77,7 +77,7 @@ const Player:React.FC = () => {
         }
     }
 
-    async function followChannel(par:string|undefined){
+    async function followChannel(par:string|undefined):Promise<void>{
         try {//{{server}}/subscriptions/c/:channeld
             const request = await api.post(`/subscriptions/c/${par}`,{})
             if(request.status===200)  checkSubscriptionStatus()

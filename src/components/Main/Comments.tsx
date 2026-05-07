@@ -71,8 +71,8 @@ export const  Comments:React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const comments = useSelector((state:RootState)=>state.video.comments)
     const [currentlyEditing,setCurrentlyEditing] = useState<commentType|null>(null)
-    const [page,setPage] = useState(1)
-    const commentContainerRef = useRef(null)
+    const [page,setPage] = useState<number>(1)
+    const commentContainerRef = useRef<HTMLDivElement>(null)
     const pageCallback = useCallback(()=>{
         if(!loadingComments&&hasMoreComments){
           setPage(prev=>prev+1)
@@ -137,7 +137,7 @@ export const  Comments:React.FC = () => {
         setUserComment('')
     }
 
-    const updateComment = async() => {
+    const updateComment = async():Promise<void> => {
         if(userComment.trim().length===0) {
             dispatch(messageModal(`Invalid post`));
             return

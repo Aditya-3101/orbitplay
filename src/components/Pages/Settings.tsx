@@ -7,7 +7,7 @@ import { openAccountBar } from '../../app/slices/toggleSlice';
 import {clearUser} from '../../app/slices/userSlice'
 import { api } from '../../api/AxiosInterceptor';
 
-const Settings = () => {
+const Settings = ():React.JSX.Element => {
 
     const arr = [
         {
@@ -37,7 +37,7 @@ const Settings = () => {
         dispatch(openAccountBar(false))
     },[])
 
-    function getIcon(par:string){
+    function getIcon(par:string):React.ReactNode{
         switch(par){
             case 'UserPen': return <UserPen/>;
             case 'Image':return <Image/>;
@@ -45,7 +45,7 @@ const Settings = () => {
         }
     }
 
-    async function logOutSession() {
+    async function logOutSession():Promise<void> {
         try {
             const request = await api.post('/users/logout',{})
     

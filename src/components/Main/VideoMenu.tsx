@@ -36,7 +36,7 @@ interface fetchLikeType{
     success: number
 }
 
-export const VideoMenu = ({uploadTime}) => {
+export const VideoMenu = ({uploadTime}):React.JSX.Element => {
     const videoDetails = useSelector((state:RootState)=>state.video.video)
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const dispatch = useDispatch()
@@ -58,7 +58,7 @@ export const VideoMenu = ({uploadTime}) => {
         fetchPlaylist()
     },[videoId])
     
-    async function addTheVideoInPlaylist() {
+    async function addTheVideoInPlaylist():Promise<void> {
         let par = selectedPlayList.id;
         try {
             const request = await api.patch(`/playlist/add/${videoDetails?._id}/${par}`,{})
@@ -76,7 +76,7 @@ export const VideoMenu = ({uploadTime}) => {
         }
     }
 
-    async function fetchLikes(par:string|unknown) {
+    async function fetchLikes(par:string|unknown):Promise<void> {
         try {
             const req = await api.get<fetchLikeType>(`/likes/v/${par}`)
             if(req.status===200){

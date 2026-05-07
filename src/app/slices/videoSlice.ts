@@ -38,7 +38,6 @@ interface commentsInterfaceDocs {
     "commentLikeCount": number,
     "isLiked": boolean
 }
-
 interface commentInterface{
     "data": {
         "docs": commentsInterfaceDocs[],
@@ -53,7 +52,6 @@ interface commentInterface{
         "nextPage": null|unknown
     },
 }
-
 interface initialStateInterface{
     video:videoInterface|null;
     loading:boolean,

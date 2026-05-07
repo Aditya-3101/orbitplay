@@ -49,15 +49,15 @@ interface sortWatchHistoryType{
 const History:React.FC = () => {
 
   const [sortWatchHistory,setSortWatchHistory] = useState<sortWatchHistoryType>()
-  const [checkIfEmpty,setCheckIfEmpty] = useState(false)
-  const [loading,setLoading] = useState(false)
+  const [checkIfEmpty,setCheckIfEmpty] = useState<boolean>(false)
+  const [loading,setLoading] = useState<boolean>(false)
   const [error,setError] = useState<null|string>(null)
 
   useEffect(()=>{
     fetchHistory()
   },[])
 
-  async function fetchHistory(){
+  async function fetchHistory():Promise<void>{
     setLoading(true)
     try {
       const request = await api.get<watchHistoryResponse>(`/users/history`)
@@ -81,7 +81,7 @@ const History:React.FC = () => {
     return<ErrorPage msg="Watch history"/>
   }
 
-  function sortHistory(par:watchHistoryResponse) {
+  function sortHistory(par:watchHistoryResponse):void {
 
     let globalArr:sortWatchHistoryType = {
       today:[],

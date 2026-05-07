@@ -4,7 +4,7 @@ import { ChangeAvatar } from './ChangeAvatar.tsx';
 import { ChangeCover } from './ChangeCover.tsx';
 import { UpdateAccountDetails } from './UpdateAccountDetails.tsx';
 
-const options = () => {
+const options = ():React.JSX.Element => {
     const location = useLocation()
     const currentPath = getpath(location.pathname)
 

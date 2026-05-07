@@ -40,13 +40,13 @@ interface commentsInterfaceDocs {
     onEdit:Function
 }
 
-export const CommentsCard = (props) => {
+export const CommentsCard = (props):React.JSX.Element => {
     const {par,post,onEdit} = props as commentsInterfaceDocs
     const dispatch = useDispatch<AppDispatch>()
     const [options,setOptions] = useState<boolean>(false)
     const currentUser = useSelector((state:RootState)=>state.user.userTemp?._id)
 
-    async function toggleLike(){
+    async function toggleLike():Promise<void>{
         try {
             const request = await api.post(`/likes/toggle/t/${post._id}`)
             if(request.status===200) {
@@ -57,7 +57,7 @@ export const CommentsCard = (props) => {
         }
     }
 
-    async function toggleCommentLike(){
+    async function toggleCommentLike():Promise<void>{
         try {
             const request = await api.post(`/likes/toggle/c/${par._id}`,{})
             if(request.status===200) {
@@ -72,7 +72,7 @@ export const CommentsCard = (props) => {
         setOptions(!options)
     }
 
-    const deletePost = async(postId:string) =>{
+    const deletePost = async(postId:string):Promise<void> =>{
         try {
             const request = await api.delete(`/tweets/${postId}`)
             if(request.status===200) {
@@ -84,7 +84,7 @@ export const CommentsCard = (props) => {
         }
     }
 
-    const deleteComment = async(commentId:string) =>{
+    const deleteComment = async(commentId:string):Promise<void> =>{
         try {
             const request = await api.delete(`/comments/c/${commentId}`)
             if(request.status===200) {

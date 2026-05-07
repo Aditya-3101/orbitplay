@@ -5,7 +5,7 @@ import { SideBar } from "../Header/SideBar.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store/store.ts";
 
-export const HomeLayout:React.FC = () => {
+export const HomeLayout = ():React.JSX.Element => {
     const sideBarStatus = useSelector((state:RootState)=>state.toggle.sideBar)
     return<main className={sideBarStatus?"layout transition-transform duration-500 ease-in-out bg-[rgb(0,0,0)] overflow-hidden":"bg-[rgb(0,0,0)] layout_player"}>
         <div className="grid-area-header">

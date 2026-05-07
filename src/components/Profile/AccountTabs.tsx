@@ -3,27 +3,47 @@ import {ListVideo} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
+import { emptyArr } from '../../utility/emptyArrays';
+import { api } from '../../api/AxiosInterceptor';
+import { useDispatch } from 'react-redux';
+import { messageModal } from '../../app/slices/toggleSlice';
+import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
 
-
-interface channelVideoInterface{
-    allVideoCount:number,
-    allVideos:{
-        _id:string,
-        createdAt: string,
-        description:string,
-        duration:number
-        isPublished:boolean,
-        owner:string,
-        thumbnail:string,
-        title:string,
-        updatedAt:string,
-        videoFile:string,
-        views:number,
-        __v:number
-    }[],
-    limit:number,
-    page:number
-}
+interface ChannelVideoOwner {
+    _id: string;
+    username: string;
+    fullName: string;
+    avatar: string;
+  }
+  
+  interface ChannelVideo {
+    _id: string;
+    videoFile: string;
+    thumbnail: string;
+    owner: ChannelVideoOwner;
+    title: string;
+    description: string;
+    duration: number;
+    views: number;
+    isPublished: boolean;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  }
+  
+  interface ChannelVideosData {
+    allVideos: ChannelVideo[];
+    allVideoCount: number;
+    page: number;
+    limit: number;
+  }
+  
+  interface GetChannelVideosResponse {
+    statusCode: number;
+    data: ChannelVideosData;
+    message: string;
+    success: number;
+  }
 
 interface channelPlaylistInterface {
     _id:string,
@@ -35,18 +55,87 @@ interface channelPlaylistInterface {
 }
 
 interface channelDataInterface {
-    channelVideos:channelVideoInterface|null;
+    channelVideos:GetChannelVideosResponse|null;
     channelPlaylist:channelPlaylistInterface[]|null;
+    channelVideosLoading:boolean;
+    hasMoreChannelVideos:boolean;
     loading:boolean;
     error:string|unknown
 }
 
-export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading:boolean }) => {
+interface togglePublishType{
+    statusCode: number,
+    data: {
+        _id:string,
+        videoFile: string,
+        thumbnail: string,
+        owner: string,
+        title: string,
+        description: string,
+        duration: number,
+        views: number,
+        isPublished: boolean,
+        createdAt: string,
+        updatedAt: string,
+        __v: number
+    },
+    message: string,
+    success: number
+}
 
-    const [defaultTab,setDefaultTab] = useState("Videos")
+interface videoObjectResponse {
+    _id: string,
+    videoFile: string,
+    thumbnail: string,
+    owner: {
+        _id: string,
+        username: string,
+        avatar: string,
+        fullName?:string
+    },
+    title: string,
+    description: string,
+    duration: number,
+    views: number,
+    isPublished: boolean,
+    createdAt: string,
+    updatedAt: string,
+    __v: number
+}
 
-    function tabChanger(e:React.MouseEvent<HTMLButtonElement>){
+export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading:boolean }):React.JSX.Element => {
+
+    const [defaultTab,setDefaultTab] = useState<string>("Videos")
+    const dispatch = useDispatch()
+
+    function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
+    }
+
+    async function onDeleteVideo(e:React.MouseEvent,arg:string):Promise<void>{
+        e.preventDefault()
+        try {
+            const req = await api.delete(`/videos/${arg}`)
+            if(req.status===200) {
+                dispatch(messageModal("Video Delete Successfully"))
+                dispatch(deleteVideo(arg))
+            }
+        } catch (error) {
+            dispatch(messageModal("something went wrong while deleting the video"))
+        }
+    }
+
+    async function togglePublish(e:React.MouseEvent,arg:videoObjectResponse):Promise<void>{
+        e.preventDefault()
+        try {
+            const request = await api.patch<togglePublishType>(`/videos/toggle/publish/${arg._id}`)
+            if(request.status===200) {
+                dispatch(updateVideoVisibility(request.data.data))
+                dispatch(messageModal(`Video is now set to ${request.data.data.isPublished===false?"Public":"Private"}`))
+            }
+        } catch (error) {
+            dispatch(messageModal("something went wrong while toggling video visibility"))
+        }
     }
 
   return (
@@ -61,18 +150,18 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
             <main>
-                {(!loading && data.channelVideos?.allVideos.length!==0)&&data.channelVideos?.allVideos.map((par,index)=>{
-                    return <Link to={`/v/${par._id}`} key={index}>
-                    <VideoCard_v2 data={par} />
+                {(!loading && data.channelVideos?.data.allVideos.length!==0)&&data.channelVideos?.data.allVideos.map((par)=>{
+                    return <Link to={`/v/${par._id}`} key={par._id} className='relative z-[0]'>
+                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} onTogglePublish={togglePublish} />
                     </Link>
                 })}
                 {
-                    (!loading&&data.channelVideos?.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
+                    (!loading&&data.channelVideos?.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
                         No Videos Found
                     </div>
                 }
-                {loading&&([...Array(9)].map((index)=>{
-                    return<VideoCard_v2_skeleton key={index} />
+                {loading&&(emptyArr.map((par)=>{
+                    return<VideoCard_v2_skeleton key={par.id} />
                 }))}
                 </main>}
             {defaultTab==="Playlists"&&<main className=''>

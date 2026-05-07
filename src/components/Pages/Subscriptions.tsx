@@ -62,11 +62,11 @@ interface ErrorType{
     subscribedChannelVideos:string|null
 }
 
-const Subscriptions:React.FC = () => {
+const Subscriptions = ():React.JSX.Element => {
     const {userTemp} = useSelector((state:RootState)=>state.user)
     const [userSubscriptions,setUserSubscriptions] = useState<userSubscriptionsResponse>()
     const [videosFromChannel,setVideosFromChannel] = useState<videosFromChannelInterface>()
-    const [defaultChannel,setDefaultChannel] = useState<string>()
+    const [defaultChannel,setDefaultChannel] = useState<string>('')
     const [loading,setLoading] = useState({
         profile:false,
         videos:false
@@ -81,7 +81,7 @@ const Subscriptions:React.FC = () => {
     },[])
 
     
-    async function fetchVideosFromSubscribedChannels(params:string) {
+    async function fetchVideosFromSubscribedChannels(params:string):Promise<void> {
         setLoading((prev)=>({...prev,videos:true}))
         try {
             const req = await api.get<videosFromChannelInterface>(`/videos/subscriptions/v/${params}`)
@@ -103,7 +103,7 @@ const Subscriptions:React.FC = () => {
         }
     }
 
-    async function fetchSubscribedChannels() {
+    async function fetchSubscribedChannels():Promise<void> {
         try {
             const req = await api.get<userSubscriptionsResponse>(`/subscriptions/c/${userTemp?._id}`)
             if(req.status===200){
@@ -124,7 +124,7 @@ const Subscriptions:React.FC = () => {
         }
     }
 
-    function onChangeChannel(id:string){
+    function onChangeChannel(id:string):void{
         setDefaultChannel(id)
         fetchVideosFromSubscribedChannels(id)
     }

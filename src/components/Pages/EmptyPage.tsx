@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import ErrorSVG from '../../assets/Error.svg'
 
 
-const EmptyPage:React.FC = () => {
+const EmptyPage = ():React.JSX.Element => {
   return (
     <div>
         <div className='fixed top-0 right-0 bottom-0 left-0 bg-[rgb(20,20,20)] flex items-center justify-center font-roboto text-gray-100'>

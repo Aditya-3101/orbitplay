@@ -3,7 +3,7 @@ import { useNavigate,Link } from 'react-router';
 import { getVideoDuration } from '../../utility/videoDuration';
 
 
-export const VideoCard = ({data}) => {
+export const VideoCard = ({data}):React.JSX.Element => {
 
     const navigate = useNavigate()
 

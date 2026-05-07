@@ -35,7 +35,7 @@ export const UpdateAccountDetails = () => {
         success:null
     })
 
-    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>):void =>{
         const {name,value} = e.target
 
         setUserDetail((prev)=>({
@@ -50,7 +50,7 @@ export const UpdateAccountDetails = () => {
         }))
     }
 
-    function updateDetail(){
+    function updateDetail():void{
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -125,7 +125,7 @@ export const UpdateAccountDetails = () => {
         if(userDetail.email!==user?.email||userDetail.fullName!==user?.fullName) callToUpdateAccount(userDetail.fullName,userDetail.email)
     }
 
-    async function callToUpdatePassword(par3:string,par4:string) {
+    async function callToUpdatePassword(par3:string,par4:string):Promise<void> {
         setMsg((prev)=>({
             ...prev,
             error:null,
@@ -174,7 +174,7 @@ export const UpdateAccountDetails = () => {
         
     }
 
-    async function callToUpdateAccount(par1:string,par2:string) {
+    async function callToUpdateAccount(par1:string,par2:string):Promise<void> {
         setMsg((prev)=>({
             ...prev,
             error:null,
@@ -208,7 +208,7 @@ export const UpdateAccountDetails = () => {
         }
     }
 
-    const clearUserAccountDetail = (par:string) => {
+    const clearUserAccountDetail = (par:string):void => {
         setUserDetail((prev)=>({
             ...prev,
             [par]:''

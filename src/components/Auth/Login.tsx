@@ -1,9 +1,10 @@
-import React,{useEffect, useState} from 'react';
+import React,{useState} from 'react';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
 import { useNavigate,useLocation,Link } from 'react-router';
 import { api } from '../../api/AxiosInterceptor.ts';
+import { ErrorPage } from '../Pages/ErrorPage.tsx';
 
 interface loginUser  {
     email:string;
@@ -43,14 +44,14 @@ export const Login:React.FC = () => {
             password:''
         }
     )
-
+    const [error,setError] = useState<string|null>(null)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation()
     const from = location.state?.from || "/"
 
 
-    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>):void=>{
         const {name,value} = e.target;
 
         setUser((prev)=>({
@@ -59,7 +60,7 @@ export const Login:React.FC = () => {
         }))
     }
 
-    const submitHandler = () =>{
+    const submitHandler = ():void =>{
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const regexPsw = /^.{6,}$/
         if(user.email?.length!==0 || user.password?.length!==0){
@@ -74,16 +75,16 @@ export const Login:React.FC = () => {
     const callLogin = async(param1:string,param2:string) => {
         try{
         const request = await api.post<LoginResponse>('/users/login',{email:param1,password:param2})
-
         if(request.status===200){
             saveUser(request.data.data)
+            setError(null)
         }
         }catch(err){
-            console.log(err)
+            setError(err?.message)
         }
     }
 
-    const saveUser = (para:LoginData) => {
+    const saveUser = (para:LoginData):void => {
         const payload = {
             _id:para.user._id,
             username:para.user.username,
@@ -102,7 +103,11 @@ export const Login:React.FC = () => {
         navigate(from,{replace:true})
     }
 
-    function navigateToRegister(){
+    if(error!==null){
+        return<ErrorPage msg="Login Page"/>
+      }
+
+    function navigateToRegister():void{
         navigate('/register')
     }
 

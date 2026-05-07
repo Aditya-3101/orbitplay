@@ -81,7 +81,10 @@ const App:React.FC = () => {
   
   const isAuthLoading = useSelector((state: RootState) => state.user.isAuthLoading);
   if (isAuthLoading) {
-    return <h2>auth is loading</h2>;
+    return<section className='w-full bg-[rgb(10,10,10)] font-roboto h-[100dvh] text-gray-200 flex flex-col items-center justify-center gap-2'>
+      <div className="loader"></div>
+      <p>Loading....</p>
+    </section>
   }
 
 

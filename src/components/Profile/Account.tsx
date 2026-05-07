@@ -1,49 +1,96 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { RootState } from '../../app/store/store'
 import { AccountTabs } from './AccountTabs'
 import type {AppDispatch} from '../../app/store/store.ts';
 import { useParams } from 'react-router';
-import {getChannelDetails} from '../../app/thunks/channelThunk.ts'
+import {getChannelDetails,getChannelVideos} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench } from 'lucide-react';
 import {Link} from 'react-router'
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
+
+interface subscriptionSuccessType{
+    subscriber: string,
+    channel: string,
+    _id: string,
+    createdAt: string,
+    updatedAt: string,
+}
+
+interface toggleSubscriptionApiDataType{
+    statusCode: number,
+    data:subscriptionSuccessType|string,
+    __v: number,
+    message: string,
+    success: number
+}
+
+interface userType{
+    _id:string,
+    username:string,
+    email:string,
+    fullName:string,
+    avatar:string,
+    coverImage?:string,
+    watchHistory:Array<string>,
+    createdAt?:string,
+    updatedAt?:string,
+    __v?:string,
+}
 
 
-const Account:React.FC = () => {
-    const user = useSelector((state:RootState)=>state.user.userTemp)
+const Account = ():React.JSX.Element => {
+    const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
-    const [subscribeStatus,setSubscribeStatus] = useState()
+    const [subscribeStatus,setSubscribeStatus] = useState<subscriptionSuccessType|string>()
     const [loading,setLoading] = useState({
         profile:false,
         videos:false
     })
     const dispatch = useDispatch<AppDispatch>()
-    const params = useParams();
+    const params = useParams<string>();
+    const [page,setPage]=useState<number>(1)
+    const videoContainerRef = useRef(null)
+
+    const pageCallback = useCallback(()=>{
+        if(!channelData.channelVideosLoading&&channelData.hasMoreChannelVideos){
+          setPage(prev=>prev+1)
+        }
+    },[channelData.channelVideosLoading,channelData.hasMoreChannelVideos])
+
+    useIntersectionObserver(videoContainerRef,pageCallback)
+
+    useEffect(()=>{
+        if(channelData.channelUserDetail?._id!==null){
+            
+            if(channelData.channelUserDetail?._id!==undefined) dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail?._id}))
+        }
+    },[channelData.channelUserDetail?._id,page])
+
 
     useEffect(()=>{
         setLoading((prev)=>({
             ...prev,
             videos:true
         }))
-
-        async function fetchData() {
+        async function fetchData():Promise<void> {
             try{
-        if(params.channelName) {
-            await dispatch(getChannelDetails({userId:'',username:params.channelName}))
-        }else{
-            await dispatch(getChannelDetails({userId:user?._id,username:''}))
+                if(params.channelName) {
+                    await dispatch(getChannelDetails({userId:'',username:params.channelName}));
+                }else{
+                    await dispatch(getChannelDetails({userId:user?._id,username:''}));
+                }
+            }finally{
+                setLoading((prev)=>({
+                    ...prev,
+                    videos:false
+                }))
+            }
         }
-    }finally{
-        setLoading((prev)=>({
-            ...prev,
-            videos:false
-        }))
-    }
-    }
     fetchData()
-    },[subscribeStatus,params])
+    },[subscribeStatus,params.channelName])
 
     if(channelData.error!==null){
         return<ErrorPage msg="Channel Details"/>
@@ -53,9 +100,9 @@ const Account:React.FC = () => {
     const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username) ? true : false
 
     
-    async function toggleSubscription(par1:string,par2:string){
+    async function toggleSubscription(par1:string,par2:string):Promise<void>{
         try {
-            const request = await api.post(`/subscriptions/c/${par1}`,
+            const request = await api.post<toggleSubscriptionApiDataType>(`/subscriptions/c/${par1}`,
             {})
 
             if(request.status===200) {
@@ -66,6 +113,7 @@ const Account:React.FC = () => {
             console.log(error)
         }
     }
+
 
   return (
     <div>
@@ -109,6 +157,9 @@ const Account:React.FC = () => {
             </section>
         </section>
         {channelData!==undefined&&<AccountTabs data={channelData} loading={loading.videos} />}
+        <div
+        ref={videoContainerRef}
+        style={{ height: "20px" }}/>
     </div>
   )
 }

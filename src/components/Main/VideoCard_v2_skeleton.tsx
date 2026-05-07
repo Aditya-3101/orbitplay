@@ -1,6 +1,6 @@
 import React from 'react'
 
-const VideoCard_v2_skeleton = () => {
+const VideoCard_v2_skeleton:React.FC = () => {
   return (
     <div>
         <div>

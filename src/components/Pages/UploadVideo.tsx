@@ -1,6 +1,8 @@
 import React,{useRef, useState} from 'react';
 import { X } from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor';
+import { useDispatch } from 'react-redux';
+import { messageModal } from '../../app/slices/toggleSlice';
 
 interface uploadFormType{
   file:File|null,
@@ -9,9 +11,9 @@ interface uploadFormType{
   description:string
 }
 
-const UploadVideo = () => {
+const UploadVideo = ():React.JSX.Element => {
 
-  const [isDragging,setIsDragging] = useState(false)
+  const [isDragging,setIsDragging] = useState<boolean>(false)
   const [formData,setFormData]=useState<uploadFormType>({
     file:null,
     thumbnail:null,
@@ -20,11 +22,12 @@ const UploadVideo = () => {
   })
   const fileInputRef = useRef<HTMLInputElement>(null)
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
-  const [loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState<boolean>(false)
   const [uploadStatus,setUploadStatus] = useState<boolean|string>('')
+  const dispatch = useDispatch()
 
 
-  function handleDrop(e:React.DragEvent){
+  function handleDrop(e:React.DragEvent):void{
     e.preventDefault();
 
     if (e.dataTransfer.files[0].type !== "video/mp4") {
@@ -37,7 +40,7 @@ const UploadVideo = () => {
     }))
   }
 
-  function handleFileSelect(e:React.ChangeEvent<HTMLInputElement>){
+  function handleFileSelect(e:React.ChangeEvent<HTMLInputElement>):void{
     e.preventDefault();
     const file = e.target.files?.[0] || null
 
@@ -49,7 +52,7 @@ const UploadVideo = () => {
   }
   }
 
-  function handleThumbnailSelect(e:React.ChangeEvent<HTMLInputElement>){
+  function handleThumbnailSelect(e:React.ChangeEvent<HTMLInputElement>):void{
     e.preventDefault();
     const file = e.target.files?.[0] || null
 
@@ -61,7 +64,7 @@ const UploadVideo = () => {
   }
   }
 
-  function removeSelectedVideo(){
+  function removeSelectedVideo():void{
     setFormData((prev)=>({
       ...prev,
       file:null
@@ -70,7 +73,7 @@ const UploadVideo = () => {
     fileInputRef.current!.value=''
   }
 
-  function removeSelectedThumbnail(){
+  function removeSelectedThumbnail():void{
     setFormData((prev)=>({
       ...prev,
       thumbnail:null
@@ -79,7 +82,7 @@ const UploadVideo = () => {
     thumbnailInputRef.current!.value=''
   }
 
-  function onChangeHandler(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>){
+  function onChangeHandler(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>):void{
     e.preventDefault();
     const {name,value} = e.target;
 
@@ -89,7 +92,7 @@ const UploadVideo = () => {
     }))
   }
 
-  async function handleSubmit(e){
+  async function handleSubmit(e:React.SyntheticEvent):Promise<void>{
     e.preventDefault()
 
     if(formData.title.trim().length===0||formData.description.trim().length===0||formData.file===null){
@@ -126,7 +129,7 @@ const UploadVideo = () => {
     } catch (error) {
       setLoading(false)
       setUploadStatus(false)
-      console.log(error)
+      dispatch(messageModal("something went wrong uploading file"))
     }
   }
 
@@ -139,7 +142,7 @@ const UploadVideo = () => {
         <div className='font-roboto text-lg text-gray-300'>Video Uploaded Successfully!!</div>
         <X className='text-gray-300' onClick={()=>setUploadStatus('')} /></div>}
       <div>
-        <form action={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className='flex flex-col gap-2'>
             <p className='font-roboto text-base text-gray-200'>Video File</p>
             {formData.file===null&&<div

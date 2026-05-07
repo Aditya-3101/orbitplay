@@ -1,12 +1,12 @@
 import {formatDistanceToNow,format, isToday, isYesterday} from 'date-fns'
 
-export const timeAgo = (paramter:string) => {
+export const timeAgo = (paramter:string):string => {
     return formatDistanceToNow(new Date(paramter),{
         addSuffix:true
     });
 }
 
-export const dateAgo = (parameter:string) => {
+export const dateAgo = (parameter:string):string => {
     const date = new Date(parameter)
 
     if(isToday(date)) return 'Today'

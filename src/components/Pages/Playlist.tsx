@@ -42,7 +42,7 @@ interface playlistVidsResponse{
 }
 
 
-const Playlist = () => {
+const Playlist = ():React.JSX.Element => {
     const [playlistVideos,setPlaylistVideos] = useState<playlistVideos>()
     const [playlistVids,setPlaylistVids] = useState<playlistVidsResponse>()
     const [loading,setLoading] = useState(false)
@@ -56,7 +56,7 @@ const Playlist = () => {
         if (playlistId!==null&&playlistId!==undefined) fetchPlaylist(playlistId)
     },[playlistId])
 
-    async function fetchPlaylist(par:string){
+    async function fetchPlaylist(par:string):Promise<void>{
         try {
             const request = await api.get(`/playlist/${par}`)
             if(request.status===200) {
@@ -70,7 +70,7 @@ const Playlist = () => {
         }
     }
 
-    async function fetchVideosFromPlaylist(params:[]) {
+    async function fetchVideosFromPlaylist(params:[]):Promise<void> {
         setLoading(true)
 
             try {

@@ -42,11 +42,11 @@ interface GetVideosResponse {
   success: number;
 }
 
-export const MainPage:React.FC = () => {
+export const MainPage = ():React.JSX.Element => {
 
   const dispatch = useDispatch<AppDispatch>()
   const [videos,setVideos] = useState<Video[]>([])
-  const [loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState<boolean>(false)
   const [page,setPage] = useState<number>(1)
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const [hasMore,setHasmore]=useState<boolean>(false)
@@ -66,7 +66,7 @@ export const MainPage:React.FC = () => {
   },[page])
 
 
-  async function fetchHomeVideos(par:number){
+  async function fetchHomeVideos(par:number):Promise<void>{
     setLoading(true)
     
     try{

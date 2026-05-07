@@ -5,6 +5,8 @@ import { api } from '../../api/AxiosInterceptor';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
+import { useDispatch } from 'react-redux';
+import { messageModal } from '../../app/slices/toggleSlice.ts';
 
 interface Video {
     _id: string;
@@ -43,6 +45,7 @@ export const MoreVids = () => {
     const [loading,setLoading] = useState<boolean>(false)
     const [vids,setVids] = useState<Video[]>([])
     const videoContainerRef = useRef(null)
+    const dispatch = useDispatch()
     const pageCallback = useCallback(()=>{
       if(!loading&&hasMore){
         setPage(prev=>prev+1)
@@ -70,7 +73,8 @@ export const MoreVids = () => {
               setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount)
             }
         } catch (error) {
-            console.log(error);
+            dispatch(messageModal("Encountered error while videos :("))
+            setLoading(false)
         }finally{
           setLoading(false)
         }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const VideoCardSkeleton = () => {
+const VideoCardSkeleton = ():React.JSX.Element => {
   return (
     <div className=''>
       <div className='flex flex-col border border-gray-500 aspect-video'>

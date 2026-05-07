@@ -4,7 +4,7 @@ import { RootState } from '../../../app/store/store.ts';
 import { updateUserCover } from '../../../app/slices/userSlice.ts';
 import { api } from '../../../api/AxiosInterceptor';
 
-export const ChangeCover = () => {
+export const ChangeCover = ():React.JSX.Element => {
     const user = useSelector((state:RootState)=>state.user.userTemp);
     const [cover,setcover] = useState<File|null>(null);
     const [previewcover,setPreviewcover] = useState<string|null>(null);
@@ -17,7 +17,7 @@ export const ChangeCover = () => {
     const dispatch = useDispatch()
 
 
-    function changeHandler(e:React.ChangeEvent<HTMLInputElement>){
+    function changeHandler(e:React.ChangeEvent<HTMLInputElement>):void{
         const file = e.target.files?.[0] || null
 
         setMsg({
@@ -38,7 +38,7 @@ export const ChangeCover = () => {
         }
     }
 
-    async function submitHandler() {
+    async function submitHandler():Promise<void> {
         setMsg((prev)=>({
             ...prev,
             loading:true
@@ -78,7 +78,7 @@ export const ChangeCover = () => {
         }
     }
 
-    function clearcover(){
+    function clearcover():void{
         setcover(null)
         setPreviewcover(null)
 

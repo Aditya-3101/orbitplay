@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { X } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { useNavigate,Link } from 'react-router';
+import { Link } from 'react-router';
 import { api } from '../../api/AxiosInterceptor.ts';
 
 interface userFormType{
@@ -15,7 +14,7 @@ interface userFormType{
 }
 
 
-const Register = () => {
+const Register = ():React.JSX.Element => {
   const [userForm,setUserForm] = useState<userFormType>({
     username:'',
     fullName:'',
@@ -32,12 +31,10 @@ const Register = () => {
   })
   const avatarRef = useRef<HTMLInputElement>(null)
   const coverImageRef = useRef<HTMLInputElement>(null)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [loading,setLoading] = useState(false)
 
 
-  const onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>):void => {
     e.preventDefault();
     const {name,value} = e.target
 
@@ -47,7 +44,7 @@ const Register = () => {
     }))
   }
 
-  const onFileHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const onFileHandler = (e:React.ChangeEvent<HTMLInputElement>):void => {
     e.preventDefault()
     const file = e.target.files?.[0] || null
     const name = e.target.name
@@ -63,7 +60,7 @@ const Register = () => {
     }))
   }
 
-  function handlSubmit(e){
+  function handleSubmit(e:React.SyntheticEvent){
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     e.preventDefault()
@@ -105,7 +102,7 @@ const Register = () => {
     callRegisterUserApi(userForm)
   }
 
-  async function callRegisterUserApi(par:userFormType){
+  async function callRegisterUserApi(par:userFormType):Promise<void>{
     setLoading(true)
     try {
       const request = await api.post(`/users/register`,{
@@ -122,7 +119,6 @@ const Register = () => {
       })
 
       if(request.status===201) {
-        // dispatch(addUserDetails(request.data.data))
         setLoading(false)
         setHelperMessage((prev)=>({
           ...prev,
@@ -133,13 +129,19 @@ const Register = () => {
         }))
       }
     } catch (error) {
-      
+      setHelperMessage((prev)=>({
+        ...prev,
+        show:true,
+        success:false,
+        error:true,
+        msg:"Something went wrong, kindly try after sometime"
+      }))
     }
   }
 
 
 
-  function cancelHelperMessage(){
+  function cancelHelperMessage():void{
     setHelperMessage((prev)=>({
       ...prev,
       show:false
@@ -153,13 +155,13 @@ const Register = () => {
           <img src={logo} className='w-[3rem] md:w-[5rem] lg:w-[7rem] object-cover aspect-square' />
           <p className='font-roboto text-lg md:text-2xl lg:text-4xl px-2 text-gray-200'>Register</p>
           </div>
-          <div className='font-roboto text-gray-300 w-[94%] mx-auto grid grid-cols-[100%] md:grid-cols-[70%]'>
+          <div className='font-roboto text-gray-300 w-[94%] mx-auto grid grid-cols-[100%] md:grid-cols-[70%] lg:grid-cols-[55%]'>
             {helperMessage.show&&
             <div className={`flex justify-between py-2 px-1 ${helperMessage.error?"border border-red-700":"border-gray-400"}`}>
               <p>{helperMessage.msg}</p>
               <X onClick={cancelHelperMessage} className='cursor-pointer' />
               </div>}
-            <form className='flex flex-col gap-4' action={handlSubmit}>
+            <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
               <div>
                 <p>Name</p>
                 {(helperMessage.show&&userForm.fullName.trim().length==0)&&<span className='text-gray-700 text-xs'>Kindly fill your name here</span>}
@@ -196,10 +198,10 @@ const Register = () => {
                 <input type='file' ref={coverImageRef} accept='image/png, image/jpg, image/jpeg' name="coverImage" onChange={onFileHandler} className='w-[100%] border border-gray-500 file:p-2 file:bg-gray-100 file:text-gray-900' />
               </div>
 
-              <button className='p-2 rounded-xl w-fit py-2 px-4 mx-auto border border-gray-400 cursor-pointer' onClick={handlSubmit}>Create Account</button>
+              <button className='p-2 rounded-xl w-fit py-2 px-4 mx-auto border border-gray-400 cursor-pointer' onClick={handleSubmit}>Create Account</button>
             </form>
           </div>
-          <div className='w-[100%] md:w-[80%] lg:w-[70%] mt-4 flex flex-col md:flex-row justify-center items-center gap-2'>
+          <div className='w-[100%] md:w-[80%] lg:w-[55%] mt-4 flex flex-col md:flex-row justify-center items-center gap-2'>
             <div className='text-gray-300 w-[100%] md:w-fit md:py-1 flex relative items-center justify-center'>
                 <p className='w-fit'>
                     Already have an account?
@@ -215,7 +217,8 @@ const Register = () => {
           <Link to="/login" className='text-base border border-gray-400 p-2 rounded-xl w-[100%] md:w-fit md:px-4 md:py-2 block text-center bg-gray-200 text-gray-900'>Login</Link>
           </div>
           </div>}
-          {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.76)] flex justify-center items-center'>
+          {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.76)] flex justify-center items-center gap-2'>
+          <div className="loader"></div>
             <div className='font-roboto text-gray-200 text-center'>
               Loading....
             </div>

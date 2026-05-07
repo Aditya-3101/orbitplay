@@ -28,7 +28,7 @@ interface updatePostRequestType{
     success: number
 }
 
-const Posts = () => {
+const Posts = ():React.JSX.Element => {
 
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const dispatch= useDispatch<AppDispatch>()

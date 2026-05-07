@@ -4,7 +4,7 @@ import { RootState } from '../../../app/store/store.ts'
 import { api } from '../../../api/AxiosInterceptor.ts'
 import {updateUserAvatar} from '../../../app/slices/userSlice.ts'
 
-export const ChangeAvatar = () => {
+export const ChangeAvatar = ():React.JSX.Element => {
     const user = useSelector((state:RootState)=>state.user.userTemp);
     const [avatar,setAvatar] = useState<File|null>(null);
     const [previewAvatar,setPreviewAvatar] = useState<string|null>(null);
@@ -38,7 +38,7 @@ export const ChangeAvatar = () => {
         }
     }
 
-    async function submitHandler() {
+    async function submitHandler():Promise<void> {
         setMsg((prev)=>({
             ...prev,
             loading:true
@@ -75,7 +75,7 @@ export const ChangeAvatar = () => {
         }
     }
 
-    function clearAvatar(){
+    function clearAvatar():void{
         setAvatar(null)
         setPreviewAvatar(null)
 

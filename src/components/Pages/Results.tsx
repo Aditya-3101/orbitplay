@@ -39,14 +39,14 @@ interface searchResultsInterface {
     success:number
 }
 
-const Results = () => {
+const Results = ():React.JSX.Element => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [queryResults,setQueryResults] = useState<allVideosInterface[]>([])
     const [loading,setLoading] = useState<boolean>(false)
     const videoContainerRef = useRef<HTMLDivElement>(null)
-    const [page,setPage] = useState(1)
-    const [hasMore,setHasmore]=useState(false)
+    const [page,setPage] = useState<number>(1)
+    const [hasMore,setHasmore]=useState<boolean>(false)
     const dispatch = useDispatch()
     const pageCallback = useCallback(()=>{
         if(!loading&&hasMore){
@@ -66,7 +66,7 @@ const Results = () => {
         return() => abortController.abort()
     },[query,page])
 
-    async function fetchSearchResult(page:number,params:string,controller:AbortController) {
+    async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
         setLoading(true)
         try {
             const req = await api.get<searchResultsInterface>(`/videos?query=${params}&page=${page}`,
@@ -116,4 +116,4 @@ const Results = () => {
   )
 }
 
-export default Results
+export default Results;
