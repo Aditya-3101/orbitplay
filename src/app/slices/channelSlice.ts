@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {getChannelDetails, getChannelVideos} from '../thunks/channelThunk.ts';
 
-
 interface channelUserDetailsInterface{
     "_id": string
     "username": string,
@@ -136,7 +135,8 @@ export const channelDetailSlice = createSlice({
         })
         .addCase(getChannelVideos.pending,(state)=>{
             state.channelVideosLoading=true;
-            state.hasMoreChannelVideos=false
+            state.hasMoreChannelVideos=false;
+            state.channelVideos=null;
         })
     }
 })

@@ -86,7 +86,6 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
                     count:response!=undefined?response.length!==0? response[0].likeCount:0:0,
                     likedByUser:response!=undefined?response.length!==0?response[0].isLiked:false:false
                 }))
-                console.log(req.data)
             }
 
         } catch (error) {

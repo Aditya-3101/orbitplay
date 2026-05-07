@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { getVideoDuration } from '../../utility/videoDuration';
 import { timeAgo } from '../../utility/timeStamp.ts';
 import { EllipsisVertical, Eye, EyeClosed, Trash } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store/store.ts';
 
 interface videoObjectResponse {
     "_id": string,
@@ -25,11 +27,11 @@ interface videoObjectResponse {
 
 
 export const VideoCard_v2 = (props):React.JSX.Element => {
-
+    const user = useSelector((state:RootState)=>state.user.userTemp)
     const par:videoObjectResponse = props.data
     const onDelete=props?.onDelete
     const onTogglePublish=props?.onTogglePublish
-    const [options,setOptions]=useState<boolean>(true)
+    const [options,setOptions]=useState<boolean>(false)
 
 
     function toggleOptions(e: React.MouseEvent):void{
@@ -48,7 +50,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
             <section className='flex flex-col gap-1 md:gap-4 relative w-[100%] aspect-[16/9] h-[100%]'>
                 <div className='text-slate-50 font-roboto w-[80%] flex justify-between items-center relative'>
                     <p className='text-lg md:text-xl lg:text-2xl '>{par.title}</p>
-                    <div className='block relative max-w-[50%]'>
+                    {user?._id===par.owner._id&&<div className='block relative max-w-[50%]'>
                     <button 
                     type="button"
                     onClick={toggleOptions} 
@@ -63,7 +65,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                         <p onClick={(e)=>onDelete(e,par._id)} className='flex items-center gap-1 p-1'>
                             <Trash className='w-[12px] h-[12px] lg:w-[16px] lg:h-[16px]' />Delete</p>
                         </section>}
-                    </div>
+                    </div>}
                     </div>
                 <p className=' text-slate-500 text-sm font-roboto w-[80%]'>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <div className='flex items-center gap-2'>
