@@ -7,7 +7,9 @@ export const refreshUser = async (dispatch: Dispatch<UnknownAction>):Promise<voi
   dispatch(setAuthLoading(true))
     
     try {
-      const res = await api.get("/users/current-user");
+      const res = await api.get("/users/current-user",{
+        withCredentials:true
+      });
 
       if(res.status===200){
 

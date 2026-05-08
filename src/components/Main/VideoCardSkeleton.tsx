@@ -4,8 +4,8 @@ const VideoCardSkeleton = ():React.JSX.Element => {
   return (
     <div className=''>
       <div className='flex flex-col border border-gray-500 aspect-video'>
-        <div className='aspect-video animate-pulse bg-[rgba(0,0,0,0.8)]'></div>
-        <div className='w-full p-2 flex flex-col gap-2'>
+        <div className='aspect-video animate-pulse bg-[rgba(40,40,40,0.6)]'></div>
+        <div className='w-full p-1 flex flex-col gap-1'>
           <p className='h-[1.5rem] rounded-lg w-[100%] flex flex-row justify-between'>
             <span className='w-[10%] aspect-square rounded-full bg-[rgba(0,0,0,0.8)] animate-pulse block'>
 

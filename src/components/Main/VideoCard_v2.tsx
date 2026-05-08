@@ -4,6 +4,7 @@ import { timeAgo } from '../../utility/timeStamp.ts';
 import { EllipsisVertical, Eye, EyeClosed, Trash } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
+import { Link } from 'react-router';
 
 interface videoObjectResponse {
     "_id": string,
@@ -48,7 +49,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
             <section className='flex flex-col gap-1 md:gap-4 relative w-[100%] aspect-[16/9] h-[100%]'>
-                <div className='text-slate-50 font-roboto w-[80%] flex justify-between items-center relative'>
+                <div className='text-slate-50 font-roboto w-[100%] flex justify-between items-center relative'>
                     <p className='text-lg md:text-xl lg:text-2xl '>{par.title}</p>
                     {user?._id===par.owner._id&&<div className='block relative max-w-[50%]'>
                     <button 
@@ -69,8 +70,8 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                     </div>
                 <p className=' text-slate-500 text-sm font-roboto w-[80%]'>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <div className='flex items-center gap-2'>
-                    <img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' />
-                    <p className='text-slate-500 text-sm font-roboto'>{par.owner.fullName}</p>
+                    <Link to={`/channel/${par.owner.username}`}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></Link>
+                    <Link to={`/channel/${par.owner.username}`} className='text-slate-500 text-sm font-roboto'>{par.owner.fullName}</Link>
                 </div>
             </section>
         </div>

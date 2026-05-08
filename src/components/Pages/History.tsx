@@ -152,9 +152,11 @@ const History:React.FC = () => {
       {checkIfEmpty&&<div className='flex justify-center items-center h-[6rem] md:h-[15rem]'>
         <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
         </div>}
+        <div className='w-[80%]'>
         {loading&&(emptyArr.map((par)=>{
           return<div key={par.id} className='p-2'><VideoCard_v2_skeleton /></div>
         }))}
+        </div>
       </div>
     </div>
   )

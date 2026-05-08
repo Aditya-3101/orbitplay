@@ -95,6 +95,8 @@ const UploadVideo = ():React.JSX.Element => {
   async function handleSubmit(e:React.SyntheticEvent):Promise<void>{
     e.preventDefault()
 
+    console.log(formData)
+
     if(formData.title.trim().length===0||formData.description.trim().length===0||formData.file===null){
       setUploadStatus(false)
       return
@@ -133,6 +135,56 @@ const UploadVideo = ():React.JSX.Element => {
     }
   }
 
+  // async function handleSubmit(e: React.SyntheticEvent): Promise<void> {
+  //   e.preventDefault();
+  //   if ( formData.title.trim().length === 0 || formData.description.trim().length === 0 || formData.file === null ) {
+  //   setUploadStatus(false);
+  //   return;
+  //   }
+    
+  //   try {
+  //   setLoading(true);
+  //   const data = new FormData();
+  //   data.append("title", formData.title);
+  //   data.append("description", formData.description);
+    
+  //   if (formData.file) {
+  //     data.append("videoFile", formData.file);
+  //   }
+    
+  //   if (formData.thumbnail) {
+  //     data.append("thumbnail", formData.thumbnail);
+  //   }
+
+  //   console.log(data)
+    
+  //   const request = await api.post(`/videos`, data, {
+  //     withCredentials: true
+  //   });
+    
+  //   if (request.status === 201) {
+  //     setUploadStatus(true);
+    
+  //     setFormData({
+  //       file: null,
+  //       thumbnail: null,
+  //       title: "",
+  //       description: ""
+  //     });
+    
+  //     if (fileInputRef.current) fileInputRef.current.value = "";
+  //     if (thumbnailInputRef.current) thumbnailInputRef.current.value = "";
+  //   }
+    
+  //   } catch (error) {
+  //   setUploadStatus(false);
+  //   dispatch(messageModal("Something went wrong uploading file"));
+  //   } finally {
+  //   setLoading(false);
+  //   }
+  //   }
+    
+
 
   return (
     <div className='bg-[rgba(0,0,0,0.9)] px-4 relative py-2'>
@@ -154,7 +206,7 @@ const UploadVideo = ():React.JSX.Element => {
               setIsDragging(false)
               handleDrop(e)
             }}
-            className={`border-2 p-10 text-gray-300 text-center ${isDragging ? "bg-gray-700" : ""}`}
+            className={`border-2 p-10 lg:p-20 text-gray-300 text-center ${isDragging ? "bg-gray-700" : ""}`}
             >Drop file here</div>}
             <input type="file" ref={fileInputRef} className='text-gray-300 border border-gray-500 file:p-2 file:bg-gray-50 file:text-gray-900 font-roboto' accept='video/mp4' onChange={handleFileSelect} />
           </div>
@@ -178,7 +230,7 @@ const UploadVideo = ():React.JSX.Element => {
               <textarea value={formData.description} name="description" onChange={onChangeHandler} className='h-[6rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 resize-y min-h-10 max-h-20' />
             </div>
           </div>
-          <button className='font-roboto px-2 py-1 rounded text-gray-200 border border-gray-400' onClick={handleSubmit}>Post</button>
+          <button className='font-roboto px-2 py-1 rounded text-gray-200 border border-gray-400' type="submit">Post</button>
         </form>
       </div>
       {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>

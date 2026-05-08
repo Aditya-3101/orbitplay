@@ -86,6 +86,7 @@ export const MainPage = ():React.JSX.Element => {
     }
     }catch(err){
       setError(err?.message)
+      console.log(err)
       dispatch(messageModal("Encountered error while fetching videos :("))
     }finally {
       setLoading(false);

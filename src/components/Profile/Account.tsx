@@ -71,10 +71,10 @@ const Account = ():React.JSX.Element => {
 
 
     useEffect(()=>{
-        setLoading((prev)=>({
-            ...prev,
-            videos:true
-        }))
+        setLoading({
+            videos:true,
+            profile:true
+        })
         async function fetchData():Promise<void> {
             try{
                 if(params.channelName) {
@@ -83,10 +83,10 @@ const Account = ():React.JSX.Element => {
                     await dispatch(getChannelDetails({userId:user?._id,username:''}));
                 }
             }finally{
-                setLoading((prev)=>({
-                    ...prev,
-                    videos:false
-                }))
+                setLoading({
+                    videos:false,
+                    profile:false
+                })
             }
         }
     fetchData()
@@ -119,9 +119,9 @@ const Account = ():React.JSX.Element => {
     <div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {currentUser?.coverImage&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
                 {
-                    (currentUser?.coverImage==undefined||currentUser?.coverImage.length==0) && <div className='aspect-[16/4] w-[100%] md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>
+                    (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-[100%] md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image
                     </div>
                 }
@@ -129,11 +129,14 @@ const Account = ():React.JSX.Element => {
             </div>
             <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-[100%] mx-auto'>
             <div className=''>
-                    <img src={currentUser?.avatar} className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto object-cover border border-gray-300' />
+                    {!loading.profile&&<img src={currentUser?.avatar} className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto object-cover border border-gray-300' />}
+                    {loading.profile&&<div className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto border animate-pulse bg-gray-800 border-gray-500'></div>}
             </div>
             <div className='w-[90%] mx-auto '>
-                <p className='text-gray-100 font-roboto text-2xl text-clip md:text-5xl my-1'>{currentUser?.fullName}</p>
-                <p className='font-roboto text-gray-400 text-sm md:text-xl'>@{currentUser?.username}</p>
+                {(!loading.profile&&currentUser?.fullName!==undefined)&&<p className='text-gray-100 font-roboto text-2xl text-clip md:text-5xl my-1'>{currentUser?.fullName}</p>}
+                {(loading.profile)&&<p className='text-gray-100 font-roboto w-[70%] h-[2rem] bg-gray-700 animate-pulse text-2xl text-clip md:text-5xl my-1'></p>}
+                {!loading.profile&&<p className='font-roboto text-gray-400 text-sm md:text-xl'>@{currentUser?.username}</p>}
+                {loading.profile&&<p className='font-roboto text-gray-400 animate-pulse h-[1rem] bg-gray-700 w-[40%] text-sm md:text-xl mt-1'></p>}
                 <div className='py-4 flex items-center justify-between md:w-[60%]'>
                     <p>
                     {currentUser && "subscribersCount" in currentUser && (

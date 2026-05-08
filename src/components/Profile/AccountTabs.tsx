@@ -149,7 +149,7 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
-            <main>
+            <main className='w-[90%]'>
                 {(!loading && data.channelVideos?.data.allVideos.length!==0)&&data.channelVideos?.data.allVideos.map((par)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-[0]'>
                     <VideoCard_v2 data={par} onDelete={onDeleteVideo} onTogglePublish={togglePublish} />

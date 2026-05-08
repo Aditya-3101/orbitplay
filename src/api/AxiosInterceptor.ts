@@ -6,6 +6,8 @@ export const api:AxiosInstance = axios.create({
     withCredentials:true,
 })
 
+
+
 api.interceptors.request.use((request)=>{
     return request
 },
