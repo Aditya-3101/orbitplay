@@ -68,6 +68,7 @@ const Results = ():React.JSX.Element => {
 
     async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
         setLoading(true)
+        setQueryResults([])
         try {
             const req = await api.get<searchResultsInterface>(`/videos?query=${params}&page=${page}`,
             {
