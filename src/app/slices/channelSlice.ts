@@ -119,12 +119,14 @@ export const channelDetailSlice = createSlice({
         })
         .addCase(getChannelVideos.fulfilled,(state,action)=>{
             state.hasMoreChannelVideos= (action.payload.data.limit*action.payload?.data.page)<action.payload?.data.allVideoCount;
-            if(state.channelVideos==null){
+            if(state.channelVideos===null||state.channelVideos.data.allVideos.length===0){
             state.channelVideos=action.payload;
             }else{
                 const existingId = new Set(state.channelVideos.data.allVideos.map(v=>v._id))
                 const filtered = action.payload.data.allVideos.filter(v=>!existingId.has(v._id))
+                // console.log(filtered)
                 state.channelVideos.data.allVideos.push(...filtered);
+                // state.channelVideos = { ...action.payload, data: { ...action.payload.data, allVideos: [ ...state.channelVideos.data.allVideos, ...filtered ] } };
             }
             state.channelVideosLoading=false;
         })
@@ -135,8 +137,6 @@ export const channelDetailSlice = createSlice({
         })
         .addCase(getChannelVideos.pending,(state)=>{
             state.channelVideosLoading=true;
-            state.hasMoreChannelVideos=false;
-            state.channelVideos=null;
         })
     }
 })

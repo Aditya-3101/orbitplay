@@ -1,5 +1,5 @@
 import React,{useCallback, useEffect, useRef, useState} from 'react'
-import { useSearchParams } from 'react-router'
+import { useSearchParams,useLocation } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import { Link } from 'react-router'
@@ -7,6 +7,7 @@ import {messageModal, toggleSideBar} from "../../app/slices/toggleSlice.ts"
 import { api } from '../../api/AxiosInterceptor.ts'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx'
+import { emptyArr } from '../../utility/emptyArrays.ts'
 
 interface allVideosInterface {
 createdAt:string,
@@ -42,6 +43,7 @@ interface searchResultsInterface {
 const Results = ():React.JSX.Element => {
 
     const [searchParams, setSearchParams] = useSearchParams()
+    const location =useLocation()
     const [queryResults,setQueryResults] = useState<allVideosInterface[]>([])
     const [loading,setLoading] = useState<boolean>(false)
     const videoContainerRef = useRef<HTMLDivElement>(null)
@@ -61,14 +63,23 @@ const Results = ():React.JSX.Element => {
     useEffect(()=>{
         const abortController = new AbortController()
 
-        if (query!==null) fetchSearchResult(page,query,abortController)
+
+        if (query!==null) {
+            fetchSearchResult(page,query,abortController)
+        }
         dispatch(toggleSideBar(true))
-        return() => abortController.abort()
+        return() => {
+            abortController.abort()
+        }
     },[query,page])
+
+    useEffect(()=>{
+        setQueryResults([])
+        setPage(1)
+    },[location.search])
 
     async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
         setLoading(true)
-        setQueryResults([])
         try {
             const req = await api.get<searchResultsInterface>(`/videos?query=${params}&page=${page}`,
             {
@@ -103,8 +114,8 @@ const Results = ():React.JSX.Element => {
                 <VideoCard_v2 data={par} />
             </Link>
             })}
-            {(loading)&&([...Array(9)].map((index)=>{
-                    return<VideoCard_v2_skeleton key={index} />
+            {(loading)&&(emptyArr.map((par)=>{
+                    return<VideoCard_v2_skeleton key={par.id} />
                 }))}
         <div ref={videoContainerRef} className='w-[100%] h-[30px]'/>
         </section>

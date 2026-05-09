@@ -3,7 +3,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { RootState } from '../../app/store/store'
 import { AccountTabs } from './AccountTabs'
 import type {AppDispatch} from '../../app/store/store.ts';
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 import {getChannelDetails,getChannelVideos} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench } from 'lucide-react';
@@ -51,6 +51,7 @@ const Account = ():React.JSX.Element => {
     })
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams<string>();
+    const location = useLocation();
     const [page,setPage]=useState<number>(1)
     const videoContainerRef = useRef(null)
 
@@ -63,11 +64,16 @@ const Account = ():React.JSX.Element => {
     useIntersectionObserver(videoContainerRef,pageCallback)
 
     useEffect(()=>{
-        if(channelData.channelUserDetail?._id!==null){
-            
+        if(channelData.channelUserDetail?._id!==null&&location.pathname!=="/account"){   
             if(channelData.channelUserDetail?._id!==undefined) dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail?._id}))
+        }else{
+            if(user?._id!==undefined) dispatch(getChannelVideos({pageNum:page,userId:user?._id}))
         }
-    },[channelData.channelUserDetail?._id,page])
+    },[channelData.channelUserDetail?._id,page,location])
+
+    console.log(location.pathname)
+
+    console.log(page)
 
 
     useEffect(()=>{

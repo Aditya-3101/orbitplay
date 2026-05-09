@@ -4,7 +4,7 @@ import { timeAgo } from '../../utility/timeStamp.ts';
 import { EllipsisVertical, Eye, EyeClosed, Trash } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
-import { Link } from 'react-router';
+import { Link,useNavigate } from 'react-router';
 
 interface videoObjectResponse {
     "_id": string,
@@ -29,6 +29,7 @@ interface videoObjectResponse {
 
 export const VideoCard_v2 = (props):React.JSX.Element => {
     const user = useSelector((state:RootState)=>state.user.userTemp)
+    const navigate = useNavigate()
     const par:videoObjectResponse = props.data
     const onDelete=props?.onDelete
     const onTogglePublish=props?.onTogglePublish
@@ -39,6 +40,11 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
         e.preventDefault()
         e.stopPropagation()
         setOptions(!options)
+    }
+
+    function navigateToChannel(e:React.SyntheticEvent,arg:string):void{
+        e.preventDefault();
+        navigate(`/channel/${arg}`)
     }
 
   return (
@@ -70,8 +76,8 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                     </div>
                 <p className=' text-slate-500 text-sm font-roboto w-[80%]'>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <div className='flex items-center gap-2'>
-                    <Link to={`/channel/${par.owner.username}`}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></Link>
-                    <Link to={`/channel/${par.owner.username}`} className='text-slate-500 text-sm font-roboto'>{par.owner.fullName}</Link>
+                    <div onClick={(e)=>navigateToChannel(e,par.owner.username)}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
+                    <div onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-sm font-roboto'>{par.owner.fullName}</div>
                 </div>
             </section>
         </div>
