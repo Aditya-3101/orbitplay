@@ -6,6 +6,20 @@ export const api:AxiosInstance = axios.create({
     withCredentials:true,
 })
 
+api.interceptors.request.use(
+    (config) => {
+    
+    const token = sessionStorage.getItem("accessToken");
+    
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    
+    return config;
+    
+    },
+    (error) => Promise.reject(error)
+    );
 
 
 api.interceptors.request.use((request)=>{

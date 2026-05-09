@@ -76,6 +76,8 @@ export const Login:React.FC = () => {
         try{
         const request = await api.post<LoginResponse>('/users/login',{email:param1,password:param2})
         if(request.status===200){
+            const {accessToken} = request.data.data
+            sessionStorage.setItem("accessToken", accessToken);
             saveUser(request.data.data)
             setError(null)
         }
@@ -118,14 +120,14 @@ export const Login:React.FC = () => {
             <img src={logo} className='md:w-[90%] mx-auto' />
         </div>
         <main className='flex flex-col items-center'>
-        <form className='flex flex-col gap-4 w-[70%] mb-8' action={submitHandler}>
+        <form className='flex flex-col gap-6 w-[70%] mb-8' action={submitHandler}>
             <div className='w-[90%] mx-auto'>
                 <p className='text-slate-300'>Email</p>
-                <input type="email" value={user.email} name="email" onChange={changeHandler} className='border border-gray-400 h-[36px] lg:h-[40px] text-gray-50 p-2 w-[100%] mx-auto lg:text-lg' />
+                <input type="email" value={user.email} name="email" onChange={changeHandler} className='border border-gray-400 h-[38px] lg:h-[40px] text-gray-50 p-2 w-[100%] mx-auto lg:text-lg' />
             </div>
             <div className='w-[90%] mx-auto'>
                 <p className='text-slate-300'>Password</p>
-                <input type="password" value={user.password} name="password" onChange={changeHandler} className='border-gray-400 border h-[36px] text-gray-50 p-2 w-[100%] lg:h-[40px] lg:text-lg' />
+                <input type="password" value={user.password} name="password" onChange={changeHandler} className='border-gray-400 border h-[38px] text-gray-50 p-2 w-[100%] lg:h-[40px] lg:text-lg' />
             </div>
             <button className='text-slate-300 text-lg  bg-[#7734ec] p-2 w-[50%] mx-auto rounded-2xl font-bold cursor-pointer' onClick={submitHandler}>
                 Login
