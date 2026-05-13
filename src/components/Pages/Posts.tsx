@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import {getUserPosts} from '../../app/thunks/postThunk.ts'
 import type { AppDispatch } from "../../app/store/store.ts"
 import { SectionHeader } from '../Header/sectionHeader.tsx'
-import { messageModal } from '../../app/slices/toggleSlice.ts'
+import { messageModal, openAccountBar } from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts'
 import {updateUserPost} from '../../app/slices/postSlice.ts'
 import { ErrorPage } from './ErrorPage.tsx'
@@ -38,6 +38,8 @@ const Posts = ():React.JSX.Element => {
 
     useEffect(()=>{
         if(user?._id!==undefined&&user._id!==null) dispatch(getUserPosts(user?._id))
+        dispatch(openAccountBar(false))
+        window.scrollTo(0,0)
     },[user])
 
     const submitPost = async() => {

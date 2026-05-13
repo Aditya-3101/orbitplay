@@ -43,7 +43,7 @@ interface userType{
 }
 
 
-const Account = ():React.JSX.Element => {
+const ChannelPage = ():React.JSX.Element => {
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
     const [subscribeStatus,setSubscribeStatus] = useState<subscriptionSuccessType|string>()
@@ -64,8 +64,10 @@ const Account = ():React.JSX.Element => {
     useIntersectionObserver(videoContainerRef,pageCallback)
 
     useEffect(()=>{
-            if(user?._id!==undefined) dispatch(getChannelVideos({pageNum:page,userId:user?._id}))
-    },[page,user?._id])
+            if(channelData.channelUserDetail?._id!==null&&channelData.channelUserDetail?._id!==undefined) {
+                dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail._id}))
+            }
+    },[channelData.channelUserDetail?._id,page])
 
     useEffect(()=>{
         return () => {
@@ -83,10 +85,9 @@ const Account = ():React.JSX.Element => {
         dispatch(resetChannelUser())
         dispatch(resetChannelVideos())
         dispatch(openAccountBar(false))
-
         async function fetchData():Promise<void> {
             try{
-                await dispatch(getChannelDetails({userId:user?._id,username:''}));
+                if(params.channelName!==null&&params.channelName!==undefined) await dispatch(getChannelDetails({userId:'',username:params.channelName}));
             }finally{
                 setLoading({
                     videos:false,
@@ -95,7 +96,7 @@ const Account = ():React.JSX.Element => {
             }
         }
     fetchData()
-    },[subscribeStatus])
+    },[subscribeStatus,params.channelName])
 
     if(channelData.error!==null){
         return<ErrorPage msg="Channel Details"/>
@@ -172,4 +173,4 @@ const Account = ():React.JSX.Element => {
   )
 }
 
-export default Account;
+export default ChannelPage;

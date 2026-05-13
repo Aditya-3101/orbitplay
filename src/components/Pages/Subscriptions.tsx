@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { api } from '../../api/AxiosInterceptor.ts';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
@@ -8,6 +8,7 @@ import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { ErrorPage } from './ErrorPage.tsx';
 import { Link } from 'react-router';
+import { openAccountBar } from '../../app/slices/toggleSlice.ts';
 
 interface userSubscriptionsInterface{
     _id: string;
@@ -67,6 +68,7 @@ const Subscriptions = ():React.JSX.Element => {
     const [userSubscriptions,setUserSubscriptions] = useState<userSubscriptionsResponse>()
     const [videosFromChannel,setVideosFromChannel] = useState<videosFromChannelInterface>()
     const [defaultChannel,setDefaultChannel] = useState<string>('')
+    const dispatch = useDispatch()
     const [loading,setLoading] = useState({
         profile:false,
         videos:false
@@ -78,6 +80,7 @@ const Subscriptions = ():React.JSX.Element => {
 
     useEffect(()=>{
         fetchSubscribedChannels()
+        dispatch(openAccountBar(false))
     },[])
 
     

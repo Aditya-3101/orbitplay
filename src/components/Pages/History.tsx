@@ -7,6 +7,8 @@ import { api } from '../../api/AxiosInterceptor.ts';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 import { ErrorPage } from './ErrorPage.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
+import { openAccountBar } from '../../app/slices/toggleSlice.ts';
+import { useDispatch } from 'react-redux';
 interface watchHistoryVideoType{
     "_id": string,
     "video": {
@@ -52,9 +54,11 @@ const History:React.FC = () => {
   const [checkIfEmpty,setCheckIfEmpty] = useState<boolean>(false)
   const [loading,setLoading] = useState<boolean>(false)
   const [error,setError] = useState<null|string>(null)
+  const dispatch=useDispatch()
 
   useEffect(()=>{
     fetchHistory()
+    dispatch(openAccountBar(false))
   },[])
 
   async function fetchHistory():Promise<void>{

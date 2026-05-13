@@ -1,5 +1,5 @@
 import React,{useEffect,Suspense} from 'react';
-import {Route, createBrowserRouter,createRoutesFromElements,RouterProvider, useRouteError} from "react-router-dom";
+import {Route, createBrowserRouter,createRoutesFromElements,RouterProvider, useRouteError, useLocation} from "react-router-dom";
 import {HomeLayout} from './components/Layouts/Home.tsx';
 import {MainPage} from './components/Main/MainPage.tsx';
 import { Login } from './components/Auth/Login.tsx';
@@ -23,6 +23,7 @@ const Settings = React.lazy(()=>import('./components/Pages/Settings.tsx'))
 const OptionsPage = React.lazy(()=>import('./components/Pages/settings/Options.tsx'))
 const PostPage = React.lazy(()=>import('./components/Pages/Posts.tsx'))
 const UnknownPage = React.lazy(()=>import('./components/Pages/EmptyPage.tsx'))
+const ChannelPage = React.lazy(()=>import('./components/Profile/Channel.tsx'))
 
 interface ErrorResponse {
   code:number;
@@ -46,7 +47,7 @@ const router = createBrowserRouter(
       <Route path="/v/:videoId" element={<Player/>} errorElement={<ErrorBoundry/>}/>
       <Route path="/videos/search" element={<Results/>} errorElement={<ErrorBoundry/>} />
       <Route path="/account" element={<Account key="account"/>} errorElement={<ErrorBoundry/>} />
-      <Route path="/channel/:channelName" element={<Account key="channel" />} errorElement={<ErrorBoundry/>} />
+      <Route path="/channel/:channelName" element={<ChannelPage />} errorElement={<ErrorBoundry/>} />
       <Route path="/history" element={<History/>} errorElement={<ErrorBoundry/>} />
       <Route path="/subscriptions" element={<Subscriptions/>} errorElement={<ErrorBoundry/>} />
       <Route path="/playlists/:playlistId" element={<Playlist/>} errorElement={<ErrorBoundry/>} />

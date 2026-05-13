@@ -6,6 +6,8 @@ import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { ErrorPage } from './ErrorPage.tsx';
 import { Link } from 'react-router';
+import { openAccountBar } from '../../app/slices/toggleSlice.ts';
+import { useDispatch } from 'react-redux';
 
 interface likedVideoDataType{
     "likedVideo": {
@@ -42,9 +44,11 @@ const LikedVideos = ():React.JSX.Element => {
     const [likedVideos,setLikedVideos] = useState<likedVideoType>()
     const [loading,setLoading] = useState<boolean>(false)
     const [error,setError] = useState<string|null>(null)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         fetchLikedVideos()
+        dispatch(openAccountBar(false))
     },[])
 
     async function fetchLikedVideos():Promise<void> {

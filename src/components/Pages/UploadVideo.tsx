@@ -1,8 +1,8 @@
-import React,{useRef, useState} from 'react';
+import React,{useEffect, useRef, useState} from 'react';
 import { X } from 'lucide-react';
 import { api } from '../../api/AxiosInterceptor';
 import { useDispatch } from 'react-redux';
-import { messageModal } from '../../app/slices/toggleSlice';
+import { messageModal, openAccountBar } from '../../app/slices/toggleSlice.ts';
 
 interface uploadFormType{
   file:File|null,
@@ -25,6 +25,11 @@ const UploadVideo = ():React.JSX.Element => {
   const [loading,setLoading] = useState<boolean>(false)
   const [uploadStatus,setUploadStatus] = useState<boolean|string>('')
   const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(openAccountBar(false))
+    window.scrollTo(0,0)
+  },[])
 
 
   function handleDrop(e:React.DragEvent):void{
@@ -95,8 +100,6 @@ const UploadVideo = ():React.JSX.Element => {
   async function handleSubmit(e:React.SyntheticEvent):Promise<void>{
     e.preventDefault()
 
-    console.log(formData)
-
     if(formData.title.trim().length===0||formData.description.trim().length===0||formData.file===null){
       setUploadStatus(false)
       return
@@ -132,58 +135,9 @@ const UploadVideo = ():React.JSX.Element => {
       setLoading(false)
       setUploadStatus(false)
       dispatch(messageModal("something went wrong uploading file"))
+      
     }
   }
-
-  // async function handleSubmit(e: React.SyntheticEvent): Promise<void> {
-  //   e.preventDefault();
-  //   if ( formData.title.trim().length === 0 || formData.description.trim().length === 0 || formData.file === null ) {
-  //   setUploadStatus(false);
-  //   return;
-  //   }
-    
-  //   try {
-  //   setLoading(true);
-  //   const data = new FormData();
-  //   data.append("title", formData.title);
-  //   data.append("description", formData.description);
-    
-  //   if (formData.file) {
-  //     data.append("videoFile", formData.file);
-  //   }
-    
-  //   if (formData.thumbnail) {
-  //     data.append("thumbnail", formData.thumbnail);
-  //   }
-
-  //   console.log(data)
-    
-  //   const request = await api.post(`/videos`, data, {
-  //     withCredentials: true
-  //   });
-    
-  //   if (request.status === 201) {
-  //     setUploadStatus(true);
-    
-  //     setFormData({
-  //       file: null,
-  //       thumbnail: null,
-  //       title: "",
-  //       description: ""
-  //     });
-    
-  //     if (fileInputRef.current) fileInputRef.current.value = "";
-  //     if (thumbnailInputRef.current) thumbnailInputRef.current.value = "";
-  //   }
-    
-  //   } catch (error) {
-  //   setUploadStatus(false);
-  //   dispatch(messageModal("Something went wrong uploading file"));
-  //   } finally {
-  //   setLoading(false);
-  //   }
-  //   }
-    
 
 
   return (

@@ -100,6 +100,14 @@ export const channelDetailSlice = createSlice({
                 state.channelVideos.data.allVideos=userVideo;
               }
             }
+        },
+        resetChannelVideos:(state)=>{
+            state.channelVideos=null;
+            state.channelVideosLoading=false;
+            state.hasMoreChannelVideos=false;
+        },
+        resetChannelUser:(state)=>{
+            state.channelUserDetail=null;
         }
     },
     extraReducers(builder){
@@ -141,6 +149,6 @@ export const channelDetailSlice = createSlice({
     }
 })
 
-export const {updateVideoVisibility,deleteVideo} = channelDetailSlice.actions
+export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser} = channelDetailSlice.actions
 
 export default channelDetailSlice.reducer;
