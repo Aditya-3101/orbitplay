@@ -150,7 +150,7 @@ const Register = ():React.JSX.Element => {
 
   return (
     <div>
-      <main className='w-[100%] bg-[rgba(0,0,0,0.95)] h-[100dvh] relative'>
+      <main className='w-[100%] bg-[rgba(0,0,0,0.95)] min-h-[100dvh] max-h-[140dvh] relative py-4'>
         <div className='flex items-center w-[90%] '>
           <img src={logo} className='w-[3rem] md:w-[5rem] lg:w-[7rem] object-cover aspect-square' />
           <p className='font-roboto text-lg md:text-2xl lg:text-4xl px-2 text-gray-200'>Register</p>
@@ -164,37 +164,37 @@ const Register = ():React.JSX.Element => {
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
               <div>
                 <p>Name</p>
-                {(helperMessage.show&&userForm.fullName.trim().length==0)&&<span className='text-gray-700 text-xs'>Kindly fill your name here</span>}
+                {(helperMessage.show&&userForm.fullName.trim().length==0)&&<span className='text-gray-600 text-xs'>Kindly fill your name here</span>}
                 <input type='text' value={userForm.fullName} onChange={onChangeHandler} name="fullName" className={`w-[100%] h-[2.4rem] border border-gray-500 px-2 ${(helperMessage.show&&userForm.fullName.trim().length==0)&&"border-red-700"}`} placeholder='Enter your Name here' />
               </div>
 
               <div>
                 <p>Username</p>
-                {(helperMessage.show&&userForm.username.trim().length==0)&&<span className='text-gray-700 text-xs'>Kindly fill your username here</span>}
+                {(helperMessage.show&&userForm.username.trim().length==0)&&<span className='text-gray-600 text-xs'>Kindly fill your username here</span>}
                 <input type='text' value={userForm.username} onChange={onChangeHandler} name="username" className={`w-[100%] h-[2.4rem] border border-gray-500 px-2 ${(helperMessage.show&&userForm.username.trim().length==0)&&"border-red-700"}`} placeholder='Enter your username here' />
               </div>
 
               <div>
                 <p>Email</p>
-                {(helperMessage.show&&userForm.email.trim().length==0)&&<span className='text-gray-700 text-xs'>Kindly fill your email here</span>}
+                {(helperMessage.show&&userForm.email.trim().length==0)&&<span className='text-gray-600 text-xs'>Kindly fill your email here</span>}
                 <input type='email' value={userForm.email} onChange={onChangeHandler} name="email" className={`w-[100%] h-[2.4rem] border border-gray-500 px-2 ${(helperMessage.show&&userForm.email.trim().length==0)&&"border-red-700"}`} placeholder='Enter your Email here' />
               </div>
 
               <div>
                 <p>Password</p>
-                {(helperMessage.show&&userForm.password.trim().length==0)&&<span className='text-gray-700 text-xs'>Kindly fill your password here</span>}
+                {(helperMessage.show&&userForm.password.trim().length==0)&&<span className='text-gray-600 text-xs'>Kindly fill your password here</span>}
                 <input type='password' value={userForm.password} onChange={onChangeHandler} name="password" className={`w-[100%] h-[2.4rem] border border-gray-500 px-2 ${(helperMessage.show&&userForm.password.trim().length==0)&&"border-red-700"}`} placeholder='Enter your Password here' />
               </div>
 
               <div>
               <p>Avatar</p>
-              {(helperMessage.show&&userForm.avatar===null)&&<span className='text-gray-700 text-xs'>Kindly upload your avatar here</span>}
+              {(helperMessage.show&&userForm.avatar===null)&&<span className='text-gray-600 text-xs'>Kindly upload your avatar here</span>}
                 <input type='file' ref={avatarRef} accept='image/png, image/jpg, image/jpeg' name="avatar" onChange={onFileHandler} className='w-[100%] border border-gray-500 file:p-2 file:bg-gray-100 file:text-gray-900' />
               </div>
 
               <div>
               <p>Cover Image</p>
-              {(helperMessage.show&&userForm.coverImage===null)&&<span className='text-gray-700 text-xs'>Kindly upload your cover here</span>}
+              {(helperMessage.show&&userForm.coverImage===null)&&<span className='text-gray-600 text-xs'>Kindly upload your cover picture here</span>}
                 <input type='file' ref={coverImageRef} accept='image/png, image/jpg, image/jpeg' name="coverImage" onChange={onFileHandler} className='w-[100%] border border-gray-500 file:p-2 file:bg-gray-100 file:text-gray-900' />
               </div>
 
