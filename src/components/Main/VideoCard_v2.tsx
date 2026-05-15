@@ -54,7 +54,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                 <img src={par?.thumbnail} className='w-[100%] h-[100%] aspect-video object-cover block' />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
-            <section className='grid grid-rows-[25%_75%] md:grid-rows-[30%_70%] relative w-[100%] aspect-[16/9] h-[100%]'>
+            <section className='grid grid-rows-[25%_75%] md:grid-rows-[40%_60%] relative w-[100%] aspect-[16/9] h-[100%]'>
                 <div className='text-slate-50 font-roboto w-[100%] flex justify-between items-start relative'>
                     <p className='text-lg md:text-xl lg:text-2xl '>{par.title}</p>
                     {user?._id===par.owner._id&&<div className='block relative max-w-[50%]'>
@@ -74,9 +74,9 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
                         </section>}
                     </div>}
                     </div>
-                    <div className='flex flex-col justify-evenly'>   
-                <p className=' text-slate-500 text-sm font-roboto w-[80%]'>{par.description}</p>
-                <p className=' text-slate-500 text-sm font-roboto w-[80%]'>{par.views} views | {timeAgo(par.createdAt)}</p>
+                    <div className='flex flex-col justify-between py-2'>   
+                <p className=' text-slate-400 text-sm font-roboto w-[80%] truncate'>{par.description}</p>
+                <p className=' text-slate-400 text-sm font-roboto w-[80%] '>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <div className='flex items-center gap-2'>
                     <div onClick={(e)=>navigateToChannel(e,par.owner.username)}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
                     <div onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-sm font-roboto'>{par.owner.fullName}</div>
