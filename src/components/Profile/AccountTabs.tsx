@@ -142,9 +142,9 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
     <div>
         <section className='bg-[rgba(0,0,0,0.95)] px-4 py-2'>
             <ul className='flex'>
-                <button className={`font-roboto text-slate-200 px-3 py-2 
+                <button className={`font-roboto text-slate-200 px-3 py-2 cursor-pointer  
                 ${defaultTab==="Videos"&&'bg-[#222]'}`} name="Videos" onClick={tabChanger}>Videos</button>
-                <button className={`font-roboto text-slate-200 p-2 px-3 py-2 ${defaultTab==="Playlists"&&'bg-[#222]'}`} name="Playlists" onClick={tabChanger}>Playlists</button>
+                <button className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Playlists"&&'bg-[#222]'}`} name="Playlists" onClick={tabChanger}>Playlists</button>
             </ul>
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>

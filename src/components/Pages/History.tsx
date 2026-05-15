@@ -140,7 +140,7 @@ const History:React.FC = () => {
 
           <div className='w-[100%]'>
           {(sortWatchHistory)&&
-            Object.entries(sortWatchHistory.remaining).map(([label,arr])=>(
+            Object.entries(sortWatchHistory.remaining).reverse().map(([label,arr])=>(
               <div key={label}>
                 <SectionHeader title={label} size="text-base md:text-lg" />
                 {arr&&arr?.map((par)=>{

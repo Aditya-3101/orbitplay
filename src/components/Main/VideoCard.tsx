@@ -24,8 +24,8 @@ export const VideoCard = ({data}):React.JSX.Element => {
     }
 
     return (
-    <div className='w-[100%] md:my-4'>
-        <div className='border-[0.5px] border-gray-200 w-[90%] mx-auto aspect-video cursor-pointer'>
+    <div className='w-[100%] md:my-0'>
+        <div className='border-[0.5px] border-gray-500 w-[96%] mx-auto aspect-video cursor-pointer'>
             <div className='relative' onClick={navigatePlayer}>            
             <img src={thumbnail} className='object-cover aspect-video w-[100%]' />
             <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(duration)}</p>

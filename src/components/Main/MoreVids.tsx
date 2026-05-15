@@ -7,6 +7,7 @@ import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 import { useDispatch } from 'react-redux';
 import { messageModal } from '../../app/slices/toggleSlice.ts';
+import { SectionHeader } from '../Header/sectionHeader.tsx';
 
 interface Video {
     _id: string;
@@ -40,8 +41,8 @@ interface Video {
 
 export const MoreVids = () => {
     const {videoId} = useParams()
-    const [page,setPage] = useState(1)
-    const [hasMore,setHasmore]=useState(false)
+    const [page,setPage] = useState<number>(1)
+    const [hasMore,setHasmore]=useState<boolean>(false)
     const [loading,setLoading] = useState<boolean>(false)
     const [vids,setVids] = useState<Video[]>([])
     const videoContainerRef = useRef(null)
@@ -82,9 +83,12 @@ export const MoreVids = () => {
 
   return (
     <div className='bg-[rgba(20,20,20,0.9)] border-l border-gray-300 grid grid-cols-1'>
-        <main className=' relative py-4 '>
+      <div>
+        <SectionHeader title="More Videos" size="text-base md:text-lg" />
+      </div>
+        <main className=' relative pb-2 '>
         {vids&&vids.map((par,index)=>{
-          return<div key={par._id} className='py-1'>
+          return<div key={par._id} className='py-2'>
           <VideoCard data={par}  />
           </div>
         })}

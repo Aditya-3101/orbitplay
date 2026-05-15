@@ -1,14 +1,13 @@
 import React,{useCallback, useEffect, useRef, useState} from 'react';
 import { VideoCard } from './VideoCard.tsx';
 import { useDispatch } from 'react-redux';
-import { messageModal, toggleSideBar } from '../../app/slices/toggleSlice.ts';
+import { messageModal, openAccountBar, toggleSideBar } from '../../app/slices/toggleSlice.ts';
 import VideoCardSkeleton from './VideoCardSkeleton.tsx';
 import { api } from '../../api/AxiosInterceptor.ts';
 import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.tsx';
 import { AppDispatch } from '../../app/store/store.ts';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
-import { Link } from 'react-router';
 
 interface Video {
   _id: string;
@@ -62,7 +61,8 @@ export const MainPage = ():React.JSX.Element => {
 
   useEffect(()=>{
     fetchHomeVideos(page);
-    dispatch(toggleSideBar(true))
+    dispatch(toggleSideBar(true));
+    dispatch(openAccountBar(false))
   },[page])
 
 
@@ -99,7 +99,7 @@ export const MainPage = ():React.JSX.Element => {
 
   return (
     <div className={`relative grid`}>
-      <main className=' py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+      <main className=' py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4'>
         {(videos&&videos.length!==0)&&videos.map((par,index)=>{
           return<VideoCard key={par._id} data={par}  />
         })}

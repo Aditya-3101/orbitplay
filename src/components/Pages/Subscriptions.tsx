@@ -123,7 +123,6 @@ const Subscriptions = ():React.JSX.Element => {
                 ...prev,
                 subscribedChannelVideos:err?.message
             }))
-            console.log(err)   
         }
     }
 
@@ -146,7 +145,7 @@ const Subscriptions = ():React.JSX.Element => {
             {(userSubscriptions && userSubscriptions.data.length!==0)&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
                 return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
                     <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
-                        <img src={param.avatar} className={`aspect-square rounded-full object-cover w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
+                        <img src={param.avatar} className={`aspect-square rounded-full object-cover cursor-pointer w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
                         <p className='font-roboto text-gray-200'>{param.fullName}</p>
                     </div>
                 </div>
@@ -159,7 +158,10 @@ const Subscriptions = ():React.JSX.Element => {
                             <VideoCard_v2 data={par} />
                             </Link>
                     })}
-                    {(!loading.videos&&videosFromChannel?.data.length==0)&&<div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div>}
+                    {(!loading.videos&&videosFromChannel?.data.length==0)&&
+                    <section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
+                        <div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div> 
+                    </section>}
                 {(loading.videos)&&(emptyArr.map((par)=>{
                     return<div className='mx-auto w-[90%] py-2' key={par.id}>
                     <VideoCard_v2_skeleton />
@@ -167,7 +169,8 @@ const Subscriptions = ():React.JSX.Element => {
                 }))}
                 </div>
             </section>
-            {(userSubscriptions&&userSubscriptions.data.length===0)&&<section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
+            {(userSubscriptions&&userSubscriptions.data.length===0)&&
+            <section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
                 <p className='font-roboto text-lg text-gray-500'>No Subscriptions found</p>
             </section>}
             </article>

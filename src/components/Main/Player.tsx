@@ -95,7 +95,10 @@ const Player:React.FC = () => {
     <>
     <div className='grid grid-cols-1 md:grid-cols-[70%_30%] relative'>
         <section>
-        {(video.video)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
+        {video.loading&&<div className='aspect-video bg-[rgba(20,20,20,0.9)] animate-pulse flex items-center justify-center'>
+            <div className="loader"></div>
+        </div>}
+        {(video.video&&!video.loading)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
         {video.video.videoFile&&<video src={video.video.videoFile} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-[100%]'/>}
         <p className='p-2 flex justify-between'>
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
@@ -110,12 +113,29 @@ const Player:React.FC = () => {
                     <span className='text-[#AAAAAA] text-[12px]'>{video.subscribers} subscribers</span>
                 </p>
             </div>
-            <div className='text-slate-500 flex items-center justify-center' onClick={()=>followChannel(video.video?.owner._id)}>
+            <div className='text-slate-500 flex items-center justify-center cursor-pointer' onClick={()=>followChannel(video.video?.owner._id)}>
             {!checkSubscription?
             <><Plus />
                 Follow</>:<><Plus /> Following</>}
             </div>
         </div>
+        </div>}
+        {video.loading&&<div className='w-full h-[6rem] md:h-[8rem] px-4 py-2'>
+            <div className='w-[100%] h-[2rem] bg-[rgba(20,20,20,0.7)] animate-pulse'>
+            </div>
+            <div className='w-[60%] h-[2rem] bg-[rgba(20,20,20,0.7)] animate-pulse mt-2'>
+            </div>
+        </div>}
+        {video.loading&&<div className='flex justify-between items-center p-4 border-t border-[rgba(255,255,255,0.2)]'>
+            <div className='flex items-center gap-3'>
+                <div className='aspect-square w-[2rem] rounded-full object-cover animate-pulse bg-[rgba(20,20,20,0.6)]'></div>
+                <p className='flex flex-col gap-2'>
+                    <span className='text-slate-300 w-[10rem] h-4 text-base md:text-lg font-poppins animate-pulse bg-[rgba(20,20,20,0.6)]'></span>
+                    <span className='text-[#AAAAAA] w-[6rem] h-4 text-[12px] animate-pulse bg-[rgba(20,20,20,0.6)]'></span>
+                </p>
+            </div>
+            <div className='text-slate-500 flex items-center justify-center'>
+            </div>
         </div>}
         {!video.loading&&<Comments />}
         </section>
