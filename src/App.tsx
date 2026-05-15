@@ -8,22 +8,28 @@ import { PublicRoute } from './components/Auth/PublicRoute.tsx';
 import { refreshUser} from './components/Auth/Refresh.ts'
 import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "./app/store/store.ts";
+import {lazyRetry} from './utility/LazyRetry.ts';
 
-const Player = React.lazy(()=>import('./components/Main/Player.tsx'));
-const Account = React.lazy(()=>import('./components/Profile/Account.tsx'))
-const History = React.lazy(()=>import('./components/Pages/History.tsx'))
-const Results = React.lazy(()=>import('./components/Pages/Results.tsx'))
-const Subscriptions = React.lazy(()=>import('./components/Pages/Subscriptions.tsx'))
-const Playlist = React.lazy(()=>import('./components/Pages/Playlist.tsx'))
-const LikedVideos = React.lazy(()=>import('./components/Pages/LikedVideos.tsx'))
-const UploadVideo = React.lazy(()=>import('./components/Pages/UploadVideo.tsx'))
-const Register = React.lazy(()=>import('./components/Auth/Register.tsx'))
-const ErrorWall = React.lazy(()=>import('./components/ErrorBoundry/ErrorWall.tsx'))
-const Settings = React.lazy(()=>import('./components/Pages/Settings.tsx'))
-const OptionsPage = React.lazy(()=>import('./components/Pages/settings/Options.tsx'))
-const PostPage = React.lazy(()=>import('./components/Pages/Posts.tsx'))
-const UnknownPage = React.lazy(()=>import('./components/Pages/EmptyPage.tsx'))
-const ChannelPage = React.lazy(()=>import('./components/Profile/Channel.tsx'))
+
+// const UploadVideo = lazy(() =>
+//   lazyRetry(() => import("./pages/UploadVideo"))
+// );
+
+const Player = React.lazy(()=>lazyRetry(()=>import('./components/Main/Player.tsx')));
+const Account = React.lazy(()=>lazyRetry(()=>import('./components/Profile/Account.tsx')));
+const History = React.lazy(()=>lazyRetry(()=>import('./components/Pages/History.tsx')));
+const Results = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Results.tsx')));
+const Subscriptions = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Subscriptions.tsx')));
+const Playlist = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Playlist.tsx')));
+const LikedVideos = React.lazy(()=>lazyRetry(()=>import('./components/Pages/LikedVideos.tsx')));
+const UploadVideo = React.lazy(()=>lazyRetry(()=>import('./components/Pages/UploadVideo.tsx')));
+const Register = React.lazy(()=>lazyRetry(()=>import('./components/Auth/Register.tsx')));
+const ErrorWall = React.lazy(()=>lazyRetry(()=>import('./components/ErrorBoundry/ErrorWall.tsx')));
+const Settings = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Settings.tsx')));
+const OptionsPage = React.lazy(()=>lazyRetry(()=>import('./components/Pages/settings/Options.tsx')));
+const PostPage = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Posts.tsx')));
+const UnknownPage = React.lazy(()=>lazyRetry(()=>import('./components/Pages/EmptyPage.tsx')));
+const ChannelPage = React.lazy(()=>lazyRetry(()=>import('./components/Profile/Channel.tsx')));
 
 interface ErrorResponse {
   code:number;
