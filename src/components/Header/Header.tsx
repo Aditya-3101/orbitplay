@@ -48,7 +48,7 @@ export const Header:React.FC = () => {
     }
 
   return (
-    <div className='w-[100%] border grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_65%_5%_5%] gap-[4px] md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
+    <div className='w-[100%] border grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-[4px] md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
         <p className='hidden cursor-pointer md:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
         <div className='text-gray-200 text-center flex flex-col items-center justify-center'>
         <NavLink  to="/">
