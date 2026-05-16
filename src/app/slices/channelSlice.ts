@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getChannelDetails, getChannelVideos} from '../thunks/channelThunk.ts';
+import {getChannelDetails, getChannelVideos,getChannelPlaylist} from '../thunks/channelThunk.ts';
 
 interface channelUserDetailsInterface{
     "_id": string
@@ -64,6 +64,7 @@ interface channelDataInterface {
     channelVideos:GetChannelVideosResponse|null;
     channelVideosLoading:boolean;
     hasMoreChannelVideos:boolean;
+    channelPlaylistError:unknown|string;
     channelPlaylist:channelPlaylistInterface[]|null;
     loading:boolean;
     error:string|unknown
@@ -74,6 +75,7 @@ const initialState:channelDataInterface = {
     channelVideos:null,
     channelVideosLoading:false,
     hasMoreChannelVideos:false,
+    channelPlaylistError:'',
     channelPlaylist:null,
     loading:true,
     error:''
@@ -117,13 +119,19 @@ export const channelDetailSlice = createSlice({
         })
         .addCase(getChannelDetails.fulfilled,(state,action)=>{
             state.channelUserDetail=action.payload.channelUserDetails;
-            state.channelPlaylist=action.payload.userPlaylist;
+            // state.channelPlaylist=action.payload.userPlaylist;
             state.loading=false;
             state.error=null;
         })
         .addCase(getChannelDetails.rejected,(state,action)=>{
             state.loading=false;
             state.error=action.payload;
+        })
+        .addCase(getChannelPlaylist.fulfilled,(state,action)=>{
+            state.channelPlaylist=action.payload?.userPlaylist
+        })
+        .addCase(getChannelPlaylist.rejected,(state,action)=>{
+            state.channelPlaylistError=action.payload;
         })
         .addCase(getChannelVideos.fulfilled,(state,action)=>{
             state.hasMoreChannelVideos= (action.payload.data.limit*action.payload?.data.page)<action.payload?.data.allVideoCount;

@@ -3,13 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 interface initialStateInterface {
     sideBar:boolean,
     msg:string|null,
-    accountOptionToggle:boolean
+    accountOptionToggle:boolean,
+    createPlaylistOverlay:boolean
 }
 
 const initialState:initialStateInterface = {
     sideBar:true,
     msg:null,
-    accountOptionToggle:false
+    accountOptionToggle:false,
+    createPlaylistOverlay:false
 }
 
 export const toggleSlice = createSlice({
@@ -24,10 +26,13 @@ export const toggleSlice = createSlice({
         },
         openAccountBar:(state,action)=>{
             state.accountOptionToggle=action.payload
+        },
+        toggleCreatePlaylistOverlay:(state)=>{
+            state.createPlaylistOverlay=!state.createPlaylistOverlay
         }
     }
 })
 
-export const {toggleSideBar,messageModal,openAccountBar} = toggleSlice.actions;
+export const {toggleSideBar,messageModal,openAccountBar,toggleCreatePlaylistOverlay} = toggleSlice.actions;
 
 export default toggleSlice.reducer

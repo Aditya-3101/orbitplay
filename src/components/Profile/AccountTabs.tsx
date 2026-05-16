@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import {ListVideo} from 'lucide-react'
+import {ListPlus, ListVideo} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
 import { api } from '../../api/AxiosInterceptor';
-import { useDispatch } from 'react-redux';
-import { messageModal } from '../../app/slices/toggleSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { messageModal,openAccountBar,toggleCreatePlaylistOverlay } from '../../app/slices/toggleSlice';
 import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
+import { RootState } from '../../app/store/store';
 
 interface ChannelVideoOwner {
     _id: string;
@@ -103,10 +104,13 @@ interface videoObjectResponse {
     __v: number
 }
 
-export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading:boolean }):React.JSX.Element => {
+export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideosResponse,playlists:channelPlaylistInterface[],loading:boolean }):React.JSX.Element => {
 
     const [defaultTab,setDefaultTab] = useState<string>("Videos")
     const dispatch = useDispatch()
+    const user = useSelector((state:RootState)=>state.user.userTemp)
+    const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
+
 
     function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
@@ -138,6 +142,13 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
         }
     }
 
+    function openCreatePlaylistOverLay():void{
+        dispatch(toggleCreatePlaylistOverlay())
+        dispatch(openAccountBar(false))
+    }
+
+
+
   return (
     <div>
         <section className='bg-[rgba(0,0,0,0.95)] px-4 py-2'>
@@ -150,13 +161,13 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
             <main className='w-[90%]'>
-                {(!loading && data.channelVideos?.data.allVideos.length!==0)&&data.channelVideos?.data.allVideos.map((par)=>{
+                {(!loading && videos.data.allVideos.length!==0)&&videos.data.allVideos.map((par)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-[0]'>
                     <VideoCard_v2 data={par} onDelete={onDeleteVideo} onTogglePublish={togglePublish} />
                     </Link>
                 })}
                 {
-                    (!loading&&data.channelVideos?.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
+                    (!loading&&videos.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
                         No Videos Found
                     </div>
                 }
@@ -165,7 +176,20 @@ export const AccountTabs = ({ data,loading }:{ data:channelDataInterface,loading
                 }))}
                 </main>}
             {defaultTab==="Playlists"&&<main className=''>
-                {(data.channelPlaylist && data.channelPlaylist.length!==0 )?data.channelPlaylist.map((par)=>{
+                {(user?._id===channelUser?._id)&&<div>
+                <div className='grid grid-cols-[40%_60%] gap-4 mb-2 cursor-pointer' onClick={openCreatePlaylistOverLay}>
+                        <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
+                            <div className='absolute top-0 right-0 left-0 bottom-0'></div>
+                            <ListPlus size={36} color="rgba(240,240,240,0.9)" />
+                            <p className='text-gray-200 text-xs'></p>
+                        </section>
+                        <section>
+                            <p className='text-slate-50 text-base md:text-2xl font-roboto'>create playlist</p>
+                            <p className='text-slate-500 text-xs md:text-sm font-roboto'></p>
+                        </section>
+                        </div>
+                </div>}
+                {(playlists && playlists.length!==0 )?playlists.map((par)=>{
                     return<div key={par._id} className=' mb-2'>
                         <Link to={`/playlists/${par._id}`}>
                         <div className='grid grid-cols-[40%_60%] gap-4'>

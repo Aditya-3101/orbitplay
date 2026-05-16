@@ -67,16 +67,16 @@ export const getChannelDetails = createAsyncThunk(
             throw new Error("No userId or username provided");
           }
 
-            const userPlaylists = await api.get(`/playlist/user/${finalUserId}`,
-            {  withCredentials:true,
-                headers:{
-                    Authorization:`Bearer ${token}`
-                }
-            })
+            // const userPlaylists = await api.get(`/playlist/user/${finalUserId}`,
+            // {  withCredentials:true,
+            //     headers:{
+            //         Authorization:`Bearer ${token}`
+            //     }
+            // })
 
             return {
                 channelUserDetails:userDetails,
-                userPlaylist:userPlaylists.data.data
+                // userPlaylist:userPlaylists.data.data
             }
 
         } catch (err) {
@@ -84,6 +84,25 @@ export const getChannelDetails = createAsyncThunk(
         }
     }
 )
+
+export const getChannelPlaylist = createAsyncThunk(
+    "channel/channelPlaylists",
+    async({userId}:{userId:string},{getState,rejectWithValue})=>{
+        try {
+            const state = getState() as RootState;
+            const token = state.user.accessToken;
+            const userPlaylists = await api.get(`/playlist/user/${userId}`,
+            {  withCredentials:true,
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+            if(userPlaylists.status===200) return {userPlaylist:userPlaylists.data.data}
+
+        } catch (error) {
+            return rejectWithValue(error?.message||"failed to fetch Account playlist")   
+        }
+    })
 
 export const getChannelVideos = createAsyncThunk(
     "channel/channelVideos",
