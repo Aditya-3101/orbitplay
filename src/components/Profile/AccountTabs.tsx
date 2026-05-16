@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { messageModal,openAccountBar,toggleCreatePlaylistOverlay } from '../../app/slices/toggleSlice';
 import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
+import { useLocation } from 'react-router';
 
 interface ChannelVideoOwner {
     _id: string;
@@ -110,7 +111,7 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
     const dispatch = useDispatch()
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
-
+    const location = useLocation()
 
     function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
@@ -147,6 +148,20 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
         dispatch(openAccountBar(false))
     }
 
+    function checkUserLocation():boolean{
+        const isAccountPath = location.pathname === "/account";
+        const isChannelPath = location.pathname.includes('/channel');
+        if(isAccountPath&&user?._id!==null){
+            return true
+        }
+
+        if(isChannelPath){
+            if(user?._id===channelUser?._id) return true
+            if(user?._id!==channelUser?._id) return false
+        }
+        return false
+    }
+
 
 
   return (
@@ -176,7 +191,7 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
                 }))}
                 </main>}
             {defaultTab==="Playlists"&&<main className=''>
-                {(user?._id===channelUser?._id)&&<div>
+                {(checkUserLocation())&&<div>
                 <div className='grid grid-cols-[40%_60%] gap-4 mb-2 cursor-pointer' onClick={openCreatePlaylistOverLay}>
                         <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
                             <div className='absolute top-0 right-0 left-0 bottom-0'></div>
