@@ -15,6 +15,7 @@ import { api } from '../../api/AxiosInterceptor.ts';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
+import { Link } from 'react-router-dom';
 
 const Player:React.FC = () => {
     const {videoId} = useParams()
@@ -51,7 +52,7 @@ const Player:React.FC = () => {
 
     let uploadedDate:string|undefined
 
-    if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) uploadedDate = format(new Date(video?.video.createdAt),"dd MMMM yyyy");    
+    if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) uploadedDate = format(new Date(video?.video.createdAt),"MMM dd yyyy");    
 
     async function checkSubscriptionStatus():Promise<void> {
         
@@ -78,7 +79,7 @@ const Player:React.FC = () => {
     }
 
     async function followChannel(par:string|undefined):Promise<void>{
-        try {//{{server}}/subscriptions/c/:channeld
+        try {
             const request = await api.post(`/subscriptions/c/${par}`,{})
             if(request.status===200)  checkSubscriptionStatus()
 
@@ -102,16 +103,16 @@ const Player:React.FC = () => {
         {video.video.videoFile&&<video src={video.video.videoFile} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-[100%]'/>}
         <p className='p-2 flex justify-between'>
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
-            <span className='text-slate-200'>{video.video?.views} views</span>
+            {/* <span className='text-slate-200'>{video.video?.views} views</span> */}
         </p>
         {(uploadedDate!==undefined&&!video.loading)&&<VideoMenu uploadTime={uploadedDate}/>}
         <div className='flex justify-between items-center p-4 border-t border-[rgba(255,255,255,0.2)]'>
             <div className='flex items-center gap-3'>
                 {video.video.owner.avatar&&<img src={video.video.owner.avatar} className='aspect-square w-[2rem] rounded-full object-cover' />}
-                <p className='flex flex-col'>
+                <Link className='flex flex-col' to={`/channel/${video.video.owner.username}`}>
                     <span className='text-slate-300 text-base md:text-lg font-poppins'>{video.video?.owner.username}</span>
                     <span className='text-[#AAAAAA] text-[12px]'>{video.subscribers} subscribers</span>
-                </p>
+                </Link>
             </div>
             <div className='text-slate-500 flex items-center justify-center cursor-pointer' onClick={()=>followChannel(video.video?.owner._id)}>
             {!checkSubscription?
@@ -148,8 +149,6 @@ const Player:React.FC = () => {
             </div>}
         <OverLayDialouge/>
     </div>
-    {/* {video.loading===true&&<Player_Skeleton/>}         */}
-
     </>
   )
 }

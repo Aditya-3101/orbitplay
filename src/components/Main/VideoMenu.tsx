@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { RootState } from '../../app/store/store.ts';
 import { useSelector, useDispatch } from 'react-redux';
-import { ListPlus, ThumbsUp } from 'lucide-react';
-import { timeAgo } from '../../utility/timeStamp.ts';
+import { ChevronDown, ChevronUp, Link, ListPlus, ThumbsUp } from 'lucide-react';
 import {messageModal} from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 
@@ -36,18 +35,29 @@ interface fetchLikeType{
     success: number
 }
 
+interface likesTypes{
+    count:number,
+    likedByUser:boolean
+}
+
+interface selectedPlayLisType{
+    status:boolean,
+    id:string|null
+}
+
 export const VideoMenu = ({uploadTime}):React.JSX.Element => {
     const videoDetails = useSelector((state:RootState)=>state.video.video)
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const dispatch = useDispatch()
     const {videoId} = useParams()
-    const [likes,setLikes] = useState({
+    const [likes,setLikes] = useState<likesTypes>({
         count:0,
         likedByUser:false
     })
+    const [showMoreSection,setShowMoreSection] = useState<boolean>(false)
     const [playlistToggle,setPlaylistToggle] = useState<boolean>(false)
     const [userPlaylist,setUserPlaylist] = useState<playlistFormat>()
-    const [selectedPlayList,setSelectedPlaylist] = useState({
+    const [selectedPlayList,setSelectedPlaylist] = useState<selectedPlayLisType>({
         status:false,
         id:null,
     })
@@ -104,7 +114,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
         }
     }
 
-    function onSelectPlaylist(param){
+    function onSelectPlaylist(param:string):void{
         setSelectedPlaylist((prev)=>({
             status:true,
             id:param
@@ -112,7 +122,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
     }
 
 
-    async function toggleLikes() {
+    async function toggleLikes():Promise<void> {
         
         try {
             const req = await api.post(`/likes/toggle/v/${videoDetails?._id}`,{},{
@@ -133,7 +143,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
         }
     }
 
-    const likeVideo = () =>{
+    const likeVideo = ():void =>{
         const initialState = likes.likedByUser
         setLikes((prev)=>({
             ...prev,
@@ -143,28 +153,44 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
         toggleLikes()
     }
 
-    function togglePlaylistBtn(){
+    function togglePlaylistBtn():void{
         setPlaylistToggle(!playlistToggle)
         if(userPlaylist?.data.length===0)  dispatch(messageModal(`No Playlists Found`))
 
+    }
+
+    function copyLink(){
+        const videoLink = window.location.href;
+        navigator.clipboard.writeText(videoLink);
+        dispatch(messageModal("Link has been copied"))
+    }
+
+    function toggleMoreSection():void{
+        setShowMoreSection(!showMoreSection)
     }
     
 
   return (
     <div>
-        <section className='text-[#f1f1f1] p-2 flex justify-between relative'>
-        <div className='flex flex-col justify-center w-[20%] items-center text-xs'>
-         {likes.likedByUser?<ThumbsUp color="red" onClick={likeVideo}/>:<ThumbsUp color="white" onClick={likeVideo} />}
-         <p className='text-xs'>{likes.count}</p>
-         </div>
-         <div className='w-[80%] flex items-center justify-evenly'>
+        <section className='text-[#f1f1f1] p-2 flex justify-between items-center relative'>
+        <div className='w-[30%] md:w-[20%] flex items-center justify-evenly'>
+            <div className='flex flex-col justify-center items-center text-xs cursor-pointer'>
+                {likes.likedByUser?<ThumbsUp color="red" onClick={likeVideo}/>:<ThumbsUp color="white" onClick={likeVideo} />}
+                <p className='text-xs'>{likes.count}</p>
+                </div>
+                <div className='flex flex-col justify-center items-center text-xs cursor-pointer'>
+                    <Link onClick={copyLink} />
+                </div>
+        </div>
+
+         <div className='w-[70%] md:w-[80%] flex justify-end md:justify-end gap-4 md:gap-6 lg:gap-8 items-center'>
             <div className='font-roboto text-sm rounded-2xl  relative'>
             
                 <p className='flex items-center gap-1 cursor-pointer' onClick={togglePlaylistBtn}>
                 <ListPlus />
                 <span>Add to Playlist</span></p>
                 <div>
-                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-[100%] bottom-0 right-0 left-[50%] md:left-[100%] w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
+                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-[100%] bottom-0 right-0 left-0 w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
                     {userPlaylist.data.map((par)=>{
                         return<div key={par._id} className={`p-1 flex items-center gap-2 border-b border-gray-300 cursor-pointer ${par._id===selectedPlayList.id?"bg-[rgba(255,255,255,0.2)]":""}`} onClick={()=>onSelectPlaylist(par._id)}>
                             <ListPlus />
@@ -175,11 +201,20 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
                         <button className={`${selectedPlayList.id!==null?"text-gray-700  bg-gray-100":"text-gray-700 bg-gray-300"} cursor-pointer rounded ml-auto p-1 text-sm`} onClick={addTheVideoInPlaylist}>Add</button></div>}
                     </section>}
             </div>
-                </div>
-
-            {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{timeAgo(uploadTime)}</p>}
+            </div>
+            {/* {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{uploadTime}</p>} */}
+            <div className='cursor-pointer' onClick={toggleMoreSection}>{showMoreSection?<ChevronUp />:<ChevronDown />}</div>
          </div>
         </section>
+        {showMoreSection&&<section className='w-full font-roboto py-2'>
+            <div className='text-gray-400 w-[90%] flex justify-between items-center mx-auto py-2'>
+                <p>{videoDetails?.views} views</p>
+                {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{uploadTime}</p>}
+            </div>
+            <div className='w-[90%] text-gray-400 mx-auto py-2'>
+                {videoDetails?.description}
+            </div>
+        </section>}
     </div>
   )
 }

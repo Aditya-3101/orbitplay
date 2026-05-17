@@ -149,18 +149,25 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
     }
 
     function checkUserLocation():boolean{
-        const isAccountPath = location.pathname === "/account";
-        const isChannelPath = location.pathname.includes('/channel');
+        const isAccountPath = location.pathname === "/Account";
+        const isChannelPath = location.pathname.includes('/Channel');
         if(isAccountPath&&user?._id!==null){
+            console.log("in correct path")
             return true
         }
 
+
         if(isChannelPath){
+            console.log("in channel path")
             if(user?._id===channelUser?._id) return true
             if(user?._id!==channelUser?._id) return false
         }
         return false
     }
+
+    console.log(checkUserLocation())
+
+    console.log(location.pathname)
 
 
 
