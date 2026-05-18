@@ -149,8 +149,8 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
     }
 
     function checkUserLocation():boolean{
-        const isAccountPath = location.pathname === "/Account";
-        const isChannelPath = location.pathname.includes('/Channel');
+        const isAccountPath = location.pathname === "/account";
+        const isChannelPath = location.pathname.includes('/channel');
         if(isAccountPath&&user?._id!==null){
             return true
         }

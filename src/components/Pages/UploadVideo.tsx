@@ -184,7 +184,7 @@ const UploadVideo = ():React.JSX.Element => {
               <textarea value={formData.description} name="description" onChange={onChangeHandler} className='h-[6rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 resize-y min-h-10 max-h-20' />
             </div>
           </div>
-          <button className='font-roboto px-2 py-1 rounded text-gray-200 border border-gray-400' type="submit">Post</button>
+          <button className='font-roboto px-2 py-1 rounded text-gray-200 border border-gray-400 cursor-pointer' type="submit">Post</button>
         </form>
       </div>
       {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>
