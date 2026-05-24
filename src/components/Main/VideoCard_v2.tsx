@@ -42,6 +42,8 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
         setOptions(!options)
     }
 
+    console.log((userLocation==="valid")&&(user?._id===par.owner._id))
+
     function navigateToChannel(e:React.SyntheticEvent,arg:string):void{
         e.preventDefault();
         navigate(`/channel/${arg}`)
@@ -49,21 +51,21 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
 
   return (
     <div>
-        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] gap-4 my-4 relative overflow-hidden'>
+        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] gap-4 my-4 relative'>
             <section className='relative flex justify-center'>
                 <img src={par?.thumbnail} className='w-[100%] h-[100%] aspect-video object-cover block' />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
             <section className='grid grid-rows-[25%_75%] md:grid-rows-[40%_60%] relative min-w-0 w-[100%] aspect-[16/9] h-[100%] overflow-hidden'>
-                <div className='text-slate-50 font-roboto min-w-0 w-[100%] flex justify-between items-start relative'>
-                    <p className='text-base md:text-xl lg:text-2xl line-clamp-1'>{par.title}</p>
+                <div className='text-slate-50 font-roboto w-[100%] flex justify-between items-start'>
+                    <p className='text-base md:text-xl lg:text-2xl line-clamp-1 overflow-hidden max-w-4/5'>{par.title}</p>
                     {((userLocation==="valid")&&(user?._id===par.owner._id))&&<div className='block relative max-w-[50%]'>
                     <button 
                     type="button"
                     onClick={toggleOptions} 
                     className="relative"
                     >
-                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px] z-10'/></button>
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px] lg:w-[20px] lg:h-[20px] z-10'/></button>
                         {options===true&&
                         <section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 z-20'>
                         <p className='flex items-center gap-2 border-b border-gray-400 p-1' onClick={(e)=>onTogglePublish(e,par)}>
