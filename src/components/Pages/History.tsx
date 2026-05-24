@@ -115,12 +115,12 @@ const History:React.FC = () => {
     <div>
       <div className='w-[100%] mx-auto bg-[rgba(0,0,0,0.9)]'>
       <SectionHeader title="Watch History" size="text-lg md:text-xl" />
-      <div className='w-[96%] mx-auto py-4'>
+      <div className='w-[96%] mx-auto md:py-2'>
         <div className='w-[100%]'>
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<SectionHeader title="Today" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<div>
           {sortWatchHistory.today.map((par,index)=>{
-            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%]'>
+            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%] block bg-[rgb(10,10,10)]'>
               <VideoCard_v2 data={par.video} />
             </Link>
           })}
@@ -131,7 +131,7 @@ const History:React.FC = () => {
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<SectionHeader title="Yesterday" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<div>
           {sortWatchHistory.yesterday.map((par,index)=>{
-            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%]'>
+            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%] block bg-[rgb(10,10,10)]'>
               <VideoCard_v2 data={par.video} />
             </Link>
           })}
@@ -144,7 +144,7 @@ const History:React.FC = () => {
               <div key={label}>
                 <SectionHeader title={label} size="text-base md:text-lg" />
                 {arr&&arr?.map((par)=>{
-                  return<Link to={`/v/${par.video._id}`} key={par._id}>
+                  return<Link to={`/v/${par.video._id}`} key={par._id} className='w-[100%] block bg-[rgb(10,10,10)]'>
                     <VideoCard_v2 data={par.video} />
                   </Link>
                 })}
@@ -156,7 +156,7 @@ const History:React.FC = () => {
       {checkIfEmpty&&<div className='flex justify-center items-center h-[6rem] md:h-[15rem]'>
         <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
         </div>}
-        <div className='w-[80%]'>
+        <div className='w-[100%] md:w-[80%]'>
         {loading&&(emptyArr.map((par)=>{
           return<div key={par.id} className='p-2'><VideoCard_v2_skeleton /></div>
         }))}

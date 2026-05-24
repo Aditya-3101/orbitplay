@@ -34,7 +34,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
     const onDelete=props?.onDelete
     const onTogglePublish=props?.onTogglePublish
     const [options,setOptions]=useState<boolean>(false)
-
+    const userLocation = window.location.pathname==="/history" ? "invalid": window.location.pathname==="/Liked-videos"?"invalid":"valid"
 
     function toggleOptions(e: React.MouseEvent):void{
         e.preventDefault()
@@ -49,15 +49,15 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
 
   return (
     <div>
-        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] gap-4 my-4 relative'>
+        <div className='grid grid-cols-[40%_60%] grid-rows-[6rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] gap-4 my-4 relative overflow-hidden'>
             <section className='relative flex justify-center'>
                 <img src={par?.thumbnail} className='w-[100%] h-[100%] aspect-video object-cover block' />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
-            <section className='grid grid-rows-[25%_75%] md:grid-rows-[40%_60%] relative w-[100%] aspect-[16/9] h-[100%]'>
-                <div className='text-slate-50 font-roboto w-[100%] flex justify-between items-start relative'>
-                    <p className='text-base md:text-xl lg:text-2xl truncate'>{par.title}</p>
-                    {user?._id===par.owner._id&&<div className='block relative max-w-[50%]'>
+            <section className='grid grid-rows-[25%_75%] md:grid-rows-[40%_60%] relative min-w-0 w-[100%] aspect-[16/9] h-[100%] overflow-hidden'>
+                <div className='text-slate-50 font-roboto min-w-0 w-[100%] flex justify-between items-start relative'>
+                    <p className='text-base md:text-xl lg:text-2xl line-clamp-1'>{par.title}</p>
+                    {((userLocation==="valid")&&(user?._id===par.owner._id))&&<div className='block relative max-w-[50%]'>
                     <button 
                     type="button"
                     onClick={toggleOptions} 

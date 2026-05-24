@@ -82,11 +82,11 @@ export const MoreVids = () => {
     }
 
   return (
-    <div className='bg-[rgba(20,20,20,0.9)] border-l border-gray-300 grid grid-cols-1'>
-      <div>
+    <div className='bg-[rgba(10,10,10,0.9)] border-l border-gray-300 grid grid-cols-1'>
+      <div className='px-2 md:px-0'>
         <SectionHeader title="More Videos" size="text-base md:text-lg" />
       </div>
-        <main className=' relative pb-2 '>
+        <main className=' relative pb-2 px-2 md:px-0'>
         {vids&&vids.map((par,index)=>{
           return<div key={par._id} className='py-2'>
           <VideoCard data={par}  />

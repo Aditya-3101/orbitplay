@@ -25,12 +25,12 @@ export const VideoCard = ({data}):React.JSX.Element => {
 
     return (
     <div className='w-[100%] md:my-0'>
-        <div className='border-[0.5px] border-gray-500 w-[96%] mx-auto aspect-video cursor-pointer'>
+        <div className='bg-[rgb(20,20,20)] border-gray-500 w-[96%] mx-auto aspect-video cursor-pointer'>
             <div className='relative' onClick={navigatePlayer}>            
             <img src={thumbnail} className='object-cover aspect-video w-[100%]' />
             <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(duration)}</p>
             </div>
-            <div className='px-2 py-1 grid grid-cols-[15%_85%] gap-2 justify-center items-center border-t border-slate-400'>
+            <div className='px-2 py-1 grid grid-cols-[15%_85%] gap-2 justify-center items-center border-slate-500'>
             <img src={owner?.avatar} className='rounded-full aspect-square w-[2rem] md:w-[1.9rem] object-cover mx-auto' />
                 <div className='grid grid-cols-[100%] w-[100%] relative'>
                     <span className='font-roboto text-white text-lg md:text-base truncate'>{title}</span>

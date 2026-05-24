@@ -176,12 +176,12 @@ const UploadVideo = ():React.JSX.Element => {
           <div className='py-4 flex flex-col gap-4'>
             <div>
               <p className='text-base font-roboto text-gray-400'>Title</p>
-              <input type='text' value={formData.title} name="title" onChange={onChangeHandler} className='h-[2rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200' />
+              <input type='text' value={formData.title} name="title" onChange={onChangeHandler} className='h-[2rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 px-2 py-1' />
             </div>
 
             <div>
               <p className='text-base font-roboto text-gray-400'>Description</p>
-              <textarea value={formData.description} name="description" onChange={onChangeHandler} className='h-[6rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 resize-y min-h-10 max-h-20' />
+              <textarea value={formData.description} name="description" onChange={onChangeHandler} className='h-[6rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 resize-y min-h-10 max-h-20 px-2 py-1' />
             </div>
           </div>
           <button className='font-roboto px-2 py-1 rounded text-gray-200 border border-gray-400 cursor-pointer' type="submit">Post</button>
