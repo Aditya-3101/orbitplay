@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import {RootState} from '../../app/store/store.ts';
-import {Outlet, Navigate,useLocation} from 'react-router';
+import {Outlet, Navigate,useLocation} from 'react-router-dom';
 import React from 'react';
 
 export const ProtectRoute:React.FC = () => {

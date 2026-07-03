@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
-import { useNavigate,useLocation,Link } from 'react-router';
+import { useNavigate,useLocation,Link } from 'react-router-dom';
 import { api } from '../../api/AxiosInterceptor.ts';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import WarningSignLogo from '../../assets/incorrect.svg'
@@ -41,8 +41,8 @@ interface User {
 export const Login:React.FC = () => {
     const [user,setUser] = useState<loginUser>(
         {
-            email:'',
-            password:''
+            email:'aadedb@abc.com',
+            password:'kllfer'
         }
     )
     const [error,setError] = useState<number|null>(null)

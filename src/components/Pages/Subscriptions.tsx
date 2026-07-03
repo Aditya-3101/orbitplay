@@ -141,12 +141,12 @@ const Subscriptions = ():React.JSX.Element => {
         <main className='bg-[rgba(0,0,0,0.95)] relative'>
             <article className='w-[90%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
-            <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2'>
+            <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2 overflow-y-hidden'>
             {(userSubscriptions && userSubscriptions.data.length!==0)&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
-                return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
-                    <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
+                return<div key={index} className='py-1 w-[5.4rem]'>
+                    <div className='flex flex-col items-center justify-center gap-1' onClick={()=>onChangeChannel(param._id)}>
                         <img src={param.avatar} className={`aspect-square rounded-full object-cover cursor-pointer w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
-                        <p className='font-roboto text-gray-200'>{param.fullName}</p>
+                        <p className='font-roboto text-gray-200 truncate text-sm'>{param.fullName}</p>
                     </div>
                 </div>
             })}
