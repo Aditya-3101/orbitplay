@@ -240,10 +240,10 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
             </main>}
 
             {defaultTab==="Posts"&&(
-                    (channelPosts!==null?channelPosts.data.map((par)=>{
+                    (channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par)=>{
                         return <CommentsCard chPosts={par} key={par._id} />
                     }):
-                    <div className='w-[100%] h-[40rem] flex items-center justify-center'>
+                    <div className='w-[100%] h-[40rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
                     </div>)
                   )

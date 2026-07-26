@@ -163,8 +163,6 @@ const ChannelPage = ():React.JSX.Element => {
         dispatch(()=>dispatch(toggleCreatePlaylistOverlay()))
     }
 
-    console.log(channelData.channelPosts)
-
   return (
     <div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
