@@ -37,29 +37,45 @@ interface commentsInterfaceDocs {
         "avatar": string,
         "username": string
     },
+    chPosts:{
+                _id: string,
+                content: string,
+                createdAt: string,
+                likeCount: number,
+                isLiked: boolean,
+                avatar: string,
+                username: string,
+                owner:{
+                    _id:string
+                }
+    },
     onEdit:Function
 }
 
 export const CommentsCard = (props):React.JSX.Element => {
-    const {par,post,onEdit} = props as commentsInterfaceDocs
+    const {par,post,chPosts,onEdit} = props as commentsInterfaceDocs
     const dispatch = useDispatch<AppDispatch>()
     const [options,setOptions] = useState<boolean>(false)
     const currentUser = useSelector((state:RootState)=>state.user.userTemp?._id)
 
-    async function toggleLike():Promise<void>{
+    async function toggleLike(postId:string):Promise<void>{
         try {
-            const request = await api.post(`/likes/toggle/t/${post._id}`)
+            const request = await api.post(`/likes/toggle/t/${postId}`)
             if(request.status===200) {
-                dispatch(updateIsLikedBy(post._id))
+                dispatch(updateIsLikedBy(postId))
             }
         } catch (error) {
             console.log(error)
         }
     }
 
-    async function toggleCommentLike():Promise<void>{
+
+
+    async function toggleCommentLike(postId:null|string=null):Promise<void>{
+        const uId = postId!==null?postId:par._id
+        console.log(uId)
         try {
-            const request = await api.post(`/likes/toggle/c/${par._id}`,{})
+            const request = await api.post(`/likes/toggle/c/${uId}`,{})
             if(request.status===200) {
                 dispatch(toggleCommentLikes(par._id))
             }
@@ -110,15 +126,15 @@ export const CommentsCard = (props):React.JSX.Element => {
                     {currentUser===par.owner._id&&<div className='blank relative'>
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1' onClick={()=>onEdit(par)}><Pencil className='w-[12px] h-[12x]' />Edit</p>
-                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x]' />Delete</p>
+                        <p className='flex items-center gap-1' onClick={()=>onEdit(par)}><Pencil className='w-[12px] h-[12x] cursor-pointer' />Edit</p>
+                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x] cursor-pointer' />Delete</p>
                     </section>}
                     </div>}</div>
                     <p className='blank'></p>
                     <p className='text-base text-[#f1f1f1] font-roboto userContent'>{par.comment}</p>
                     <div className='flex flex-col items-end justify-center postReactions'>
                         <p className='text-center text-sm'>
-                        <span className='cursor-pointer' onClick={toggleCommentLike}>{par?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='cursor-pointer' onClick={()=>toggleCommentLike(par._id)}>{par?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
                         <span className='text-gray-600'>{par.commentLikeCount}</span>
                         </p>
                     </div>
@@ -135,16 +151,43 @@ export const CommentsCard = (props):React.JSX.Element => {
                     <div className='blank relative'>
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1' onClick={()=>onEdit(post)}><Pencil className='w-[12px] h-[12x]' />Edit</p>
-                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x]' />Delete</p>
+                        <p className='flex items-center gap-1 cursor-pointer' onClick={()=>onEdit(post)}><Pencil className='w-[12px] h-[12x]' />Edit</p>
+                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1 cursor-pointer'><Trash className='w-[12px] h-[12x]' />Delete</p>
                     </section>}
                     </div>
                     </div>
                     <p className='text-base md:text-xl text-[#f1f1f1] font-roboto userContent'>{post.content}</p>
                     <div className='flex flex-col items-end justify-center postReactions'>
                         <p className='text-center text-sm'>
-                        <span className='cursor-pointer' onClick={toggleLike}>{post.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='cursor-pointer' onClick={()=>toggleLike(post._id)}>{post.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
                         <span className='text-gray-600'>{post.likeCount}</span>
+                        </p>
+                    </div>
+        </div>}
+
+        {chPosts&&<div className='postcontainer place-content-center border-b border-[rgba(124,124,124,0.5)] p-1.5 md:w-[98%] mx-auto'>
+                   <div className='flex items-center justify-center userAvatar'>
+                    {chPosts.avatar!==undefined&&<img src={chPosts.avatar} className='aspect-square w-[1.5rem] md:w-[2rem] lg:w-[2.5rem] object-cover' />}
+                   </div>
+                    <p className='flex justify-between username'> 
+                        <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{chPosts.username}</span>
+                        
+                    </p>
+                    <div className='text-sm text-[#f1f1f1d0] lastupdated flex justify-end gap-1 items-center h-min relative'>
+                        <span>{timeAgo(chPosts.createdAt)}</span>
+                    {currentUser===chPosts.owner._id&&<div className='blank relative'>
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
+                        {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
+                        <p className='flex items-center gap-1' onClick={()=>onEdit(par)}><Pencil className='w-[12px] h-[12x] cursor-pointer' />Edit</p>
+                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x] cursor-pointer' />Delete</p>
+                    </section>}
+                    </div>}</div>
+                    <p className='blank'></p>
+                    <p className='text-base text-[#f1f1f1] font-roboto userContent'>{chPosts.content}</p>
+                    <div className='flex flex-col items-end justify-center postReactions'>
+                        <p className='text-center text-sm'>
+                        <span className='cursor-pointer' onClick={()=>toggleLike(chPosts._id)}>{chPosts?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='text-gray-600'>{par?.commentLikeCount}</span>
                         </p>
                     </div>
         </div>}

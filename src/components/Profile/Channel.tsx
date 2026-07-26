@@ -4,12 +4,12 @@ import { RootState } from '../../app/store/store'
 import { AccountTabs } from './AccountTabs'
 import type {AppDispatch} from '../../app/store/store.ts';
 import { useParams } from 'react-router';
-import {getChannelDetails,getChannelPlaylist,getChannelVideos} from '../../app/thunks/channelThunk.ts'
+import {getChannelDetails,getChannelPlaylist,getChannelPosts,getChannelVideos} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench, X } from 'lucide-react';
 import {Link} from 'react-router'
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
-import {resetChannelVideos,resetChannelUser} from '../../app/slices/channelSlice.ts';
+import {resetChannelVideos,resetChannelUser,toggleChannelSubscription} from '../../app/slices/channelSlice.ts';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
 
@@ -77,6 +77,7 @@ const ChannelPage = ():React.JSX.Element => {
             if(channelData.channelUserDetail?._id!==null&&channelData.channelUserDetail?._id!==undefined) {
                 dispatch(getChannelPlaylist({userId:channelData.channelUserDetail._id}))
                 dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail._id}))
+                dispatch(getChannelPosts({userId:channelData.channelUserDetail._id}))
             }
     },[channelData.channelUserDetail?._id,page])
 
@@ -107,15 +108,15 @@ const ChannelPage = ():React.JSX.Element => {
                 })
             }
         }
-    fetchData()
-    },[subscribeStatus,params.channelName])
+        fetchData()
+    },[params.channelName])
 
     if(channelData.error!==null){
         return<ErrorPage msg="Channel Details"/>
     }
 
-    const currentUser = params.channelName ? channelData.channelUserDetail : user;
-    const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username) ? true : false
+    const currentUser = params.channelName ? channelData.channelUserDetail : null
+    const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username)? true:false;
 
     
     async function toggleSubscription(par1:string,par2:string):Promise<void>{
@@ -125,6 +126,7 @@ const ChannelPage = ():React.JSX.Element => {
 
             if(request.status===200) {
                 setSubscribeStatus(request.data.data)
+                dispatch(toggleChannelSubscription((typeof request.data.data==="object")?true:false))
             }
 
         } catch (error) {
@@ -161,6 +163,7 @@ const ChannelPage = ():React.JSX.Element => {
         dispatch(()=>dispatch(toggleCreatePlaylistOverlay()))
     }
 
+    console.log(channelData.channelPosts)
 
   return (
     <div>
@@ -187,14 +190,13 @@ const ChannelPage = ():React.JSX.Element => {
                 <div className='py-4 flex items-center justify-between md:w-[60%]'>
                     <p>
                     {currentUser && "subscribersCount" in currentUser && (
-                    <span className='font-roboto text-gray-400 text-sm md:text-2xl'>{currentUser.subscribersCount} Subscribers</span>
+                    <span className='font-roboto text-gray-400 text-sm md:text-xl'>{currentUser.subscribersCount} Subscribers</span>
                     )}
                     </p>
                     <span className=''>
                         {(currentUser && "isSubscribed" in currentUser) && (
-                            checkUserAsChannel!==true &&
                             <button className={`font-roboto text-gray-400 text-sm ${currentUser.isSubscribed?
-                            "border border-gray-300 p-2 my-2 rounded":"bg-red-500 p-2 my-2 text-gray-950 rounded"} md:text-2xl`} onClick={()=>toggleSubscription(currentUser._id,currentUser.username)}>
+                            "border border-gray-300 p-2 my-2 rounded":"bg-red-500 p-2 my-2 text-gray-950 rounded"} md:text-xl cursor-pointer`} onClick={()=>toggleSubscription(currentUser._id,currentUser.username)}>
                                 {currentUser.isSubscribed?"Subscribed":"Subscribe"}
                             </button>
                         )}
@@ -207,7 +209,7 @@ const ChannelPage = ():React.JSX.Element => {
             </section>
         </section>
         {/* {channelData!==undefined&&<AccountTabs data={channelData} loading={loading.videos} />} */}
-        {(channelData.channelVideos!==null&&channelData.channelPlaylist!==null)&&<AccountTabs videos={channelData.channelVideos} playlists={channelData.channelPlaylist} loading={loading.videos} />}
+        {(channelData.channelVideos!==null&&channelData.channelPlaylist!==null)&&<AccountTabs videos={channelData.channelVideos} playlists={channelData.channelPlaylist} loading={loading.videos} channelPosts={channelData.channelPosts} />}
         <div
         ref={videoContainerRef}
         style={{ height: "20px" }}/>

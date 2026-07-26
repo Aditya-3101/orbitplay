@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store/store.ts'
-import { CommentsCard } from '../Main/CommentsCard'
+import { CommentsCard } from '../Main/CommentsCard.tsx'
 import { useDispatch } from 'react-redux'
 import {getUserPosts} from '../../app/thunks/postThunk.ts'
 import type { AppDispatch } from "../../app/store/store.ts"

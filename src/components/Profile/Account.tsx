@@ -4,7 +4,7 @@ import { RootState } from '../../app/store/store'
 import { AccountTabs } from './AccountTabs.tsx'
 import type {AppDispatch} from '../../app/store/store.ts';
 import { useParams } from 'react-router';
-import {getChannelDetails,getChannelPlaylist,getChannelVideos} from '../../app/thunks/channelThunk.ts'
+import {getChannelDetails,getChannelPlaylist,getChannelPosts,getChannelVideos} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench, X } from 'lucide-react';
 import {Link} from 'react-router'
@@ -74,7 +74,10 @@ const Account = ():React.JSX.Element => {
     useIntersectionObserver(videoContainerRef,pageCallback)
 
     useEffect(()=>{
-            if(user?._id!==undefined) dispatch(getChannelVideos({pageNum:page,userId:user?._id}))
+            if(user?._id!==undefined) {
+                dispatch(getChannelVideos({pageNum:page,userId:user?._id}))
+                dispatch(getChannelPosts({userId:user?._id}))
+            }
     },[page,user?._id])
 
     useEffect(()=>{
@@ -204,7 +207,7 @@ const Account = ():React.JSX.Element => {
             </div>
             </section>
         </section>
-        {(channelData.channelVideos!==null&&channelData.channelPlaylist!==null)&&<AccountTabs videos={channelData.channelVideos} playlists={channelData.channelPlaylist} loading={loading.videos} />}
+        {(channelData.channelVideos!==null&&channelData.channelPlaylist!==null)&&<AccountTabs videos={channelData.channelVideos} playlists={channelData.channelPlaylist} loading={loading.videos} channelPosts={channelData.channelPosts}  />}
         <div
         ref={videoContainerRef}
         style={{ height: "20px" }}/>

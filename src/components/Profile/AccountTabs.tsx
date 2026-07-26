@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {ListPlus, ListVideo} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
+import { CommentsCard } from '../Main/CommentsCard.tsx'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
 import { api } from '../../api/AxiosInterceptor';
@@ -56,15 +57,6 @@ interface channelPlaylistInterface {
     __v:number,
 }
 
-interface channelDataInterface {
-    channelVideos:GetChannelVideosResponse|null;
-    channelPlaylist:channelPlaylistInterface[]|null;
-    channelVideosLoading:boolean;
-    hasMoreChannelVideos:boolean;
-    loading:boolean;
-    error:string|unknown
-}
-
 interface togglePublishType{
     statusCode: number,
     data: {
@@ -105,7 +97,25 @@ interface videoObjectResponse {
     __v: number
 }
 
-export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideosResponse,playlists:channelPlaylistInterface[],loading:boolean }):React.JSX.Element => {
+interface channelPostsType{
+    statusCode: number,
+    data:{
+            _id: string,
+            content: string,
+            createdAt: string,
+            likeCount: number,
+            isLiked: boolean,
+            avatar: string,
+            username: string,
+            owner:{
+                _id:string
+            }
+        }[],
+    message: string,
+    success: number
+}
+
+export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:GetChannelVideosResponse,playlists:channelPlaylistInterface[],loading:boolean,channelPosts:channelPostsType|null }):React.JSX.Element => {
 
     const [defaultTab,setDefaultTab] = useState<string>("Videos")
     const dispatch = useDispatch()
@@ -170,7 +180,11 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
             <ul className='flex'>
                 <button className={`font-roboto text-slate-200 px-3 py-2 cursor-pointer  
                 ${defaultTab==="Videos"&&'bg-[#222]'}`} name="Videos" onClick={tabChanger}>Videos</button>
+
                 <button className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Playlists"&&'bg-[#222]'}`} name="Playlists" onClick={tabChanger}>Playlists</button>
+
+                <button className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Posts"&&'bg-[#222]'}`} name="Posts" onClick={tabChanger}>Posts</button>
+
             </ul>
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
@@ -224,6 +238,16 @@ export const AccountTabs = ({videos,playlists,loading }:{ videos:GetChannelVideo
                     <p className='font-roboto text-slate-300'>No Playlist found :(</p>
                   </div>}
             </main>}
+
+            {defaultTab==="Posts"&&(
+                    (channelPosts!==null?channelPosts.data.map((par)=>{
+                        return <CommentsCard chPosts={par} key={par._id} />
+                    }):
+                    <div className='w-[100%] h-[40rem] flex items-center justify-center'>
+                    <p className='font-roboto text-slate-300'>No Posts found :(</p>
+                    </div>)
+                  )
+            }
         </div>
     </div>
   )

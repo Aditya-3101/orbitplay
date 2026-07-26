@@ -141,7 +141,7 @@ const Subscriptions = ():React.JSX.Element => {
         <main className='bg-[rgba(0,0,0,0.95)] relative'>
             <article className='w-[90%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
-            <div className='relative flex overflow-x-auto px-2 gap-4 border-b border-gray-400 py-2'>
+            <div className='relative flex overflow-x-auto overflow-y-hidden px-2 gap-4 border-b border-gray-400 py-2'>
             {(userSubscriptions && userSubscriptions.data.length!==0)&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
                 return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
                     <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
@@ -163,7 +163,7 @@ const Subscriptions = ():React.JSX.Element => {
                         <div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div> 
                     </section>}
                 {(loading.videos)&&(emptyArr.map((par)=>{
-                    return<div className='mx-auto w-[90%] py-2' key={par.id}>
+                    return<div className='mx-auto w-[96%] py-2' key={par.id}>
                     <VideoCard_v2_skeleton />
                     </div>
                 }))}

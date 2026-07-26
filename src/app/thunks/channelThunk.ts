@@ -38,6 +38,24 @@ interface ChannelVideoOwner {
     success: number;
   }
 
+  interface channelPostsType{
+    statusCode: number,
+    data:{
+            _id: string,
+            content: string,
+            createdAt: string,
+            likeCount: number,
+            isLiked: boolean,
+            avatar: string,
+            username: string,
+            owner:{
+                _id:string
+            }
+        }[],
+    message: string,
+    success: number
+}
+
 export const getChannelDetails = createAsyncThunk(
     "channel/channelDetails",
     async({userId,username}:{userId?:string|unknown,username?:string|unknown},{getState,rejectWithValue})=>{
@@ -109,6 +127,18 @@ export const getChannelVideos = createAsyncThunk(
     async({pageNum,userId}:{pageNum:number,userId:string},{getState,rejectWithValue})=>{
         try {
             const req = await api.get<GetChannelVideosResponse>(`/videos/channel?page=${pageNum}&userId=${userId}`)
+            return req.data;
+        } catch (error) {
+            return rejectWithValue(error?.message||"failed to fetch channel videos")
+        }
+    }
+)
+
+export const getChannelPosts = createAsyncThunk(
+    "channel/channelPosts",
+    async({userId}:{userId:string},{getState,rejectWithValue})=>{
+        try {
+            const req = await api.get<channelPostsType>(`/tweets/user/${userId}`)
             return req.data;
         } catch (error) {
             return rejectWithValue(error?.message||"failed to fetch channel videos")

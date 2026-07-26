@@ -42,7 +42,7 @@ export const VideoCard_v2 = (props):React.JSX.Element => {
         setOptions(!options)
     }
 
-    console.log((userLocation==="valid")&&(user?._id===par.owner._id))
+    //console.log((userLocation==="valid")&&(user?._id===par.owner._id))
 
     function navigateToChannel(e:React.SyntheticEvent,arg:string):void{
         e.preventDefault();

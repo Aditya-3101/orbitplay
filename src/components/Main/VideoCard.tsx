@@ -1,9 +1,30 @@
-import React from 'react';
+import React,{memo} from 'react';
 import { useNavigate,Link } from 'react-router';
 import { getVideoDuration } from '../../utility/videoDuration';
 
+interface videoCardProps{
+    data:{
+        _id: string;
+        videoFile: string;
+        thumbnail: string;
+        owner: {
+          _id:string,
+          username:string,
+          avatar:string,
+          fullName?:string
+        };
+        title: string;
+        description: string;
+        duration: number;
+        views: number;
+        isPublished: boolean;
+        createdAt: string;
+        updatedAt: string;
+    }
+}
 
-export const VideoCard = ({data}):React.JSX.Element => {
+
+export const VideoCard = memo(({data}:videoCardProps):React.JSX.Element => {
 
     const navigate = useNavigate()
 
@@ -43,4 +64,4 @@ export const VideoCard = ({data}):React.JSX.Element => {
         </div>
     </div>
   )
-}
+})

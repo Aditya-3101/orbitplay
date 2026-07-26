@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getChannelDetails, getChannelVideos,getChannelPlaylist} from '../thunks/channelThunk.ts';
+import {getChannelDetails, getChannelVideos,getChannelPlaylist,getChannelPosts} from '../thunks/channelThunk.ts';
 
 interface channelUserDetailsInterface{
-    "_id": string
+    "_id": string,
     "username": string,
     "email": string,
     "fullName": string,
@@ -59,6 +59,24 @@ interface channelPlaylistInterface {
     __v:number,
 }
 
+interface channelPostsType{
+    statusCode: number,
+    data:{
+            _id: string,
+            content: string,
+            createdAt: string,
+            likeCount: number,
+            isLiked: boolean,
+            avatar: string,
+            username: string,
+            owner:{
+                _id:string
+            }
+        }[],
+    message: string,
+    success: number
+}
+
 interface channelDataInterface {
     channelUserDetail:channelUserDetailsInterface|null
     channelVideos:GetChannelVideosResponse|null;
@@ -66,6 +84,7 @@ interface channelDataInterface {
     hasMoreChannelVideos:boolean;
     channelPlaylistError:unknown|string;
     channelPlaylist:channelPlaylistInterface[]|null;
+    channelPosts: channelPostsType | null;
     loading:boolean;
     error:string|unknown
 }
@@ -77,6 +96,7 @@ const initialState:channelDataInterface = {
     hasMoreChannelVideos:false,
     channelPlaylistError:'',
     channelPlaylist:null,
+    channelPosts:null,
     loading:true,
     error:''
 }
@@ -110,6 +130,14 @@ export const channelDetailSlice = createSlice({
         },
         resetChannelUser:(state)=>{
             state.channelUserDetail=null;
+        },
+        toggleChannelSubscription:(state,action)=>{
+            if(typeof state.channelUserDetail?.isSubscribed==="boolean"&&state.channelUserDetail.isSubscribed!==undefined){
+             state.channelUserDetail.isSubscribed=action.payload
+            }
+            // console.log(state.channelUserDetail?.isSubscribed)
+            // let currentSubscriptionDetail=state.channelUserDetail?.isSubscribed
+            // if (state.channelUserDetail?.isSubscribed!==undefined&&currentSubscriptionDetail!==undefined) state.channelUserDetail.isSubscribed=action.payload
         }
     },
     extraReducers(builder){
@@ -154,9 +182,19 @@ export const channelDetailSlice = createSlice({
         .addCase(getChannelVideos.pending,(state)=>{
             state.channelVideosLoading=true;
         })
+
+        .addCase(getChannelPosts.pending,(state)=>{
+            state.channelPosts=null
+        })
+        .addCase(getChannelPosts.fulfilled,(state,action)=>{
+            state.channelPosts=action.payload;
+        })
+        .addCase(getChannelPosts.rejected,(state)=>{
+            state.channelPosts=null;
+        })
     }
 })
 
-export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser} = channelDetailSlice.actions
+export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser,toggleChannelSubscription} = channelDetailSlice.actions
 
 export default channelDetailSlice.reducer;
