@@ -57,9 +57,10 @@ const History:React.FC = () => {
   const dispatch=useDispatch()
 
   useEffect(()=>{
+    // eslint-disable-next-line react-hooks/immutability
     fetchHistory()
     dispatch(openAccountBar(false))
-  },[])
+  },[dispatch])
 
   async function fetchHistory():Promise<void>{
     setLoading(true)
