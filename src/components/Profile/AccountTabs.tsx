@@ -11,6 +11,7 @@ import { messageModal,openAccountBar,toggleCreatePlaylistOverlay } from '../../a
 import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
+import type { VideoType } from "../../types/video.ts";
 
 interface ChannelVideoOwner {
     _id: string;
@@ -77,26 +78,6 @@ interface togglePublishType{
     success: number
 }
 
-interface videoObjectResponse {
-    _id: string,
-    videoFile: string,
-    thumbnail: string,
-    owner: {
-        _id: string,
-        username: string,
-        avatar: string,
-        fullName?:string
-    },
-    title: string,
-    description: string,
-    duration: number,
-    views: number,
-    isPublished: boolean,
-    createdAt: string,
-    updatedAt: string,
-    __v: number
-}
-
 interface channelPostsType{
     statusCode: number,
     data:{
@@ -136,11 +117,12 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                 dispatch(deleteVideo(arg))
             }
         } catch (error) {
+            console.log(error)
             dispatch(messageModal("something went wrong while deleting the video"))
         }
     }
 
-    async function togglePublish(e:React.MouseEvent,arg:videoObjectResponse):Promise<void>{
+    async function togglePublish(e:React.MouseEvent<HTMLButtonElement>,arg:VideoType):Promise<void>{
         e.preventDefault()
         try {
             const request = await api.patch<togglePublishType>(`/videos/toggle/publish/${arg._id}`)
@@ -149,6 +131,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                 dispatch(messageModal(`Video is now set to ${request.data.data.isPublished===false?"Public":"Private"}`))
             }
         } catch (error) {
+            console.log(error)
             dispatch(messageModal("something went wrong while toggling video visibility"))
         }
     }
@@ -190,13 +173,13 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
             <main className='w-[90%]'>
-                {(!loading && videos.data.allVideos.length!==0)&&videos.data.allVideos.map((par)=>{
-                    return <Link to={`/v/${par._id}`} key={par._id} className='relative z-[0]'>
-                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} onTogglePublish={togglePublish} />
+                {(!loading && videos.data.allVideos.length!==0)&&videos.data.allVideos.map((par,index)=>{
+                    return <Link to={`/v/${par._id}`} key={par._id} className='relative z-0'>
+                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={togglePublish} />
                     </Link>
                 })}
                 {
-                    (!loading&&videos.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-[100%] md:h-[20rem] flex items-center justify-center text-gray-400'>
+                    (!loading&&videos.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-full md:h-[20rem] flex items-center justify-center text-gray-400'>
                         No Videos Found
                     </div>
                 }
@@ -207,7 +190,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
             {defaultTab==="Playlists"&&<main className=''>
                 {(checkUserLocation())&&<div>
                 <div className='grid grid-cols-[40%_60%] gap-4 mb-2 cursor-pointer' onClick={openCreatePlaylistOverLay}>
-                        <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
+                        <section className='aspect-video relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
                             <div className='absolute top-0 right-0 left-0 bottom-0'></div>
                             <ListPlus size={36} color="rgba(240,240,240,0.9)" />
                             <p className='text-gray-200 text-xs'></p>
@@ -222,7 +205,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                     return<div key={par._id} className=' mb-2'>
                         <Link to={`/playlists/${par._id}`}>
                         <div className='grid grid-cols-[40%_60%] gap-4'>
-                        <section className='aspect-[16/9] relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
+                        <section className='aspect-video relative flex flex-col items-center justify-center bg-[rgba(20,20,20,20.6)]'>
                             <div className='absolute top-0 right-0 left-0 bottom-0'></div>
                             <ListVideo size={36} color="rgba(240,240,240,0.9)" />
                             <p className='text-gray-200 text-xs'>({par.videos.length} Videos)</p>
@@ -234,16 +217,16 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                         </div>
                     </Link>
                     </div>
-                }):<div className='w-[100%] h-[40rem] flex items-center justify-center'>
+                }):<div className='w-full h-[40rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Playlist found :(</p>
                   </div>}
             </main>}
 
             {defaultTab==="Posts"&&(
-                    (channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par)=>{
-                        return <CommentsCard chPosts={par} key={par._id} />
+                    (channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par,index)=>{
+                        return <CommentsCard chPosts={par} key={par._id} index={index} />
                     }):
-                    <div className='w-[100%] h-[40rem] md:h-[20rem] flex items-center justify-center'>
+                    <div className='w-full h-[40rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
                     </div>)
                   )

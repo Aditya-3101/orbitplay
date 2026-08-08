@@ -6,29 +6,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState} from "../../app/store/store.ts"
 import {updateIsLikedBy,deletePostById} from '../../app/slices/postSlice.ts'
 import {toggleCommentLikes,deleteCommentById} from '../../app/slices/videoSlice.ts'
+import {likeChannelPosts} from '../../app/slices/channelSlice.ts'
 import { messageModal } from '../../app/slices/toggleSlice.ts';
 
 interface CommentLikeType{
-    "_id": string,
-    "likedBy": string
+    _id: string,
+    likedBy: string
+}
+
+interface commentType{
+    _id: string,
+    comment: string,
+    owner: {
+        _id:string,
+        username:string,
+        avatar:string
+    },
+    createdAt: string,
+    comment_likes: CommentLikeType[],
+    commentLikeCount: number,
+    isLiked: boolean
+}
+
+interface PostType{
+    avatar:string
+    content:string,
+    createdAt:string,
+    isLiked:boolean,
+    likeCount:number,
+    username:string,
+    _id:string
 }
 
 interface commentsInterfaceDocs {
-    par:
-    {
-        "_id": string,
-        "comment": string,
-        "owner": {
-            _id:string,
-            username:string,
-            avatar:string
-        },
-        "createdAt": string,
-        "comment_likes": CommentLikeType[],
-        "commentLikeCount": number,
-        "isLiked": boolean
-    },
-    post:{
+    par?:commentType,
+    post?:{
         "_id": string,
         "content": string,
         "createdAt": string,
@@ -37,23 +49,27 @@ interface commentsInterfaceDocs {
         "avatar": string,
         "username": string
     },
-    chPosts:{
-                _id: string,
-                content: string,
-                createdAt: string,
-                likeCount: number,
-                isLiked: boolean,
-                avatar: string,
-                username: string,
-                owner:{
-                    _id:string
-                }
+    chPosts?:{
+        _id: string,
+        content: string,
+        createdAt: string,
+        likeCount: number,
+        isLiked: boolean,
+        avatar: string,
+        username: string,
+        owner:{
+            _id:string
+        }
     },
-    onEdit:Function
+    onEdit?: (arg: commentType | PostType) => void;
+    //onEdit?:(arg: { userComment: commentType } | { post: PostType }) =>void,
+    index:number,
 }
 
-export const CommentsCard = (props):React.JSX.Element => {
-    const {par,post,chPosts,onEdit} = props as commentsInterfaceDocs
+
+
+export const CommentsCard:React.NamedExoticComponent<commentsInterfaceDocs> = React.memo(function CommentsCard({par,post,chPosts,onEdit,index}:commentsInterfaceDocs) {
+    //const {par,post,chPosts,onEdit,index} = props as commentsInterfaceDocs
     const dispatch = useDispatch<AppDispatch>()
     const [options,setOptions] = useState<boolean>(false)
     const currentUser = useSelector((state:RootState)=>state.user.userTemp?._id)
@@ -69,15 +85,24 @@ export const CommentsCard = (props):React.JSX.Element => {
         }
     }
 
-
+    async function togglePostLike(postId:string):Promise<void>{
+        try {
+            const request = await api.post(`/likes/toggle/t/${postId}`)
+            if(request.status===200) {
+                dispatch(likeChannelPosts(postId))
+                //dispatch(updateIsLikedBy(postId))
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function toggleCommentLike(postId:null|string=null):Promise<void>{
-        const uId = postId!==null?postId:par._id
-        console.log(uId)
+        const uId = postId!==null?postId:par?._id
         try {
             const request = await api.post(`/likes/toggle/c/${uId}`,{})
             if(request.status===200) {
-                dispatch(toggleCommentLikes(par._id))
+                dispatch(toggleCommentLikes(par?._id))
             }
         } catch (error) {
             console.log(error)
@@ -96,6 +121,7 @@ export const CommentsCard = (props):React.JSX.Element => {
                 dispatch(messageModal("Post deleted successfully"))
             }
         } catch (error) {
+            console.error(error)
             dispatch(messageModal("Something went wrong while deleting post"))
         }
     }
@@ -107,15 +133,20 @@ export const CommentsCard = (props):React.JSX.Element => {
                 dispatch(deleteCommentById(commentId))
             }
         } catch (error) {
+            console.log(error)
             dispatch(messageModal("Something went wrong while deleting comment"))
         }
     }
+    
+    const handleEditClick = (item: commentType | PostType) => {
+        onEdit?.(item);
+    };
         
   return (
     <div>
-        {par&&<div className='postcontainer place-content-center border-b border-[rgba(124,124,124,0.5)] p-1.5 md:w-[98%] mx-auto'>
+        {par!==undefined&&<div className='postcontainer place-content-center border-b border-[rgba(124,124,124,0.5)] p-1.5 md:w-[98%] mx-auto'>
                    <div className='flex items-center justify-center userAvatar'>
-                    {par.owner.avatar!==undefined&&<img src={par.owner.avatar} className='aspect-square w-[1.5rem] md:w-[2rem] lg:w-[2.5rem] object-cover' />}
+                    {par.owner.avatar!==undefined&&<img src={par.owner.avatar} alt={par.owner.username} loading={index<4?'eager':'lazy'} className='aspect-square w-[1.5rem] md:w-[2rem] lg:w-[2.5rem] object-cover' />}
                    </div>
                     <p className='flex justify-between username'> 
                         <span className='text-[14px] text-[#f1f1f1d0] font-poppins'>{par.owner.username}</span>
@@ -124,10 +155,10 @@ export const CommentsCard = (props):React.JSX.Element => {
                     <div className='text-sm text-[#f1f1f1d0] lastupdated flex justify-end gap-1 items-center h-min relative'>
                         <span>{timeAgo(par.createdAt)}</span>
                     {currentUser===par.owner._id&&<div className='blank relative'>
-                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-5' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1' onClick={()=>onEdit(par)}><Pencil className='w-[12px] h-[12x] cursor-pointer' />Edit</p>
-                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x] cursor-pointer' />Delete</p>
+                        <p className='flex items-center gap-1' onClick={()=>handleEditClick(par)}><Pencil className='w-3 h-[12x] cursor-pointer' />Edit</p>
+                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-3 h-[12x] cursor-pointer' />Delete</p>
                     </section>}
                     </div>}</div>
                     <p className='blank'></p>
@@ -139,7 +170,7 @@ export const CommentsCard = (props):React.JSX.Element => {
                         </p>
                     </div>
         </div>}
-        {post&&<div className='place-content-center border-b border-gray-600 p-1.5 md:w-[100%] postcontainer'>
+        {post!==undefined&&<div className='place-content-center border-b border-gray-600 p-1.5 md:w-full postcontainer'>
                    <div className='flex items-center justify-center userAvatar'>
                     <img src={post.avatar} className='aspect-square w-[80%] md:w-[2.5rem] object-cover' />
                    </div>
@@ -149,10 +180,10 @@ export const CommentsCard = (props):React.JSX.Element => {
                     <div className='text-sm text-[#f1f1f1d0] lastupdated flex justify-end gap-1 items-center h-min relative'>
                         <span>{timeAgo(post.createdAt)}</span>
                     <div className='blank relative'>
-                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-5' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1 cursor-pointer' onClick={()=>onEdit(post)}><Pencil className='w-[12px] h-[12x]' />Edit</p>
-                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1 cursor-pointer'><Trash className='w-[12px] h-[12x]' />Delete</p>
+                        <p className='flex items-center gap-1 cursor-pointer' onClick={()=>handleEditClick(post)}><Pencil className='w-3 h-[12x]' />Edit</p>
+                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1 cursor-pointer'><Trash className='w-3 h-[12x]' />Delete</p>
                     </section>}
                     </div>
                     </div>
@@ -176,21 +207,21 @@ export const CommentsCard = (props):React.JSX.Element => {
                     <div className='text-sm text-[#f1f1f1d0] lastupdated flex justify-end gap-1 items-center h-min relative'>
                         <span>{timeAgo(chPosts.createdAt)}</span>
                     {currentUser===chPosts.owner._id&&<div className='blank relative'>
-                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-[16px] h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
+                        <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1' onClick={()=>onEdit(par)}><Pencil className='w-[12px] h-[12x] cursor-pointer' />Edit</p>
-                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-[12px] h-[12x] cursor-pointer' />Delete</p>
+                        {/* <p className='flex items-center gap-1' onClick={()=>onEdit(chPosts)}><Pencil className='w-3 h-[12x] cursor-pointer' />Edit</p> */}
+                        {/* <p onClick={()=>deleteComment(chPosts._id)} className='flex items-center gap-1'><Trash className='w-3 h-[12px] cursor-pointer' />Delete</p> */}
                     </section>}
                     </div>}</div>
                     <p className='blank'></p>
                     <p className='text-base text-[#f1f1f1] font-roboto userContent'>{chPosts.content}</p>
                     <div className='flex flex-col items-end justify-center postReactions'>
                         <p className='text-center text-sm'>
-                        <span className='cursor-pointer' onClick={()=>toggleLike(chPosts._id)}>{chPosts?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
-                        <span className='text-gray-600'>{par?.commentLikeCount}</span>
+                        <span className='cursor-pointer' onClick={()=>togglePostLike(chPosts._id)}>{chPosts?.isLiked===true?<Heart fill='red' />:<Heart className='text-gray-600' />}</span>
+                        <span className='text-gray-600'>{chPosts.likeCount}</span>
                         </p>
                     </div>
         </div>}
     </div>
   )
-}
+})

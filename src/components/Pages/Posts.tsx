@@ -40,7 +40,7 @@ const Posts = ():React.JSX.Element => {
         if(user?._id!==undefined&&user._id!==null) dispatch(getUserPosts(user?._id))
         dispatch(openAccountBar(false))
         window.scrollTo(0,0)
-    },[user])
+    },[user,dispatch])
 
     const submitPost = async() => {
         if(userComment.trim().length===0) {
@@ -59,7 +59,7 @@ const Posts = ():React.JSX.Element => {
                 setUserComment('')
             }
         } catch (error) {
-            dispatch(messageModal(error?.message))
+            dispatch(messageModal(error||"We received problems while submitting post"))
         }
     }
 
@@ -81,7 +81,7 @@ const Posts = ():React.JSX.Element => {
                 dispatch(getUserPosts(user?._id))
             }
         } catch (error) {
-            dispatch(messageModal(error?.message))
+            dispatch(messageModal(error))
             console.log(error)
         }finally{
             setCurrentlyEditing(null)
@@ -114,7 +114,7 @@ const Posts = ():React.JSX.Element => {
                 <div>
                 <img src={user?.avatar} className='aspect-square w-[2rem] md:w-[3rem] object-cover' />
                 </div>
-                <textarea className='w-[100%] border border-gray-400 text-[#f1f1f1] resize-y min-h-10 md:min-h-20 max-h-20 md:max-h-30 p-1' autoCorrect='false' value={userComment} name="userComment" placeholder='Express your thoughts....' onChange={postHandler} />
+                <textarea className='w-full border border-gray-400 text-[#f1f1f1] resize-y min-h-10 md:min-h-20 max-h-20 md:max-h-30 p-1' autoCorrect='false' value={userComment} name="userComment" placeholder='Express your thoughts....' onChange={postHandler} />
             </div>
             <div className='ml-auto py-2'>
                 <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline' onClick={cancelChanges}>Cancel</button>
@@ -124,8 +124,11 @@ const Posts = ():React.JSX.Element => {
         </section>
         </div>
         <div className='w-[90%] mx-auto'>
-            {userPosts.data!==null&&userPosts?.data.map((par)=>{
-                return<CommentsCard post={par} key={par._id} onEdit={editPost} />
+            {userPosts.data!==null&&userPosts?.data.map((par,index)=>{
+                return<CommentsCard post={par} key={par._id} index={index} onEdit={(item) => {
+                    if ("content" in item) {
+                        editPost(item);
+                    }}} />
             })}
         </div>
     </div>

@@ -87,10 +87,10 @@ export const  Comments:React.FC = () => {
         if(v_id!==undefined){
             dispatch(getVideoComments({videoId:v_id,page}))
         }
-    },[page,videoId])
+    },[page,videoId,dispatch])
 
     function commentHandler(e:React.ChangeEvent<HTMLTextAreaElement>){
-        const {name,value} = e.target;
+        const {value} = e.target;
         setUserComment(value)
     }
 
@@ -124,13 +124,13 @@ export const  Comments:React.FC = () => {
     }
 
     function showComments():void{
-        setOpenComments(!openComment)
+        setOpenComments(prev=>!prev)
     }
 
-    const editPost = (userComment:commentType):void => {
+    const editPost = useCallback((userComment:commentType):void => {
         setUserComment(userComment.comment)
         setCurrentlyEditing(userComment)
-    }
+    },[])
 
     const cancelChanges = ():void => {
         setCurrentlyEditing(null)
@@ -155,7 +155,7 @@ export const  Comments:React.FC = () => {
                 setCurrentlyEditing(null)
             }
         } catch (error) {
-            dispatch(messageModal(error?.message))
+            dispatch(messageModal(error||"Encountered issues while updating comment"))
         }finally{
             setCurrentlyEditing(null)
         }
@@ -176,7 +176,7 @@ export const  Comments:React.FC = () => {
                 <div>
                 <img src={userDetails.userTemp?.avatar} className='aspect-square w-[2rem] md:w-[3rem] object-cover' />
                 </div>
-                <textarea className='w-[100%] border border-[rgba(68,68,68,0.9)] text-[#f1f1f1] resize-y min-h-10 max-h-20 px-1' autoCorrect='false' value={userComment} name="userComment" onChange={commentHandler} />
+                <textarea className='w-full border border-[rgba(68,68,68,0.9)] text-[#f1f1f1] resize-y min-h-10 max-h-20 px-1' autoCorrect='false' value={userComment} name="userComment" onChange={commentHandler} />
             </div>
             <div className='ml-auto py-2'>
                 <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline cursor-pointer' onClick={cancelChanges}>Cancel</button>
@@ -186,10 +186,10 @@ export const  Comments:React.FC = () => {
         </section>
         <section className='flex flex-col bg-[rgba(0,0,0,0.8)]'>
             {comments && comments?.data.docs?.map((par,index)=>{
-                return<CommentsCard par={par} key={par._id} onEdit={editPost}  />
+                return<CommentsCard par={par} key={par._id} onEdit={(item) => {if ("comment" in item) {editPost(item);}}} index={index}  />
             })}
         </section>
-        <div ref={commentContainerRef} className='w-[100%] h-[10px] md:h-[30px] '/>
+        <div ref={commentContainerRef} className='w-full h-2.5 md:h-7.5 '/>
         </main>
     </div>
   )

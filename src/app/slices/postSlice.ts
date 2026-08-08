@@ -67,25 +67,25 @@ export const userPostsDetail = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(getUserPosts.pending,(state)=>{
-            state.data=null,
-            state.statusCode=null
-            state.message=null
-            state.success=null
-            state.error=null
+            state.data=null;
+            state.statusCode=null;
+            state.message=null;
+            state.success=null;
+            state.error=null;
         })
         .addCase(getUserPosts.fulfilled,(state,action)=>{
-            state.statusCode=action.payload.statusCode,
-            state.data=action.payload.data,
-            state.message=action.payload.message,
-            state.success=action.payload.success
+            state.statusCode=action.payload.statusCode;
+            state.data=action.payload.data;
+            state.message=action.payload.message;
+            state.success=action.payload.success;
             state.error=null
         })
-        .addCase(getUserPosts.rejected,(state,action)=>{
-            state.statusCode=500,
-            state.data=null,
-            state.message="failed to fetch user posts",
-            state.success=null
-            state.error="failed to fetch user posts"
+        .addCase(getUserPosts.rejected,(state)=>{
+            state.statusCode=500;
+            state.data=null;
+            state.message="failed to fetch user posts";
+            state.success=null;
+            state.error="failed to fetch user posts";
         })
     },
 })

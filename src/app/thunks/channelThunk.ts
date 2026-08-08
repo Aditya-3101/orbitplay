@@ -41,16 +41,16 @@ interface ChannelVideoOwner {
   interface channelPostsType{
     statusCode: number,
     data:{
-            _id: string,
-            content: string,
-            createdAt: string,
-            likeCount: number,
-            isLiked: boolean,
-            avatar: string,
-            username: string,
-            owner:{
-                _id:string
-            }
+        _id: string,
+        content: string,
+        createdAt: string,
+        likeCount: number,
+        isLiked: boolean,
+        avatar: string,
+        username: string,
+        owner:{
+            _id:string
+        }
         }[],
     message: string,
     success: number

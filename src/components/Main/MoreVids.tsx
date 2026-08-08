@@ -89,7 +89,7 @@ export const MoreVids = () => {
         <main className=' relative pb-2 px-2 md:px-0'>
         {vids&&vids.map((par,index)=>{
           return<div key={par._id} className='py-2'>
-          <VideoCard data={par}  />
+          <VideoCard data={par} index={index}  />
           </div>
         })}
         <div className='mx-auto py-1 w-[90%]'>

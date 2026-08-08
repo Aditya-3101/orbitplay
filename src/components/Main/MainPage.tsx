@@ -101,7 +101,7 @@ export const MainPage = ():React.JSX.Element => {
     <div className={`relative grid`}>
       <main className=' py-2 px-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4'>
         {(videos&&videos.length!==0)&&videos.map((par,index)=>{
-          return<VideoCard key={par._id} data={par}  />
+          return<VideoCard key={par._id} data={par} index={index}  />
         })}
         {loading&&emptyArr.map((par)=>{
           return<VideoCardSkeleton key={par.id}/>

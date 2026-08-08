@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams,Link } from 'react-router'
 import { SectionHeader } from '../Header/sectionHeader.tsx'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
@@ -10,28 +10,25 @@ interface playlistVideos{
     "_id": string,
     "name": string,
     "description": string,
-    "videos": [
-        string
-    ],
+    "videos": string[],
     "owner": string,
     "__v": number
 }
 
 interface singlePlaylistVid{
-    
+    "_id": string,
+    "thumbnail": string,
+    "owner": {
         "_id": string,
-        "thumbnail": string,
-        "owner": {
-            "_id": string,
-            "username": string,
-            "fullName": string,
-            "avatar": string
-        },
-        "title": string,
-        "duration": number,
-        "views": number,
-        "isPublished": boolean,
-        "createdAt": string
+        "username": string,
+        "fullName": string,
+        "avatar": string
+    },
+    "title": string,
+    "duration": number,
+    "views": number,
+    "isPublished": boolean,
+    "createdAt": string
 }
 
 interface playlistVidsResponse{
@@ -41,6 +38,20 @@ interface playlistVidsResponse{
     "success": number
 }
 
+interface fetchPlaylistType{
+    statusCode: number,
+    data: {
+        _id: string,
+        name: string,
+        description: string,
+        videos:string[],
+        owner: string,
+        __v: number
+    },
+    message: string,
+    success: number
+}
+
 
 const Playlist = ():React.JSX.Element => {
     const [playlistVideos,setPlaylistVideos] = useState<playlistVideos>()
@@ -48,29 +59,7 @@ const Playlist = ():React.JSX.Element => {
     const [loading,setLoading] = useState(false)
     const {playlistId} = useParams()
 
-    if(!playlistId){
-        return<div>Invalid Playlist</div>
-    }
-
-    useEffect(()=>{
-        if (playlistId!==null&&playlistId!==undefined) fetchPlaylist(playlistId)
-    },[playlistId])
-
-    async function fetchPlaylist(par:string):Promise<void>{
-        try {
-            const request = await api.get(`/playlist/${par}`)
-            if(request.status===200) {
-                setPlaylistVideos(request.data.data)
-                fetchVideosFromPlaylist(request.data.data.videos)
-                setLoading(false)
-            }
-        } catch (error) {
-            console.log(error)
-            setLoading(false)
-        }
-    }
-
-    async function fetchVideosFromPlaylist(params:[]):Promise<void> {
+    async function fetchVideosFromPlaylist(params:string[]):Promise<void> {
         setLoading(true)
 
             try {
@@ -89,6 +78,34 @@ const Playlist = ():React.JSX.Element => {
             }
     }
 
+    useEffect(()=>{
+        let mounted=true;
+        
+        async function fetchPlaylist(par:string):Promise<void>{
+            try {
+                const request = await api.get<fetchPlaylistType>(`/playlist/${par}`)
+                if(request.status===200) {
+                    setPlaylistVideos(request.data.data)
+                    fetchVideosFromPlaylist(request.data.data.videos)
+                    setLoading(false)
+                }
+            } catch (error) {
+                console.log(error)
+                setLoading(false)
+            }
+        }
+        if(mounted){
+            if (playlistId!==null&&playlistId!==undefined) fetchPlaylist(playlistId)
+        }
+        return ()=>{
+            mounted=false
+        }
+    },[playlistId])
+
+    if(!playlistId){
+        return<div>Invalid Playlist</div>
+    }
+
   return (
     <div>
         <main className='bg-[rgba(0,0,0,0.9)]'>
@@ -103,9 +120,9 @@ const Playlist = ():React.JSX.Element => {
             </div>
             <div className='w-[90%] mx-auto py-2'>
                 {(!loading&&(playlistVids?.data.length!==0 && playlistVids!==undefined))&&playlistVids.data.map((par,index)=>{
-                    return<div key={index}>
-                        <VideoCard_v2 data={par}/>
-                        </div>
+                    return<Link to={`/v/${par._id}`} key={index}>
+                        <VideoCard_v2 data={par} index={index} />
+                        </Link>
                 })}
                 {
                     (!loading&&playlistVids?.data.length===0)&&

@@ -78,7 +78,7 @@ const Account = ():React.JSX.Element => {
                 dispatch(getChannelVideos({pageNum:page,userId:user?._id}))
                 dispatch(getChannelPosts({userId:user?._id}))
             }
-    },[page,user?._id])
+    },[page,user?._id,dispatch])
 
     useEffect(()=>{
         return () => {
@@ -86,30 +86,46 @@ const Account = ():React.JSX.Element => {
             dispatch(resetChannelVideos())
         }
     },[dispatch])
-
-    useEffect(()=>{
+    
+    
+    useEffect(() => {
+        if (!user?._id) return;
+        
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading({
-            videos:true,
-            profile:true
-        })
-        setPage(1)
-        dispatch(resetChannelUser())
-        dispatch(resetChannelVideos())
-        dispatch(openAccountBar(false))
-
-        async function fetchData():Promise<void> {
-            try{
-                if(user?._id!==undefined) await dispatch(getChannelDetails({userId:user?._id,username:''}));
-                if(user?._id!==undefined) await dispatch(getChannelPlaylist({userId:user?._id}))
-            }finally{
+            videos: true,
+            profile: true
+        });
+        
+        setPage(1);
+        dispatch(resetChannelUser());
+        dispatch(resetChannelVideos());
+        dispatch(openAccountBar(false));
+        
+        const fetchData = async () => {
+            try {
+                await dispatch(
+                    getChannelDetails({
+                        userId: user._id,
+                        username: ''
+                    })
+                );
+                
+                await dispatch(
+                    getChannelPlaylist({
+                        userId: user._id
+                    })
+                );
+            } finally {
                 setLoading({
-                    videos:false,
-                    profile:false
-                })
+                    videos: false,
+                    profile: false
+                });
             }
-        }
-    fetchData()
-    },[subscribeStatus])
+        };
+        fetchData();
+    
+    }, [dispatch, user?._id]);
 
     if(channelData.error!==null){
         return<ErrorPage msg="Channel Details"/>
@@ -155,7 +171,7 @@ const Account = ():React.JSX.Element => {
             }
 
         } catch (error) {
-            console.warn(error)
+            console.error(error)
         }
     }
 
@@ -164,21 +180,21 @@ const Account = ():React.JSX.Element => {
     }
 
   return (
-    <div className={`relative ${openCreatePlaylistOverLay&&'h-[100dvh] overflow-hidden'}`}>
+    <div className={`relative ${openCreatePlaylistOverLay&&'h-dvh overflow-hidden'}`}>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-16/6 object-cover w-full md:w-[96%] md:aspect-16/4 md:mx-auto' alt="" loading='lazy' />}
                 {
-                    (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-[100%] md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
+                    (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-16/4 w-full md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image
                     </div>
                 }
-                {loading.profile&&<div className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto animate-pulse bg-gray-800'></div>}
+                {loading.profile&&<div className='aspect-16/6 object-cover w-full md:w-[96%] md:aspect-16/4 md:mx-auto animate-pulse bg-gray-800'></div>}
             </div>
-            <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-[100%] mx-auto'>
+            <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-full mx-auto'>
             <div className=''>
-                    {!loading.profile&&<img src={currentUser?.avatar} className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto object-cover border border-gray-300' />}
-                    {loading.profile&&<div className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto border animate-pulse bg-gray-800 border-gray-500'></div>}
+                    {!loading.profile&&<img src={currentUser?.avatar} className='aspect-square rounded-full w-full md:w-[60%] md:mx-auto object-cover border border-gray-300' />}
+                    {loading.profile&&<div className='aspect-square rounded-full w-full md:w-[60%] md:mx-auto border animate-pulse bg-gray-800 border-gray-500'></div>}
             </div>
             <div className='w-[90%] mx-auto '>
                 {(!loading.profile&&currentUser?.fullName!==undefined)&&<p className='text-gray-100 font-roboto text-2xl text-clip md:text-5xl my-1'>{currentUser?.fullName}</p>}

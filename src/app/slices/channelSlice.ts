@@ -138,11 +138,21 @@ export const channelDetailSlice = createSlice({
             // console.log(state.channelUserDetail?.isSubscribed)
             // let currentSubscriptionDetail=state.channelUserDetail?.isSubscribed
             // if (state.channelUserDetail?.isSubscribed!==undefined&&currentSubscriptionDetail!==undefined) state.channelUserDetail.isSubscribed=action.payload
+        },
+        likeChannelPosts:(state,action)=>{
+            const selectedPost=action.payload
+            if(state.channelPosts!==undefined&&state.channelPosts!==null){
+                const channelPost = state?.channelPosts.data.find(p=>p._id===selectedPost);
+                if(channelPost){
+                    channelPost.isLiked=!channelPost.isLiked;
+                    channelPost.likeCount = channelPost.isLiked?channelPost.likeCount+1:channelPost.likeCount-1;
+                }
+            }
         }
     },
     extraReducers(builder){
         builder.addCase(getChannelDetails.pending,(state)=>{
-            state.loading=true,
+            state.loading=true;
             state.error=null;
         })
         .addCase(getChannelDetails.fulfilled,(state,action)=>{
@@ -174,7 +184,7 @@ export const channelDetailSlice = createSlice({
             }
             state.channelVideosLoading=false;
         })
-        .addCase(getChannelVideos.rejected,(state,action)=>{
+        .addCase(getChannelVideos.rejected,(state)=>{
             state.channelVideos=null
             state.channelVideosLoading=false;
             state.hasMoreChannelVideos=false
@@ -195,6 +205,6 @@ export const channelDetailSlice = createSlice({
     }
 })
 
-export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser,toggleChannelSubscription} = channelDetailSlice.actions
+export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser,toggleChannelSubscription,likeChannelPosts} = channelDetailSlice.actions
 
 export default channelDetailSlice.reducer;

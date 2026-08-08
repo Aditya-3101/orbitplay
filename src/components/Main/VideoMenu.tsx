@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import { RootState } from '../../app/store/store.ts';
 import { useSelector, useDispatch } from 'react-redux';
@@ -45,7 +45,7 @@ interface selectedPlayLisType{
     id:string|null
 }
 
-export const VideoMenu = ({uploadTime}):React.JSX.Element => {
+export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Element => {
     const videoDetails = useSelector((state:RootState)=>state.video.video)
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const dispatch = useDispatch()
@@ -69,7 +69,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
     },[videoId])
     
     async function addTheVideoInPlaylist():Promise<void> {
-        let par = selectedPlayList.id;
+        const par = selectedPlayList.id;
         try {
             const request = await api.patch(`/playlist/add/${videoDetails?._id}/${par}`,{})
             if(request.status===200 ) {
@@ -78,7 +78,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
             }
             
         } catch (error) {
-            const errorCode = String(error.message).includes('409')
+            const errorCode = String(error?.message).includes('409')
             if(errorCode){
                 setPlaylistToggle(false)
                 dispatch(messageModal("Video is already part of playlist"))
@@ -115,7 +115,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
     }
 
     function onSelectPlaylist(param:string):void{
-        setSelectedPlaylist((prev)=>({
+        setSelectedPlaylist(()=>({
             status:true,
             id:param
         }))
@@ -130,7 +130,7 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
             })
 
             if(req.status===200){
-                setLikes((prev)=>({
+                setLikes(()=>({
                     count:req.data.data.likeCount,
                     likedByUser:req.data.data.likedByUser
                 }))
@@ -159,14 +159,14 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
 
     }
 
-    function copyLink(){
+    function copyLink():void{
         const videoLink = window.location.href;
         navigator.clipboard.writeText(videoLink);
         dispatch(messageModal("Link has been copied"))
     }
 
     function toggleMoreSection():void{
-        setShowMoreSection(!showMoreSection)
+        setShowMoreSection(prev=>!prev)
     }
     
 
@@ -217,4 +217,4 @@ export const VideoMenu = ({uploadTime}):React.JSX.Element => {
         </section>}
     </div>
   )
-}
+})

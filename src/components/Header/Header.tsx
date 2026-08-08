@@ -17,24 +17,25 @@ export const Header:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>):void => {
         setSearch(e.target.value)
     }
 
-    const onSubmit = () => {
-        navigate(`/videos/search?q=${encodeURIComponent(search)}`)
+    const onSubmit = ():void => {
+
+        if(search!==null&&search.length>0)navigate(`/videos/search?q=${encodeURIComponent(search)}`)
         setSearch('')
     }
 
-    const changeSideBar = () => {
+    const changeSideBar = ():void => {
         dispatch(toggleSideBar(!currentSidebarStatus))
     }
 
-    const toggleAccountBar = () =>{
+    const toggleAccountBar = ():void =>{
         dispatch(openAccountBar(!currentAccountBarStatus))
     }
 
-    async function logOutSession() {
+    async function logOutSession():Promise<void> {
         try {
             const request = await api.post('/users/logout',{})
     
@@ -48,7 +49,7 @@ export const Header:React.FC = () => {
     }
 
   return (
-    <div className='w-[100%] grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-[4px] md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
+    <nav className='w-[100%] grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-[4px] md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
         <p className='hidden cursor-pointer md:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
         <div className='text-gray-200 text-center flex flex-col items-center justify-center'>
         <NavLink  to="/">
@@ -56,11 +57,11 @@ export const Header:React.FC = () => {
         </NavLink>
         </div>
         <form className='relative font-teko flex items-center border border-gray-400 rounded-xl' action={onSubmit}>
-            <input className='w-[80%] md:w-[90%] h-[40px] p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
-            <Search className='text-gray-200 w-[20%] md:w-[10%]' onClick={onSubmit} />
+            <input className='w-[80%] md:w-[90%] h-10 p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
+            <Search className='text-gray-200 w-[20%] md:w-[10%] cursor-pointer' onClick={onSubmit} />
         </form>
         <NavLink className='hidden md:block font-oswald' to="/upload">
-            <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto' />
+            <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto cursor-pointer' />
         </NavLink>
         <div className='w-[100%] font-oswald text-center flex items-center justify-center relative'>
             <img src={user?.avatar} className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
@@ -77,6 +78,6 @@ export const Header:React.FC = () => {
                 <div className='text-gray-300 bg-black px-4 py-1 cursor-pointer' onClick={logOutSession}>Logout</div>
             </div>
         </div>
-    </div>
+    </nav>
   )
 }

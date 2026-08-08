@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import React,{useState,useEffect} from 'react';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
@@ -43,13 +44,8 @@ const LikedVideos = ():React.JSX.Element => {
 
     const [likedVideos,setLikedVideos] = useState<likedVideoType>()
     const [loading,setLoading] = useState<boolean>(false)
-    const [error,setError] = useState<string|null>(null)
+    const [error,setError] = useState<unknown|null>(null)
     const dispatch = useDispatch()
-
-    useEffect(()=>{
-        fetchLikedVideos()
-        dispatch(openAccountBar(false))
-    },[])
 
     async function fetchLikedVideos():Promise<void> {
         setLoading(true)
@@ -61,11 +57,18 @@ const LikedVideos = ():React.JSX.Element => {
                 setError(null)
             }
         } catch (err) {
-            setError(err?.message)
+            setError(err)
         }finally{
             setLoading(false)
         }
     }
+
+    useEffect(()=>{
+        fetchLikedVideos()
+        dispatch(openAccountBar(false))
+    },[])
+
+
 
     if(error!==null){
         return<ErrorPage msg="Liked videos"/>
@@ -79,9 +82,9 @@ const LikedVideos = ():React.JSX.Element => {
             <section className='w-[90%] mx-auto py-2'>
                 {((!loading&&likedVideos)&&likedVideos.data.length!==0)&&<div>
                     <section>
-                        {likedVideos.data.map((par)=>{
+                        {likedVideos.data.map((par,index)=>{
                             return<Link key={par._id} to={`/v/${par.likedVideo._id}`}>
-                                <VideoCard_v2 data={par.likedVideo} />
+                                <VideoCard_v2 data={par.likedVideo} index={index} />
                             </Link>
                         })}
                     </section>

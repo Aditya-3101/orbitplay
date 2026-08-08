@@ -87,12 +87,12 @@ const History:React.FC = () => {
 
   function sortHistory(par:watchHistoryResponse):void {
 
-    let globalArr:sortWatchHistoryType = {
+    const globalArr:sortWatchHistoryType = {
       today:[],
       yesterday:[],
       remaining:{}
     }
-    let arr = par.data
+    const arr = par.data
 
     for(let i=0;i<arr.length;i++){
       const dateFlag = dateAgo(arr[i]?.watchedOn)
@@ -113,38 +113,38 @@ const History:React.FC = () => {
 
   return (
     <div>
-      <div className='w-[100%] mx-auto bg-[rgba(0,0,0,0.9)]'>
+      <div className='w-full mx-auto bg-[rgba(0,0,0,0.9)]'>
       <SectionHeader title="Watch History" size="text-lg md:text-xl" />
       <div className='w-[96%] mx-auto md:py-2'>
-        <div className='w-[100%]'>
+        <div className='w-full'>
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<SectionHeader title="Today" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<div>
           {sortWatchHistory.today.map((par,index)=>{
-            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%] block bg-[rgb(10,10,10)]'>
-              <VideoCard_v2 data={par.video} />
+            return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
+              <VideoCard_v2 data={par.video} index={index} />
             </Link>
           })}
           </div>}
           </div>
 
-          <div className='w-[100%]'>
+          <div className='w-full'>
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<SectionHeader title="Yesterday" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<div>
           {sortWatchHistory.yesterday.map((par,index)=>{
-            return<Link to={`/v/${par.video._id}`} key={index} className='w-[100%] block bg-[rgb(10,10,10)]'>
+            return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
               <VideoCard_v2 data={par.video} />
             </Link>
           })}
           </div>}
           </div>
 
-          <div className='w-[100%]'>
+          <div className='w-full'>
           {(sortWatchHistory)&&
             Object.entries(sortWatchHistory.remaining).reverse().map(([label,arr])=>(
               <div key={label}>
                 <SectionHeader title={label} size="text-base md:text-lg" />
                 {arr&&arr?.map((par)=>{
-                  return<Link to={`/v/${par.video._id}`} key={par._id} className='w-[100%] block bg-[rgb(10,10,10)]'>
+                  return<Link to={`/v/${par.video._id}`} key={par._id} className='w-full block bg-[rgb(5,5,5)]'>
                     <VideoCard_v2 data={par.video} />
                   </Link>
                 })}

@@ -121,7 +121,7 @@ const UploadVideo = ():React.JSX.Element => {
         console.log(request.data)
         setLoading(false)
         setUploadStatus(true)
-        setFormData((prev)=>({
+        setFormData(()=>({
           file:null,
           thumbnail:null,
           title:'',
@@ -132,6 +132,7 @@ const UploadVideo = ():React.JSX.Element => {
       }
 
     } catch (error) {
+      console.log(error)
       setLoading(false)
       setUploadStatus(false)
       dispatch(messageModal("something went wrong uploading file"))

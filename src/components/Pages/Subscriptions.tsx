@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store/store';
+import { RootState } from '../../app/store/store.ts';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
@@ -20,9 +20,9 @@ interface userSubscriptionsInterface{
 }
 
 export interface SubscriptionGroup {
-    _id: string; // subscriber id
+    _id: string;
     subscribedTo: userSubscriptionsInterface[];
-  }
+}
 
 interface userSubscriptionsResponse
 {
@@ -59,8 +59,8 @@ interface videosFromChannelInterface{
 }
 
 interface ErrorType{
-    subscribedChannel:string|null;
-    subscribedChannelVideos:string|null
+    subscribedChannel:unknown|null;
+    subscribedChannelVideos:unknown|null
 }
 
 const Subscriptions = ():React.JSX.Element => {
@@ -73,6 +73,7 @@ const Subscriptions = ():React.JSX.Element => {
         profile:false,
         videos:false
     })
+
     const [error,setError] = useState<ErrorType>({
         subscribedChannel:null,
         subscribedChannelVideos:null
@@ -99,7 +100,7 @@ const Subscriptions = ():React.JSX.Element => {
         } catch (err) {
             setError((prev)=>({
                 ...prev,
-                subscribedChannel:err?.message
+                subscribedChannel:err||"getting Error while fetching the videos from subscribed channels"
             }))
         }finally{
             setLoading((prev)=>({...prev,videos:false}))
@@ -118,10 +119,10 @@ const Subscriptions = ():React.JSX.Element => {
                     subscribedChannelVideos:null
                 }))
             }
-        } catch (err) {
+        } catch (err:unknown|object) {
             setError((prev)=>({
                 ...prev,
-                subscribedChannelVideos:err?.message
+                subscribedChannelVideos:err||"getting Error while fetching the subscribed channels"
             }))
         }
     }
@@ -143,19 +144,19 @@ const Subscriptions = ():React.JSX.Element => {
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
             <div className='relative flex overflow-x-auto overflow-y-hidden px-2 gap-4 border-b border-gray-400 py-2'>
             {(userSubscriptions && userSubscriptions.data.length!==0)&&userSubscriptions.data[0].subscribedTo.map((param,index)=>{
-                return<div key={index} className='h-[6.5rem] w-[5.4rem]'>
+                return<div key={index} className='h-26 w-[5.4rem] overflow-hidden'>
                     <div className='flex flex-col items-center justify-center' onClick={()=>onChangeChannel(param._id)}>
-                        <img src={param.avatar} className={`aspect-square rounded-full object-cover cursor-pointer w-[100%] ${defaultChannel===param._id?"outline-2 outline-[rgb(37,192,239)]":''}`} />
-                        <p className='font-roboto text-gray-200'>{param.fullName}</p>
+                        <img src={param.avatar} className={`aspect-square rounded-full object-cover cursor-pointer ${defaultChannel===param._id?"border-2 border-[rgb(37,192,239)]":''}`} />
+                        <p className='w-full text-center font-roboto text-gray-200 truncate'>{param.fullName}</p>
                     </div>
                 </div>
             })}
             </div>
             <section>
                 <div>
-                    {(!loading.videos&&videosFromChannel?.data.length!==0)&&videosFromChannel?.data.map((par)=>{
+                    {(!loading.videos&&videosFromChannel?.data.length!==0)&&videosFromChannel?.data.map((par,index)=>{
                         return <Link className='mx-auto w-[90%] py-2' key={par._id} to={`/v/${par._id}`}>
-                            <VideoCard_v2 data={par} />
+                            <VideoCard_v2 data={par} index={index} />
                             </Link>
                     })}
                     {(!loading.videos&&videosFromChannel?.data.length==0)&&

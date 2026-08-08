@@ -26,15 +26,23 @@ const Player:React.FC = () => {
     const video = useSelector((state:RootState)=>state.video)    
 
     useEffect(()=>{
-        if(videoId){
-            dispatch(saveTheVideo(videoId));
-            if (video!==null&&video.video?._id.length!==0) checkSubscriptionStatus()
-        }else{
-            navigate('/')   
+
+        if (!videoId) {
+            navigate("/");
+            return;
         }
+          
+        dispatch(saveTheVideo(videoId));
         dispatch(toggleSideBar(false))
         window.scrollTo(0,0)
-    },[videoId])
+    },[dispatch, navigate, videoId])
+
+    useEffect(() => {
+        const ownerId = video.video?.owner?._id;
+        if (ownerId) {
+            checkSubscriptionStatus(ownerId);
+        }
+    }, [video.video?.owner?._id]);
 
 
     async function pushVideosIntoHistory(vidId:string){
@@ -52,12 +60,22 @@ const Player:React.FC = () => {
 
     let uploadedDate:string|undefined
 
-    if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) uploadedDate = format(new Date(video?.video.createdAt),"MMM dd yyyy");    
+    if(video.video?.createdAt!==undefined && (video.video!==null&&video.video.createdAt.length!==0)) {
+        uploadedDate = format(new Date(video?.video.createdAt),"MMM dd yyyy");    
+    }
 
-    async function checkSubscriptionStatus():Promise<void> {
-        
+
+    //const checkSubscriptionStatus = useCallback(() => {
+    // your subscription checking logic here
+    // }, [/* dependencies like channelId or user, if needed */]);
+
+
+
+
+    async function checkSubscriptionStatus(ownerId:string):Promise<void> {
+        if(!ownerId) return;
         try {
-            const request = await api.get(`/subscriptions/check/${video.video?.owner._id}`)
+            const request = await api.get(`/subscriptions/check/${ownerId}`)
             if(request.status===200){
                 if(request.data.data===null){
                     setCheckSubscription(false)
@@ -70,6 +88,8 @@ const Player:React.FC = () => {
         }
     }
 
+
+
     async function trackUserPlay(param:string|undefined):Promise<void>{
         if(didUserPlayed) return 
         if(param!==undefined){
@@ -79,9 +99,13 @@ const Player:React.FC = () => {
     }
 
     async function followChannel(par:string|undefined):Promise<void>{
+        const ownerId = video.video?.owner?._id;
+
+        if(!ownerId) return;
+
         try {
             const request = await api.post(`/subscriptions/c/${par}`,{})
-            if(request.status===200)  checkSubscriptionStatus()
+            if(request.status===200)  checkSubscriptionStatus(ownerId)
 
         } catch (error) {
             console.log(error);
@@ -100,7 +124,7 @@ const Player:React.FC = () => {
             <div className="loader"></div>
         </div>}
         {(video.video&&!video.loading)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
-        {video.video.videoFile&&<video src={video.video.videoFile} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-[100%]'/>}
+        {video.video.videoFile&&<video src={video.video.videoFile} poster={video.video.thumbnail} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-full'/>}
         <p className='p-2 flex justify-between'>
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
             {/* <span className='text-slate-200'>{video.video?.views} views</span> */}
@@ -122,7 +146,7 @@ const Player:React.FC = () => {
         </div>
         </div>}
         {video.loading&&<div className='w-full h-[6rem] md:h-[8rem] px-4 py-2'>
-            <div className='w-[100%] h-[2rem] bg-[rgba(20,20,20,0.7)] animate-pulse'>
+            <div className='w-full h-[2rem] bg-[rgba(20,20,20,0.7)] animate-pulse'>
             </div>
             <div className='w-[60%] h-[2rem] bg-[rgba(20,20,20,0.7)] animate-pulse mt-2'>
             </div>
