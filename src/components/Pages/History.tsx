@@ -9,6 +9,7 @@ import { ErrorPage } from './ErrorPage.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { openAccountBar } from '../../app/slices/toggleSlice.ts';
 import { useDispatch } from 'react-redux';
+import { getApiErrorMessage } from "../../utility/axiosError.ts";
 interface watchHistoryVideoType{
     "_id": string,
     "video": {
@@ -77,7 +78,7 @@ const History:React.FC = () => {
         setError(null)
       }
     } catch (err) {
-      setError(err?.message)
+      setError(getApiErrorMessage(err))
       setLoading(false)
     }
   }
@@ -133,7 +134,7 @@ const History:React.FC = () => {
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<div>
           {sortWatchHistory.yesterday.map((par,index)=>{
             return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
-              <VideoCard_v2 data={par.video} />
+              <VideoCard_v2 data={par.video} index={index} />
             </Link>
           })}
           </div>}
@@ -157,9 +158,11 @@ const History:React.FC = () => {
       {checkIfEmpty&&<div className='flex justify-center items-center h-[6rem] md:h-[15rem]'>
         <p className='text-gray-500 text-lg font-roboto'>No Watch history found</p>
         </div>}
-        <div className='w-[100%] md:w-[80%]'>
+        <div className='w-[96%] mx-auto md:py-2'>
         {loading&&(emptyArr.map((par)=>{
-          return<div key={par.id} className='p-2'><VideoCard_v2_skeleton /></div>
+          return<div key={par.id} className='p-2'>
+            <VideoCard_v2_skeleton />
+            </div>
         }))}
         </div>
       </div>

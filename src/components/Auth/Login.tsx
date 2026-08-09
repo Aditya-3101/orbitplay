@@ -2,10 +2,11 @@ import React,{useState} from 'react';
 import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
-import { useNavigate,useLocation,Link } from 'react-router';
+import { useNavigate,useLocation } from 'react-router';
 import { api } from '../../api/AxiosInterceptor.ts';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import WarningSignLogo from '../../assets/incorrect.svg'
+import {isAxiosError} from 'axios';
 
 interface loginUser  {
     email:string;
@@ -89,9 +90,10 @@ export const Login:React.FC = () => {
             setLoading(false)
         }
         }catch(err){
-            console.log(typeof err?.status)
-            setError(err?.status)
+            if(isAxiosError(err)){
+            if(err.response!==undefined) setError(err.response?.status)
             setLoading(false)
+            }
         }
     }
 
@@ -147,7 +149,7 @@ export const Login:React.FC = () => {
     }
 
   return (
-    <div className='bg-black w-[100%] h-[100dvh] flex flex-col items-center justify-center relative'>
+    <div className='bg-black w-full h-dvh flex flex-col items-center justify-center relative'>
         <section className='grid grid-cols-1 md:grid-cols-[50%_50%]'>
         <div className='w-[70%] lg:w-[50%] flex items-center justify-center mx-auto md:border-r md:border-gray-300'>
             <img src={logo} className='md:w-[90%] mx-auto' />
@@ -157,21 +159,21 @@ export const Login:React.FC = () => {
             <div className='w-[90%] mx-auto'>
                 <p className='text-slate-300'>Email</p>
                 {userFormError&&user.email.length==0&&<p className='text-sm text-red-400'>Kindly fill the Email-id</p>}
-                <input type="email" value={user.email} name="email" onChange={changeHandler} className='border border-gray-400 h-[38px] lg:h-[40px] text-gray-50 p-2 w-[100%] mx-auto lg:text-lg rounded-xl' />
+                <input type="email" value={user.email} name="email" onChange={changeHandler} className='border border-gray-400 h-[38px] lg:h-[40px] text-gray-50 p-2 w-full mx-auto lg:text-lg rounded-xl' />
             </div>
             <div className='w-[90%] mx-auto'>
                 
                 <p className='text-slate-300'>Password</p>
                 {userFormError&&user.password.length==0&&<p className='text-sm text-red-400'>Kindly fill the password</p>}
-                <input type="password" value={user.password} name="password" onChange={changeHandler} className={`border-gray-400 border ${(userFormError&&user.password.length==0)&&"border-red-400"} h-[38px] text-gray-50 p-2 w-[100%] lg:h-[40px] lg:text-lg rounded-xl`} />
+                <input type="password" value={user.password} name="password" onChange={changeHandler} className={`border-gray-400 border ${(userFormError&&user.password.length==0)&&"border-red-400"} h-[38px] text-gray-50 p-2 w-full lg:h-[40px] lg:text-lg rounded-xl`} />
             </div>
             <button className='text-slate-300 text-lg  bg-[#7734ec] p-2 w-[50%] mx-auto rounded-2xl font-bold cursor-pointer' onClick={submitHandler}>
                 Login
             </button>
         </form>
-        <div className='w-[100%] mt-4'>
-            <div className='text-gray-300 w-[100%] flex relative'>
-                <p className='w-[100%] h-[1px] bg-gray-600'></p>
+        <div className='w-full mt-4'>
+            <div className='text-gray-300 w-full flex relative'>
+                <p className='w-full h-[1px] bg-gray-600'></p>
                 <p className=' w-fit bg-black absolute top-[-15px] left-1/2 -translate-x-1/2'>
                     No account yet?
                 </p>

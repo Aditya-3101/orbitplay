@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ChevronDown, ChevronUp, Link, ListPlus, ThumbsUp } from 'lucide-react';
 import {messageModal} from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
+import { isAxiosError } from 'axios';
 
 interface playlistType{
     "_id": string,
@@ -78,11 +79,14 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
             }
             
         } catch (error) {
-            const errorCode = String(error?.message).includes('409')
+            if(isAxiosError(error)){
+            const errorCode = String(error.response?.status).includes('409')
             if(errorCode){
                 setPlaylistToggle(false)
                 dispatch(messageModal("Video is already part of playlist"))
             }
+
+        }
         }
     }
 

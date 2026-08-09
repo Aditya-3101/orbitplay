@@ -49,7 +49,7 @@ export const Header:React.FC = () => {
     }
 
   return (
-    <nav className='w-[100%] grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-[4px] md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
+    <nav className='w-full grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-1 md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
         <p className='hidden cursor-pointer md:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
         <div className='text-gray-200 text-center flex flex-col items-center justify-center'>
         <NavLink  to="/">
@@ -63,7 +63,7 @@ export const Header:React.FC = () => {
         <NavLink className='hidden md:block font-oswald' to="/upload">
             <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto cursor-pointer' />
         </NavLink>
-        <div className='w-[100%] font-oswald text-center flex items-center justify-center relative'>
+        <div className='w-full font-oswald text-center flex items-center justify-center relative'>
             <img src={user?.avatar} className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
             onClick={toggleAccountBar}/>
             <div className={` ${!currentAccountBarStatus&&"hidden"} absolute flex flex-col top-[110%] left-[-100%] md:left-0 bg-[rgba(0,0,0,0.9)] 

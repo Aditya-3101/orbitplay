@@ -24,12 +24,13 @@ const UploadVideo = ():React.JSX.Element => {
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
   const [loading,setLoading] = useState<boolean>(false)
   const [uploadStatus,setUploadStatus] = useState<boolean|string>('')
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   const dispatch = useDispatch()
 
   useEffect(()=>{
     dispatch(openAccountBar(false))
     window.scrollTo(0,0)
-  },[])
+  },[dispatch])
 
 
   function handleDrop(e:React.DragEvent):void{
@@ -115,10 +116,15 @@ const UploadVideo = ():React.JSX.Element => {
       },{
         headers:{
           "Content-Type":"multipart/form-data"
+        },
+        onUploadProgress:(event)=>{
+          if(event.total){
+            const uploadPercent= Math.round((event.loaded*100)/event.total);
+            setUploadProgress(uploadPercent)
+          }
         }
       })
       if(request.status===201){
-        console.log(request.data)
         setLoading(false)
         setUploadStatus(true)
         setFormData(()=>({
@@ -144,8 +150,8 @@ const UploadVideo = ():React.JSX.Element => {
   return (
     <div className='bg-[rgba(0,0,0,0.9)] px-4 relative py-2'>
       <p className='text-gray-400 font-bold font-roboto'>Upload Video</p>
-      {uploadStatus===false&&<div className='w-[100%] flex items-center justify-between border border-red-800 p-1'><div className='font-roboto text-lg text-gray-300 '>Kindly fill all the details!!</div><X className='text-gray-300' onClick={()=>setUploadStatus('')} /></div>}
-      {uploadStatus&&<div className='w-[100%] flex items-center justify-between border border-green-700 p-1'>
+      {uploadStatus===false&&<div className='w-full flex items-center justify-between border border-red-800 p-1'><div className='font-roboto text-lg text-gray-300 '>Kindly fill all the details!!</div><X className='text-gray-300' onClick={()=>setUploadStatus('')} /></div>}
+      {uploadStatus&&<div className='w-full flex items-center justify-between border border-green-700 p-1'>
         <div className='font-roboto text-lg text-gray-300'>Video Uploaded Successfully!!</div>
         <X className='text-gray-300' onClick={()=>setUploadStatus('')} /></div>}
       <div>
@@ -162,21 +168,21 @@ const UploadVideo = ():React.JSX.Element => {
               handleDrop(e)
             }}
             className={`border-2 p-10 lg:p-20 text-gray-300 text-center ${isDragging ? "bg-gray-700" : ""}`}
-            >Drop file here</div>}
-            <input type="file" ref={fileInputRef} className='text-gray-300 border border-gray-500 file:p-2 file:bg-gray-50 file:text-gray-900 font-roboto' accept='video/mp4' onChange={handleFileSelect} />
+            >Drop Video file here</div>}
+            <input type="file" ref={fileInputRef} className='text-gray-300 border border-gray-500 file:p-2 file:bg-gray-50 file:text-gray-900 font-roboto cursor-pointer' accept='video/mp4' onChange={handleFileSelect} />
           </div>
           {formData.file&&<div className='font-roboto text-gray-400 border border-gray-400 p-2 my-4 w-fit' onClick={removeSelectedVideo}>Remove Video File</div>}
           {formData.file&&<div className='font-roboto text-gray-300'>Selected File: {formData.file.name}</div>}
 
           <div className='flex flex-col gap-2 my-2'>
             <p className='font-roboto text-base text-gray-200'>Video Thumbnail</p>
-            <input type="file" ref={thumbnailInputRef} className='text-gray-300 border border-gray-500 file:p-2 file:bg-gray-50 file:text-gray-900 font-roboto' accept='image/jpg, image/png, image/jpeg' onChange={handleThumbnailSelect} />
+            <input type="file" ref={thumbnailInputRef} className='text-gray-300 border border-gray-500 file:p-2 file:bg-gray-50 file:text-gray-900 font-roboto cursor-pointer' accept='image/jpg, image/png, image/jpeg' onChange={handleThumbnailSelect} />
           </div>
           {formData.thumbnail&&<div className='font-roboto text-gray-400 border border-gray-400 p-2 my-4 w-fit' onClick={removeSelectedThumbnail}>Remove Video Thumnail</div>}
           {formData.thumbnail&&<div className='font-roboto text-gray-300'>Selected thumbnail: {formData.thumbnail.name}</div>}
           <div className='py-4 flex flex-col gap-4'>
             <div>
-              <p className='text-base font-roboto text-gray-400'>Title</p>
+              <p className='text-base font-roboto text-gray-400' aria-label='video title'>Title</p>
               <input type='text' value={formData.title} name="title" onChange={onChangeHandler} className='h-[2rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 px-2 py-1' />
             </div>
 
@@ -189,9 +195,22 @@ const UploadVideo = ():React.JSX.Element => {
         </form>
       </div>
       {loading&&<div className='absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.8)]'>
-        <div className='font-roboto text-lg text-gray-100 px-2 py-1 rounded-2xl flex flex-col items-center justify-center gap-1'>
-        <div className="loader"></div>
-          Uploading....</div>
+        <div className='font-roboto text-lg text-gray-100 px-2 py-1 rounded-2xl flex flex-col items-center justify-center gap-2 w-68'>
+        <div className="loader my-4"></div>
+          <div className='mt-2 w-[90%]'>
+            <span className='text-xs'>{uploadProgress}% uploaded</span>
+            <div
+            role="progressbar"
+            aria-valuenow={uploadProgress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            className='relative w-full bg-gray-600 '
+            >
+            <div style={{ width: `${uploadProgress}%`,zIndex:12}} className='h-3 bg-[#25c0efd7] max-w-full' />
+            </div>
+            <span aria-label='' className="block text-center mx-auto w-fit my-2">Uploading....</span>
+            </div>
+          </div>
         </div>}
     </div>
   )

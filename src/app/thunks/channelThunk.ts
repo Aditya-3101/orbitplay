@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { api } from "../../api/AxiosInterceptor";
+import { getApiErrorMessage } from "../../utility/axiosError.ts";
+
 
 interface ChannelVideoOwner {
     _id: string;
@@ -98,7 +100,8 @@ export const getChannelDetails = createAsyncThunk(
             }
 
         } catch (err) {
-            return rejectWithValue(err?.message||"failed to fetch Account Data")
+            const customError = getApiErrorMessage(err)
+            return rejectWithValue(customError||"failed to fetch Account Data")
         }
     }
 )
@@ -118,7 +121,8 @@ export const getChannelPlaylist = createAsyncThunk(
             if(userPlaylists.status===200) return {userPlaylist:userPlaylists.data.data}
 
         } catch (error) {
-            return rejectWithValue(error?.message||"failed to fetch Account playlist")   
+            const customError = getApiErrorMessage(error)
+            return rejectWithValue(customError||"failed to fetch Account playlist")   
         }
     })
 
@@ -129,7 +133,8 @@ export const getChannelVideos = createAsyncThunk(
             const req = await api.get<GetChannelVideosResponse>(`/videos/channel?page=${pageNum}&userId=${userId}`)
             return req.data;
         } catch (error) {
-            return rejectWithValue(error?.message||"failed to fetch channel videos")
+            const customError = getApiErrorMessage(error)
+            return rejectWithValue(customError||"failed to fetch channel videos")
         }
     }
 )
@@ -141,7 +146,8 @@ export const getChannelPosts = createAsyncThunk(
             const req = await api.get<channelPostsType>(`/tweets/user/${userId}`)
             return req.data;
         } catch (error) {
-            return rejectWithValue(error?.message||"failed to fetch channel videos")
+            const customError = getApiErrorMessage(error)
+            return rejectWithValue(customError||"failed to fetch channel videos")
         }
     }
 )
