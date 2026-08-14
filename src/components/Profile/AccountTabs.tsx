@@ -172,7 +172,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
         </section>
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
-            <main className='w-[90%]'>
+            <main className=''>
                 {(!loading && videos.data.allVideos.length!==0)&&videos.data.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-0'>
                     <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={togglePublish} />
@@ -217,7 +217,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                         </div>
                     </Link>
                     </div>
-                }):<div className='w-full h-[40rem] flex items-center justify-center'>
+                }):<div className='w-full h-[10rem] lg:h-[40rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Playlist found :(</p>
                   </div>}
             </main>}
@@ -226,7 +226,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                     (channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par,index)=>{
                         return <CommentsCard chPosts={par} key={par._id} index={index} />
                     }):
-                    <div className='w-full h-[40rem] md:h-[20rem] flex items-center justify-center'>
+                    <div className='w-full h-[10rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
                     </div>)
                   )

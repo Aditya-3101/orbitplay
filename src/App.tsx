@@ -20,7 +20,7 @@ const Account = React.lazy(()=>lazyRetry(()=>import('./components/Profile/Accoun
 const History = React.lazy(()=>lazyRetry(()=>import('./components/Pages/History.tsx')));
 const Results = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Results.tsx')));
 const Subscriptions = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Subscriptions.tsx')));
-const Playlist = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Playlist.tsx')));
+const Playlist = React.lazy(()=>lazyRetry(()=>import('./components/Pages/Playlists/Playlist.tsx')));
 const LikedVideos = React.lazy(()=>lazyRetry(()=>import('./components/Pages/LikedVideos.tsx')));
 const UploadVideo = React.lazy(()=>lazyRetry(()=>import('./components/Pages/UploadVideo.tsx')));
 const Register = React.lazy(()=>lazyRetry(()=>import('./components/Auth/Register.tsx')));

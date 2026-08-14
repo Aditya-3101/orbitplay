@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import {messageModal} from '../../app/slices/toggleSlice.ts'
@@ -8,14 +8,14 @@ const OverLayDialouge= () => {
   const modalMessage = useSelector((state:RootState)=>state.toggle.msg)
   const dispatch = useDispatch()
 
+  function togglemessage(){
+    dispatch(messageModal(null))
+  }
 
   useEffect(()=>{
     setTimeout(togglemessage,3000)
   },[modalMessage])
 
-  function togglemessage(){
-    dispatch(messageModal(null))
-  }
 
   return (
     <div>

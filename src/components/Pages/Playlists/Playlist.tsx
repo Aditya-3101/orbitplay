@@ -1,9 +1,10 @@
 import React, { useEffect,useState } from 'react'
 import { useParams,Link } from 'react-router'
-import { SectionHeader } from '../Header/sectionHeader.tsx'
-import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
-import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
-import { api } from '../../api/AxiosInterceptor.ts'
+import { SectionHeader } from '../../Header/sectionHeader.tsx'
+import { VideoCard_v2 } from '../../Main/VideoCard_v2.tsx'
+import VideoCard_v2_skeleton from '../../Main/VideoCard_v2_skeleton.tsx'
+import { api } from '../../../api/AxiosInterceptor.ts'
+import {PlaylistErrorCard} from './PlaylistErrorCard.tsx'
 
 
 interface playlistVideos{
@@ -32,10 +33,10 @@ interface singlePlaylistVid{
 }
 
 interface playlistVidsResponse{
-    "statusCode": number,
-    "data": singlePlaylistVid[]
-    "message": string,
-    "success": number
+    statusCode: number,
+    data: singlePlaylistVid[],
+    message: string,
+    success: number
 }
 
 interface fetchPlaylistType{
@@ -71,7 +72,7 @@ const Playlist = ():React.JSX.Element => {
                 })
                 if(req.status===200) {
                     setPlaylistVids(req.data);
-                    setLoading(false)
+                    setLoading(false);
                 }
             } catch (error) {
                 console.log(error)
@@ -106,6 +107,7 @@ const Playlist = ():React.JSX.Element => {
         return<div>Invalid Playlist</div>
     }
 
+
   return (
     <div>
         <main className='bg-[rgba(0,0,0,0.9)]'>
@@ -130,6 +132,7 @@ const Playlist = ():React.JSX.Element => {
                         No Videos found in Playlist
                     </div>
                 }
+                    {playlistVideos!==undefined&&playlistVids!==undefined&&<PlaylistErrorCard playlistVideosLength={playlistVideos.videos.length} playlistVidsLength={playlistVids.data.length} />}
                 {(loading)&&([...Array(9)].map((index)=>{
                     return<VideoCard_v2_skeleton key={index} />
                 }))}

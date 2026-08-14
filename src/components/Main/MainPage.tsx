@@ -8,6 +8,8 @@ import {useIntersectionObserver} from '../../hooks/useIntersectionObserver.tsx';
 import { AppDispatch } from '../../app/store/store.ts';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
+import { getApiErrorMessage } from "../../utility/axiosError.ts";
+
 
 interface Video {
   _id: string;
@@ -60,38 +62,34 @@ export const MainPage = ():React.JSX.Element => {
   useIntersectionObserver(videoContainerRef,pageCallback)
 
   useEffect(()=>{
+      async function fetchHomeVideos(par:number):Promise<void>{
+        setLoading(true);
+        try{
+          const req = await api.get<GetVideosResponse>(`/videos/all/v?page=${par}`)
+          if(req.status===200) {
+            const newVideos = req.data.data.result;
+            setVideos((prev)=>{
+              const existingIds = new Set(prev.map(v => v._id));
+              const filtered = newVideos.filter(v => !existingIds.has(v._id));
+              return [...prev, ...filtered];
+          });
+          setError(null);
+          setLoading(false);
+          setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount);
+        }
+      }catch(err){
+        setError(getApiErrorMessage(err))
+        dispatch(messageModal("Encountered error while fetching videos :("));
+      }finally {
+        setLoading(false);
+      }
+    }
+
     fetchHomeVideos(page);
     dispatch(toggleSideBar(true));
     dispatch(openAccountBar(false))
-  },[page])
-
-
-  async function fetchHomeVideos(par:number):Promise<void>{
-    setLoading(true)
-    
-    try{
-    const req = await api.get<GetVideosResponse>(`/videos/all/v?page=${par}`)
-    if(req.status===200) {
-      const newVideos = req.data.data.result
-      setVideos((prev)=>{
-        const existingIds = new Set(prev.map(v => v._id));
-
-        const filtered = newVideos.filter(v => !existingIds.has(v._id));
-      
-        return [...prev, ...filtered];
-      });
-      setError(null)
-      setLoading(false)
-      setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.videosCount)
-    }
-    }catch(err){
-      setError(err?.message)
-      console.log(err)
-      dispatch(messageModal("Encountered error while fetching videos :("))
-    }finally {
-      setLoading(false);
-    }
-  }  
+  },[dispatch, page])
+  
 
   if(error!==null){
     return<ErrorPage msg="Videos"/>
