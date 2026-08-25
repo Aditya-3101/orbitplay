@@ -23,7 +23,7 @@ export const Header:React.FC = () => {
 
     const onSubmit = (e:React.SyntheticEvent):void => {
         e.preventDefault();
-        if(search!==null&&search.length>0)navigate(`/videos/search?q=${encodeURIComponent(search)}`)
+        if(search!==null&&search.length>0) navigate(`/videos/search?q=${encodeURIComponent(search)}`)
         setSearch('')
     }
 

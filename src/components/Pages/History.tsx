@@ -10,45 +10,8 @@ import { emptyArr } from '../../utility/emptyArrays.ts';
 import { openAccountBar } from '../../app/slices/toggleSlice.ts';
 import { useDispatch } from 'react-redux';
 import { getApiErrorMessage } from "../../utility/axiosError.ts";
+import type {watchHistoryResponse,sortWatchHistoryType} from '../../features/history/history.types.ts';
 
-interface watchHistoryVideoType{
-    "_id": string,
-    "video": {
-        "_id": string,
-        "videoFile": string,
-        "thumbnail": string,
-        "owner": {
-            "_id": string,
-            "username": string,
-            "fullName":string,
-            "avatar": string
-        },
-        "title": string,
-        "description": string,
-        "duration": number,
-        "views": number,
-        "isPublished": true,
-        "createdAt": string,
-        "updatedAt": string,
-        "__v": number
-    },
-    "watchedOn": string
-}
-
-interface watchHistoryResponse{
-    "statusCode": number
-    "data": watchHistoryVideoType[]
-    "message": string,
-    "success": number
-}
-
-interface sortWatchHistoryType{
-  today:watchHistoryVideoType[],
-  yesterday:watchHistoryVideoType[],
-  remaining:{
-    [key:string]:watchHistoryVideoType[]
-  }
-}
 
 const History:React.FC = () => {
 
@@ -146,8 +109,8 @@ const History:React.FC = () => {
             Object.entries(sortWatchHistory.remaining).reverse().map(([label,arr])=>(
               <div key={label}>
                 <SectionHeader title={label} size="text-base md:text-lg" />
-                {arr&&arr?.map((par)=>{
-                  return<Link to={`/v/${par.video._id}`} key={par._id} className='w-full block bg-[rgb(5,5,5)]'>
+                {arr&&arr?.map((par,index)=>{
+                  return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
                     <VideoCard_v2 data={par.video} />
                   </Link>
                 })}

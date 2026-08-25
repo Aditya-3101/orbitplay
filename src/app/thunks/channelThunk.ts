@@ -66,6 +66,7 @@ export const getChannelDetails = createAsyncThunk(
             const token = state.user.accessToken;
 
             let finalUserId = userId
+            let userDetails
 
             if(!finalUserId && username){
 
@@ -80,7 +81,7 @@ export const getChannelDetails = createAsyncThunk(
 
             const channelUserDetails = channelUser.data.data
             finalUserId = channelUserDetails._id;
-            var userDetails = channelUserDetails
+            userDetails = channelUserDetails
            }
 
            if (!finalUserId) {
@@ -128,7 +129,7 @@ export const getChannelPlaylist = createAsyncThunk(
 
 export const getChannelVideos = createAsyncThunk(
     "channel/channelVideos",
-    async({pageNum,userId}:{pageNum:number,userId:string},{getState,rejectWithValue})=>{
+    async({pageNum,userId}:{pageNum:number,userId:string},{rejectWithValue})=>{
         try {
             const req = await api.get<GetChannelVideosResponse>(`/videos/channel?page=${pageNum}&userId=${userId}`)
             return req.data;
@@ -141,7 +142,7 @@ export const getChannelVideos = createAsyncThunk(
 
 export const getChannelPosts = createAsyncThunk(
     "channel/channelPosts",
-    async({userId}:{userId:string},{getState,rejectWithValue})=>{
+    async({userId}:{userId:string},{rejectWithValue})=>{
         try {
             const req = await api.get<channelPostsType>(`/tweets/user/${userId}`)
             return req.data;

@@ -124,7 +124,7 @@ const Player:React.FC = () => {
             <div className="loader"></div>
         </div>}
         {(video.video&&!video.loading)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
-        {video.video.videoFile&&<video src={video.video.videoFile} poster={video.video.thumbnail} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} className='aspect-video w-full'/>}
+        {video.video.videoFile&&<video src={video.video.videoFile} poster={video.video.thumbnail} controls={true} onPlay={()=>trackUserPlay(video.video?._id)} controlsList='nodownload' className='aspect-video w-full'/>}
         <p className='p-2 flex justify-between'>
             <span className='font-poppins text-xl text-slate-200'>{video.video?.title}</span>
             {/* <span className='text-slate-200'>{video.video?.views} views</span> */}

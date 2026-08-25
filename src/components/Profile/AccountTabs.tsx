@@ -12,42 +12,7 @@ import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
-
-interface ChannelVideoOwner {
-    _id: string;
-    username: string;
-    fullName: string;
-    avatar: string;
-  }
-  
-  interface ChannelVideo {
-    _id: string;
-    videoFile: string;
-    thumbnail: string;
-    owner: ChannelVideoOwner;
-    title: string;
-    description: string;
-    duration: number;
-    views: number;
-    isPublished: boolean;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-  }
-  
-  interface ChannelVideosData {
-    allVideos: ChannelVideo[];
-    allVideoCount: number;
-    page: number;
-    limit: number;
-  }
-  
-  interface GetChannelVideosResponse {
-    statusCode: number;
-    data: ChannelVideosData;
-    message: string;
-    success: number;
-  }
+import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
 
 interface channelPlaylistInterface {
     _id:string,
@@ -96,7 +61,14 @@ interface channelPostsType{
     success: number
 }
 
-export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:GetChannelVideosResponse,playlists:channelPlaylistInterface[],loading:boolean,channelPosts:channelPostsType|null }):React.JSX.Element => {
+type AccountTabsProps = {
+  videos: GetChannelVideosResponse;
+  playlists: channelPlaylistInterface[];
+  loading: boolean;
+  channelPosts: channelPostsType | null;
+};
+
+export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabsProps):React.JSX.Element => {
 
     const [defaultTab,setDefaultTab] = useState<string>("Videos")
     const dispatch = useDispatch()
@@ -164,7 +136,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                 <button className={`font-roboto text-slate-200 px-3 py-2 cursor-pointer  
                 ${defaultTab==="Videos"&&'bg-[#222]'}`} name="Videos" onClick={tabChanger}>Videos</button>
 
-                <button className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Playlists"&&'bg-[#222]'}`} name="Playlists" onClick={tabChanger}>Playlists</button>
+                <button aria-label="show playlist" className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Playlists"&&'bg-[#222]'}`} name="Playlists" onClick={tabChanger}>Playlists</button>
 
                 <button className={`font-roboto text-slate-200 p-2 cursor-pointer px-3 py-2 ${defaultTab==="Posts"&&'bg-[#222]'}`} name="Posts" onClick={tabChanger}>Posts</button>
 
@@ -173,7 +145,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
         <div className='bg-[rgba(0,0,0,0.90)] p-4'>
             {defaultTab==="Videos"&&
             <main className=''>
-                {(!loading && videos.data.allVideos.length!==0)&&videos.data.allVideos.map((par,index)=>{
+                {(!loading && videos)&&videos.data.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-0'>
                     <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={togglePublish} />
                     </Link>
@@ -217,7 +189,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:{ videos:Ge
                         </div>
                     </Link>
                     </div>
-                }):<div className='w-full h-[10rem] lg:h-[40rem] flex items-center justify-center'>
+                }):<div className='w-full h-[10rem] lg:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Playlist found :(</p>
                   </div>}
             </main>}

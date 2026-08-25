@@ -16,7 +16,7 @@ interface Video {
   updatedAt: string;
 }
 
-interface videoDataType{
+export interface videoDataType{
   result:Video[],
   videosCount: number,
   page: number,

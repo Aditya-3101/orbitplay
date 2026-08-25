@@ -8,31 +8,55 @@ import { api } from '../../api/AxiosInterceptor.ts'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx'
 import { emptyArr } from '../../utility/emptyArrays.ts'
+import type { VideoType } from "../../types/video.ts";
 
-interface allVideosInterface {
-createdAt:string,
-description:string,
-duration:number,
-isPublished:boolean
-owner:{
-    _id:string,
-    fullName:string,
-    avatar:string
-},
-thumbnail:string,
-title:string,
-updatedAt:string,
-videoFile:string,
-views:number
-__v:number
-_id:string
-}
+
+// interface allVideosInterface {
+// createdAt:string,
+// description:string,
+// duration:number,
+// isPublished:boolean
+// owner:{
+//     _id:string,
+//     fullName:string,
+//     avatar:string
+// },
+// thumbnail:string,
+// title:string,
+// updatedAt:string,
+// videoFile:string,
+// views:number
+// __v:number
+// _id:string
+// }
+
+
+// export interface VideoType {
+//     _id: string;
+//     videoFile?: string;
+//     thumbnail: string;
+//     owner: {
+//         _id: string;
+//         username: string;
+//         avatar: string;
+//         fullName?: string;
+//     };
+//     title: string;
+//     description?: string;
+//     duration: number;
+//     views: number;
+//     isPublished: boolean;
+//     createdAt: string;
+//     updatedAt?: string;
+//     __v?: number;
+// }
+
 
 interface searchResultsInterface {
     statusCode:number,
     data:{
         allVideoCount:number,
-        allVideos:allVideosInterface[],
+        allVideos:VideoType[],
         limit:number,
         page:number
     },
@@ -44,7 +68,7 @@ const Results = ():React.JSX.Element => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const location =useLocation()
-    const [queryResults,setQueryResults] = useState<allVideosInterface[]>([])
+    const [queryResults,setQueryResults] = useState<VideoType[]>([])
     const [loading,setLoading] = useState<boolean>(false)
     const videoContainerRef = useRef<HTMLDivElement>(null)
     const [page,setPage] = useState<number>(1)
@@ -60,25 +84,12 @@ const Results = ():React.JSX.Element => {
 
     const query = searchParams.get('q')
 
+    
+
     useEffect(()=>{
         const abortController = new AbortController()
 
-
-        if (query!==null) {
-            fetchSearchResult(page,query,abortController)
-        }
-        dispatch(toggleSideBar(true))
-        return() => {
-            abortController.abort()
-        }
-    },[query,page])
-
-    useEffect(()=>{
-        setQueryResults([])
-        setPage(1)
-    },[location.search])
-
-    async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
+        async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
         setLoading(true)
         try {
             const req = await api.get<searchResultsInterface>(`/videos?query=${params}&page=${page}`,
@@ -103,21 +114,37 @@ const Results = ():React.JSX.Element => {
         }finally{
             setLoading(false)
         }
-    }    
+    }  
+
+        if (query!==null) {
+            fetchSearchResult(page,query,abortController)
+        }
+        //dispatch(toggleSideBar(true))
+        return() => {
+            abortController.abort()
+            setPage(1);
+            setQueryResults([]);
+        }
+    },[query, page, dispatch])
+
+    // useEffect(()=>{
+    //     // setQueryResults([])
+    //     setPage(1)
+    // },[location.search])  
 
   return (
     <div className='bg-[rgba(0,0,0,0.9)] flex flex-col gap-4 justify-center items-center'>
-        <section className='w-[90%]'>
+        <section className='w-[96%]'>
             <p className='font-roboto text-slate-200 py-2'>Results for : {query}</p>
             {(queryResults)&&queryResults.map((par,index)=>{
             return<Link to={`/v/${par._id}`} key={par._id}>
-                <VideoCard_v2 data={par} />
+                <VideoCard_v2 data={par} index={index} />
             </Link>
             })}
             {(loading)&&(emptyArr.map((par)=>{
                     return<VideoCard_v2_skeleton key={par.id} />
                 }))}
-        <div ref={videoContainerRef} className='w-[100%] h-[30px]'/>
+        <div ref={videoContainerRef} className='w-full h-[30px]'/>
         </section>
         <section className='w-[90%]'>
             {queryResults&&queryResults.length===0&&<div className='flex items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>

@@ -79,7 +79,7 @@ const LikedVideos = ():React.JSX.Element => {
     <div>
         <main className='bg-[rgba(0,0,0,0.9)]'>
             <SectionHeader title="Liked Videos" size="text-lg text-xl" />
-            <section className='w-[90%] mx-auto py-2'>
+            <section className='w-[96%] mx-auto py-2'>
                 {((!loading&&likedVideos)&&likedVideos.data.length!==0)&&<div>
                     <section>
                         {likedVideos.data.map((par,index)=>{

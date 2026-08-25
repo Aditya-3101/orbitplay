@@ -66,8 +66,19 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
     useEffect(()=>{
         const v_id: string|unknown = videoDetails?._id?videoDetails._id:videoId
         fetchLikes(v_id);
+
+        async function fetchPlaylist() {
+        try {
+            const request = await api.get(`/playlist/user/${user?._id}`)
+            if(request.status===200) {
+                setUserPlaylist(request.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
         fetchPlaylist()
-    },[videoId])
+    },[user?._id, videoDetails?._id, videoId])
     
     async function addTheVideoInPlaylist():Promise<void> {
         const par = selectedPlayList.id;
@@ -102,17 +113,6 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
                 }))
             }
 
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    async function fetchPlaylist() {
-        try {
-            const request = await api.get(`/playlist/user/${user?._id}`)
-            if(request.status===200) {
-                setUserPlaylist(request.data)
-            }
         } catch (error) {
             console.log(error)
         }
@@ -194,7 +194,7 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
                 <ListPlus />
                 <span>Add to Playlist</span></p>
                 <div>
-                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-[100%] bottom-0 right-0 left-0 w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
+                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-full bottom-0 right-0 left-0 w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
                     {userPlaylist.data.map((par)=>{
                         return<div key={par._id} className={`p-1 flex items-center gap-2 border-b border-gray-300 cursor-pointer ${par._id===selectedPlayList.id?"bg-[rgba(255,255,255,0.2)]":""}`} onClick={()=>onSelectPlaylist(par._id)}>
                             <ListPlus />

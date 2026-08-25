@@ -4,7 +4,7 @@ import { RootState } from '../../app/store/store'
 import { AccountTabs } from './AccountTabs'
 import type {AppDispatch} from '../../app/store/store.ts';
 import { useParams } from 'react-router';
-import {getChannelDetails,getChannelPlaylist,getChannelPosts,getChannelVideos} from '../../app/thunks/channelThunk.ts'
+import {getChannelDetails,getChannelPlaylist,getChannelPosts} from '../../app/thunks/channelThunk.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import { Wrench, X } from 'lucide-react';
 import {Link} from 'react-router'
@@ -12,6 +12,7 @@ import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import {resetChannelVideos,resetChannelUser,toggleChannelSubscription} from '../../app/slices/channelSlice.ts';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
+import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -51,11 +52,12 @@ interface playlistDetailType{
 const ChannelPage = ():React.JSX.Element => {
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
-    const [subscribeStatus,setSubscribeStatus] = useState<subscriptionSuccessType|string>()
+
+    const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(channelData.channelUserDetail?._id)
+
     const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay)
     const [loading,setLoading] = useState({
         profile:false,
-        videos:false
     })
     const [newPlaylistDetails,setNewPlaylistDetails]=useState<playlistDetailType>({
         playlistName:'',
@@ -63,23 +65,38 @@ const ChannelPage = ():React.JSX.Element => {
     })
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams<string>();
-    const [page,setPage]=useState<number>(1)
+    //const [page,setPage]=useState<number>(1)
     const videoContainerRef = useRef(null)
 
     const pageCallback = useCallback(()=>{
-        if(!channelData.channelVideosLoading&&channelData.hasMoreChannelVideos){
-          setPage(prev=>prev+1)
+        if(hasNextPage&&!isFetchingNextPage){
+          fetchNextPage();
         }
-    },[channelData.channelVideosLoading,channelData.hasMoreChannelVideos])
+    },[hasNextPage,isFetchingNextPage,fetchNextPage])
+
     useIntersectionObserver(videoContainerRef,pageCallback)
+
+    const channelVideos = data;
+
+    const formattedVideos = channelVideos?.pages
+    ? {
+        ...channelVideos.pages[0],
+        data: {
+            ...channelVideos.pages[0].data,
+            allVideos: channelVideos.pages.flatMap(
+                page => page.data.allVideos
+            )
+        }
+    }
+    : undefined;
 
     useEffect(()=>{
             if(channelData.channelUserDetail?._id!==null&&channelData.channelUserDetail?._id!==undefined) {
                 dispatch(getChannelPlaylist({userId:channelData.channelUserDetail._id}))
-                dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail._id}))
+                //dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail._id}))
                 dispatch(getChannelPosts({userId:channelData.channelUserDetail._id}))
             }
-    },[channelData.channelUserDetail?._id,page])
+    },[channelData.channelUserDetail?._id,dispatch])
 
     useEffect(()=>{
         return () => {
@@ -89,43 +106,41 @@ const ChannelPage = ():React.JSX.Element => {
     },[dispatch])
 
     useEffect(()=>{
-        setLoading({
-            videos:true,
-            profile:true
-        })
-        setPage(1)
+
         dispatch(resetChannelUser())
         dispatch(resetChannelVideos())
         dispatch(openAccountBar(false))
+
         async function fetchData():Promise<void> {
+        setLoading({
+            profile:true
+        })
             try{
                 if(params.channelName!==null&&params.channelName!==undefined) await dispatch(getChannelDetails({userId:'',username:params.channelName}));
-                // if(!==null&&params.channelName!==undefined) await dispatch(getChannelDetails({userId:''}));
             }finally{
                 setLoading({
-                    videos:false,
                     profile:false
                 })
             }
         }
         fetchData()
-    },[params.channelName])
+    },[params.channelName,dispatch])
 
     if(channelData.error!==null){
         return<ErrorPage msg="Channel Details"/>
     }
 
     const currentUser = params.channelName ? channelData.channelUserDetail : null
-    const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username)? true:false;
+    //const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username)? true:false;
 
     
-    async function toggleSubscription(par1:string,par2:string):Promise<void>{
+    async function toggleSubscription(par1:string,par2?:string):Promise<void>{
         try {
             const request = await api.post<toggleSubscriptionApiDataType>(`/subscriptions/c/${par1}`,
             {})
 
             if(request.status===200) {
-                setSubscribeStatus(request.data.data)
+                //setSubscribeStatus(request.data.data)
                 dispatch(toggleChannelSubscription((typeof request.data.data==="object")?true:false))
             }
 
@@ -167,20 +182,20 @@ const ChannelPage = ():React.JSX.Element => {
     <div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
                 {
-                    (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-[100%] md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
+                    (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-full md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image
                     </div>
                 }
-                {loading.profile&&<div className='aspect-[16/6] object-cover w-[100%] md:w-[96%] md:aspect-[16/4] md:mx-auto animate-pulse bg-gray-800'></div>}
+                {loading.profile&&<div className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto animate-pulse bg-gray-800'></div>}
             </div>
-            <section className='grid grid-cols-[35%_65%] md:grid-cols-[30%_70%] px-4 py-6 md:w-[100%] mx-auto'>
+            <section className='grid grid-cols-[35%_65%] md:grid-cols-[25%_75%] px-4 py-6 md:w-full mx-auto'>
             <div className=''>
-                    {!loading.profile&&<img src={currentUser?.avatar} className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto object-cover border border-gray-300' />}
-                    {loading.profile&&<div className='aspect-square rounded-full w-[100%] md:w-[60%] md:mx-auto border animate-pulse bg-gray-800 border-gray-500'></div>}
+                    {!loading.profile&&<img src={currentUser?.avatar} className='aspect-square rounded-full w-full md:w-[70%] md:mx-auto object-cover border border-gray-300' />}
+                    {loading.profile&&<div className='aspect-square rounded-full w-full md:w-[70%] md:mx-auto border animate-pulse bg-gray-800 border-gray-500'></div>}
             </div>
-            <div className='w-[90%] mx-auto '>
+            <div className='w-[96%] mx-auto '>
                 {(!loading.profile&&currentUser?.fullName!==undefined)&&<p className='text-gray-100 font-roboto text-2xl text-clip md:text-5xl my-1'>{currentUser?.fullName}</p>}
                 {(loading.profile)&&<p className='text-gray-100 font-roboto w-[70%] h-[2rem] bg-gray-700 animate-pulse text-2xl text-clip md:text-5xl my-1'></p>}
                 {!loading.profile&&<p className='font-roboto text-gray-400 text-sm md:text-xl'>@{currentUser?.username}</p>}
@@ -188,14 +203,14 @@ const ChannelPage = ():React.JSX.Element => {
                 <div className='py-4 flex items-center justify-between md:w-[60%]'>
                     <p>
                     {currentUser && "subscribersCount" in currentUser && (
-                    <span className='font-roboto text-gray-400 text-sm md:text-xl'>{currentUser.subscribersCount} Subscribers</span>
+                    <span className='font-roboto text-gray-400 text-sm md:text-xl'>{currentUser.subscribersCount} Followers</span>
                     )}
                     </p>
                     <span className=''>
                         {(currentUser && "isSubscribed" in currentUser) && (
                             <button className={`font-roboto text-gray-400 text-sm ${currentUser.isSubscribed?
                             "border border-gray-300 p-2 my-2 rounded":"bg-red-500 p-2 my-2 text-gray-950 rounded"} md:text-xl cursor-pointer`} onClick={()=>toggleSubscription(currentUser._id,currentUser.username)}>
-                                {currentUser.isSubscribed?"Subscribed":"Subscribe"}
+                                {currentUser.isSubscribed?"Following":"Follow"}
                             </button>
                         )}
                     </span>
@@ -207,7 +222,7 @@ const ChannelPage = ():React.JSX.Element => {
             </section>
         </section>
         {/* {channelData!==undefined&&<AccountTabs data={channelData} loading={loading.videos} />} */}
-        {(channelData.channelVideos!==null&&channelData.channelPlaylist!==null)&&<AccountTabs videos={channelData.channelVideos} playlists={channelData.channelPlaylist} loading={loading.videos} channelPosts={channelData.channelPosts} />}
+        {(formattedVideos&&channelData.channelPlaylist!==null)&&<AccountTabs videos={formattedVideos} playlists={channelData.channelPlaylist} loading={isLoading} channelPosts={channelData.channelPosts} />}
         <div
         ref={videoContainerRef}
         style={{ height: "20px" }}/>
