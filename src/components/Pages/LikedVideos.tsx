@@ -90,7 +90,7 @@ const LikedVideos = ():React.JSX.Element => {
                     </section>
                     </div>}
             </section>
-            <div className='mx-auto py-2 w-[90%]'>
+            <div className='mx-auto py-2 w-[96%]'>
             {loading&&emptyArr.map((par)=>{
                     return<VideoCard_v2_skeleton key={par.id} />
                 })}

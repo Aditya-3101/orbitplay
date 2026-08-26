@@ -1,23 +1,38 @@
-import React,{Suspense} from "react";
+import React,{memo, Suspense} from "react";
 import {Outlet} from 'react-router-dom';
 import {Header} from '../Header/Header.tsx'
 import { SideBar } from "../Header/SideBar.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store/store.ts";
 
+const MainContainer = memo(({ children }: { children: React.ReactNode }): React.JSX.Element => {
+    const sideBarStatus = useSelector((state: RootState) => state.toggle.sideBar);
+
+    return (
+        <main 
+            className={
+                sideBarStatus 
+                    ? "layout transition-transform duration-500 ease-in-out bg-[rgb(0,0,0)] overflow-hidden p-1 relative" 
+                    : "bg-[rgb(0,0,0)] layout_player p-1 relative"
+            }
+        >
+            {children}
+        </main>
+    );
+});
+
+MainContainer.displayName = "MainContainer";
+
 export const HomeLayout = ():React.JSX.Element => {
-    const sideBarStatus = useSelector((state:RootState)=>state.toggle.sideBar)
-    return<main className={sideBarStatus?"layout transition-transform duration-500 ease-in-out bg-[rgb(0,0,0)] overflow-hidden p-1":"bg-[rgb(0,0,0)] layout_player p-1"}>
+    return<MainContainer>
         <div className="grid-area-header">
-        <Header />
+            <Header />
         </div>
-        <div className={sideBarStatus?"grid-area-sideBar":"hidden"}>
         <SideBar/>
-        </div>
         <div className="grid-area-content min-h-[100dvh]">
-        <Suspense fallback={<h2 className="p-4 text-xl">Loading....</h2>}>
+            <Suspense fallback={<h2 className="p-4 text-xl">Loading....</h2>}>
             <Outlet/>
-        </Suspense>
+            </Suspense>
         </div>
-    </main>
+    </MainContainer>
 }

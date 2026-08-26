@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{memo, useMemo} from 'react'
 import {House,CircleUserRound,Tv,History, UserRound,ThumbsUp, Upload, Rss, Cog} from 'lucide-react'
 import { NavLink } from 'react-router'
 import { useSelector } from 'react-redux'
@@ -10,22 +10,28 @@ interface sideBarItemsTypes {
     icon:React.ComponentType
 }
 
-export const SideBar = ():React.JSX.Element => {
-    const username = useSelector((state:RootState)=>state.user.userTemp?.username)
+const SideBarComponent = ():React.JSX.Element => {
+    const username = useSelector((state:RootState)=>state.user.userTemp?.username);
+    const sideBarStatus = useSelector((state:RootState)=>state.toggle.sideBar)
+    
 
-    const sideBarItems:sideBarItemsTypes[] = [
-                { to: '/', label: 'Home', icon: House },
-                { to: `/channel/${username}`, label: 'My channel', icon: CircleUserRound },
-                { to: '/subscriptions', label: 'Subscriptions', icon: Tv },
-                { to: '/history', label: 'History', icon: History },
-                { to: '/account', label: 'My Account', icon: UserRound },
-                { to: '/Liked-videos', label: 'Liked Videos', icon: ThumbsUp },
-                { to: '/my-posts', label: 'My Posts', icon: Rss },
-                { to: '/upload', label: 'Upload video', icon: Upload },
-                { to: '/settings', label: 'Settings', icon: Cog },
-            ];
+    const sideBarItems = useMemo<sideBarItemsTypes[]>(()=>
+        [
+            { to: '/', label: 'Home', icon: House },
+            { to: `/channel/${username}`, label: 'My channel', icon: CircleUserRound },
+            { to: '/subscriptions', label: 'Subscriptions', icon: Tv },
+            { to: '/history', label: 'History', icon: History },
+            { to: '/account', label: 'My Account', icon: UserRound },
+            { to: '/Liked-videos', label: 'Liked Videos', icon: ThumbsUp },
+            { to: '/my-posts', label: 'My Posts', icon: Rss },
+            { to: '/upload', label: 'Upload video', icon: Upload },
+            { to: '/settings', label: 'Settings', icon: Cog },
+        ],
+    [username])
 
   return (
+    <div className={sideBarStatus?"grid-area-sideBar":"hidden"}>
+
         <div className="bg-[rgba(0, 0, 0, 0.9)] h-full border-r border-gray-400 sidebar">
             {sideBarItems.map(({ to, label, icon }) => (
                 <NavLink
@@ -41,5 +47,9 @@ export const SideBar = ():React.JSX.Element => {
                 </NavLink>
             ))}
         </div>
+    </div>
   )
 }
+
+
+export const SideBar = memo(SideBarComponent)

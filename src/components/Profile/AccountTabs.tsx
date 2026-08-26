@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {ListPlus, ListVideo} from 'lucide-react'
+import {ListPlus, ListVideo,SquarePen} from 'lucide-react'
 import { Link } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
 import { CommentsCard } from '../Main/CommentsCard.tsx'
@@ -194,14 +194,20 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
                   </div>}
             </main>}
 
-            {defaultTab==="Posts"&&(
-                    (channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par,index)=>{
+            {defaultTab==="Posts"&&<>
+                    {(checkUserLocation())&&<div>
+                        <div className='w-[90%] md:w-[98%] mx-auto relative py-2 my-1'>
+                            <Link aria-label='write a post' to="/my-posts" className=' bg-[#25c0ef] w-fit p-1.5 rounded-xl cursor-pointer flex gap-2 items-center justify-between'>Write a post <SquarePen size={14} /></Link>
+                        </div>
+                </div>}
+                    {(channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par,index)=>{
                         return <CommentsCard chPosts={par} key={par._id} index={index} />
                     }):
                     <div className='w-full h-[10rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
-                    </div>)
+                    </div>)}
                   )
+            </>
             }
         </div>
     </div>

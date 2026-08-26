@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useCallback, useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store/store.ts'
 import { CommentsCard } from '../Main/CommentsCard.tsx'
@@ -10,6 +10,25 @@ import { messageModal, openAccountBar } from '../../app/slices/toggleSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts'
 import {updateUserPost} from '../../app/slices/postSlice.ts'
 import { ErrorPage } from './ErrorPage.tsx'
+
+interface CommentLikeType{
+    _id: string,
+    likedBy: string
+}
+
+interface commentType{
+    _id: string,
+    comment: string,
+    owner: {
+        _id:string,
+        username:string,
+        avatar:string
+    },
+    createdAt: string,
+    comment_likes: CommentLikeType[],
+    commentLikeCount: number,
+    isLiked: boolean
+}
 
 interface PostType{
 avatar:string
@@ -91,15 +110,21 @@ const Posts = ():React.JSX.Element => {
 
     const postHandler = (e:React.ChangeEvent<HTMLTextAreaElement>) => setUserComment(e.target.value)
 
-    const editPost = (post:PostType) => {
+    const editPost = useCallback((post:PostType) => {
         setCurrentlyEditing(post)
         setUserComment(post.content)
-    }
+    },[])
 
     const cancelChanges = () => {
         setCurrentlyEditing(null)
         setUserComment('')
     }
+
+    const handleEdit = useCallback((item: PostType | commentType) => {
+        if ("content" in item) {
+            editPost(item);
+        }
+    }, [editPost]);
 
     if(userPosts.error!==null){
         return<ErrorPage msg="User posts"/>
@@ -125,10 +150,7 @@ const Posts = ():React.JSX.Element => {
         </div>
         <div className='w-[90%] mx-auto'>
             {userPosts.data!==null&&userPosts?.data.map((par,index)=>{
-                return<CommentsCard post={par} key={par._id} index={index} onEdit={(item) => {
-                    if ("content" in item) {
-                        editPost(item);
-                    }}} />
+                return<CommentsCard post={par} key={par._id} index={index} onEdit={handleEdit} />
             })}
         </div>
     </div>
