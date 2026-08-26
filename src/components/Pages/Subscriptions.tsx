@@ -48,7 +48,7 @@ const Subscriptions = ():React.JSX.Element => {
     ) ?? [];    
 
     useEffect(()=>{
-        if(firstChannel.length>0&&!defaultChannel){
+        if((firstChannel&&firstChannel?.length>0)&&!defaultChannel){
             setDefaultChannel(firstChannel);
         }
     },[ firstChannel,defaultChannel])
@@ -69,7 +69,7 @@ const Subscriptions = ():React.JSX.Element => {
             <article className='w-[90%] mx-auto'>
             <SectionHeader title="Subscriptions" size="text-lg md:text-xl" />
             <div className='relative flex overflow-x-auto overflow-y-hidden px-2 gap-4 border-b border-gray-400 py-2'>
-            {(!loadingFollowedChannels&& userSubscriptions.length>0)&&userSubscriptions.map((param,index)=>{
+            {(!loadingFollowedChannels&& userSubscriptions?.length>0)&&userSubscriptions.map((param,index)=>{
                 return<div key={param._id} className='h-26 w-[5.4rem] overflow-hidden'>
                     <div className='w-full flex flex-col items-center justify-center py-1' onClick={()=>onChangeChannel(param._id)}>
                         <img src={param.avatar} className={`w-[90%] aspect-square rounded-full object-cover cursor-pointer ${defaultChannel===param._id?"outline-2 border-2 border-gray-950 outline-[rgb(37,192,239)]":'border-2 border-gray-950'}`} loading={index<6?'eager':'lazy'} />
@@ -95,7 +95,7 @@ const Subscriptions = ():React.JSX.Element => {
                     <VideoCard_v2_skeleton />
                     </div>
                 }))}
-                {(fetchingMoreVideos &&videosFromChannel.length>0) && (emptyArr.map((par)=>{
+                {(fetchingMoreVideos &&videosFromChannel?.length>0) && (emptyArr.map((par)=>{
                     return<div className='mx-auto w-[96%] py-2' key={par.id}>
                     <VideoCard_v2_skeleton />
                     </div>
@@ -107,7 +107,7 @@ const Subscriptions = ():React.JSX.Element => {
                 />
                 </div>
             </section>
-            {(userSubscriptions&&userSubscriptions.length===0)&&
+            {(userSubscriptions&&userSubscriptions?.length===0)&&
             <section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
                 <p className='font-roboto text-lg text-gray-500'>No Subscriptions found</p>
             </section>}
