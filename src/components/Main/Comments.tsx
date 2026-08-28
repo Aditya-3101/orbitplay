@@ -30,6 +30,16 @@ interface commentType{
     "isLiked": boolean
 }
 
+interface PostType{
+avatar:string
+content:string,
+createdAt:string,
+isLiked:boolean,
+likeCount:number,
+username:string,
+_id:string
+}
+
 interface updatedCommentType{
     "statusCode": number,
     "data": {
@@ -137,6 +147,12 @@ export const  Comments:React.FC = () => {
         setUserComment('')
     }
 
+    const handleEdit = useCallback((item: commentType | PostType) => {
+        if ("comment" in item) {
+            editPost(item)
+        }
+    },[editPost])
+
     const updateComment = async():Promise<void> => {
         if(userComment.trim().length===0) {
             dispatch(messageModal(`Invalid post`));
@@ -186,7 +202,7 @@ export const  Comments:React.FC = () => {
         </section>
         <section className='flex flex-col bg-[rgba(0,0,0,0.8)]'>
             {comments && comments?.data.docs?.map((par,index)=>{
-                return<CommentsCard par={par} key={par._id} onEdit={(item) => {if ("comment" in item) {editPost(item);}}} index={index}  />
+                return<CommentsCard par={par} key={par._id} onEdit={handleEdit} index={index}  />
             })}
         </section>
         <div ref={commentContainerRef} className='w-full h-2.5 md:h-7.5 '/>

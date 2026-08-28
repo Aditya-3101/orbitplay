@@ -1,13 +1,40 @@
 import axios, { AxiosInstance } from "axios";
 import { host } from "../Constants.ts";
 
+interface refreshTokenResponse{
+    statusCode: number,
+    data: {
+        safeUser: {
+            _id: string,
+            username: string,
+            email: string,
+            fullName: string,
+            avatar: string,
+            coverImage: string,
+            watchHistory:{
+                    video: string,
+                    watchedOn: string,
+                    _id: string
+                }[],
+            createdAt: string,
+            updatedAt: string,
+            __v: 0
+        },
+        accessToken: string,
+        refreshToken: string
+    },
+    message: string,
+    success: number
+}
+
 export const api:AxiosInstance = axios.create({
     baseURL:`${host}/api/v1`,
     withCredentials:true,
 })
 
-api.interceptors.request.use(
-    (config) => {
+let refreshPromise: Promise<void> | null = null;
+
+api.interceptors.request.use((config) => {
     
     const token = sessionStorage.getItem("accessToken");
     
@@ -19,49 +46,56 @@ api.interceptors.request.use(
     
     },
     (error) => Promise.reject(error)
-    );
+);
 
 
-api.interceptors.request.use((request)=>{
-    return request
-},
-(error)=>{
-    console.log(error)
+api.interceptors.request.use((request)=>{    return request},(error)=>{
+    //sconsole.log(error)
     return Promise.reject(error)
 })
 
 api.interceptors.response.use((response)=>{
     return response
-},
-async(error)=>{
+},async(error)=>{
     const originalRequest = error.config;
 
     if(!originalRequest){
         return Promise.reject(error)
     }
 
-    // if(originalRequest.url.includes('/refresh-token')){
-    //     return Promise.reject(error)
-    // }
-
     if(originalRequest.url?.includes('/refresh-token')){
         console.log("returning promise")
         return Promise.reject(error)
     }
 
-    if(error?.response?.status===401&&!originalRequest._retry){
-        originalRequest._retry=true
-        try {
-            const tokenRequest = await api.post('/users/refresh-token',{},{withCredentials:true})
 
-            if(tokenRequest.status===200) return api.request(originalRequest)
-        } catch (err) {
+    if (error?.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-           // window.location.href="/login"
-            return Promise.reject(err)
+    try {
+        if (!refreshPromise) {
+            refreshPromise = api
+                .post<refreshTokenResponse>('/users/refresh-token', {}, {
+                    withCredentials: true
+                })
+                .then((data) => {
+                    const accessToken = data.data.data.refreshToken
+                    sessionStorage.setItem("accessToken", accessToken);
+                    console.log("Token refreshed");
+                })
+                .finally(() => {
+                    refreshPromise = null;
+                });
         }
 
+        await refreshPromise;
+
+        return api.request(originalRequest);
+
+    } catch (err) {
+        return Promise.reject(err);
     }
+}
 
     return Promise.reject(error)
 })

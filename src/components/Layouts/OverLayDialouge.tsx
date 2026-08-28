@@ -13,8 +13,9 @@ const OverLayDialouge= () => {
   }
 
   useEffect(()=>{
-    setTimeout(togglemessage,3000)
-  },[modalMessage])
+    const timeout = setTimeout(togglemessage,6000)
+    return ()=>clearTimeout(timeout)
+  },[modalMessage,togglemessage])
 
 
   return (

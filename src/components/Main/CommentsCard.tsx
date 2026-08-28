@@ -110,7 +110,7 @@ export const CommentsCard:React.NamedExoticComponent<commentsInterfaceDocs> = Re
     }
 
     const toggleOptions=()=>{
-        setOptions(!options)
+        setOptions(prev=>!prev)
     }
 
     const deletePost = async(postId:string):Promise<void> =>{

@@ -55,8 +55,12 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
         count:0,
         likedByUser:false
     })
-    const [showMoreSection,setShowMoreSection] = useState<boolean>(false)
-    const [playlistToggle,setPlaylistToggle] = useState<boolean>(false)
+    const [menuToggle,setMenuToggle] = useState({
+        playlistToggle:false,
+        moreSectionToggle:false
+    })
+    //const [showMoreSection,setShowMoreSection] = useState<boolean>(false)
+    //const [playlistToggle,setPlaylistToggle] = useState<boolean>(false)
     const [userPlaylist,setUserPlaylist] = useState<playlistFormat>()
     const [selectedPlayList,setSelectedPlaylist] = useState<selectedPlayLisType>({
         status:false,
@@ -85,7 +89,11 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
         try {
             const request = await api.patch(`/playlist/add/${videoDetails?._id}/${par}`,{})
             if(request.status===200 ) {
-                setPlaylistToggle(false)
+                setMenuToggle((prev)=>({
+                    ...prev,
+                    playlistToggle:!prev.playlistToggle,
+                }))
+                //setPlaylistToggle(false)
                 dispatch(messageModal("Video added into playlist"))
             }
             
@@ -93,7 +101,11 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
             if(isAxiosError(error)){
             const errorCode = String(error.response?.status).includes('409')
             if(errorCode){
-                setPlaylistToggle(false)
+                setMenuToggle((prev)=>({
+                    ...prev,
+                    playlistToggle:!prev.playlistToggle,
+                }))
+                //setPlaylistToggle(false)
                 dispatch(messageModal("Video is already part of playlist"))
             }
 
@@ -158,7 +170,11 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
     }
 
     function togglePlaylistBtn():void{
-        setPlaylistToggle(!playlistToggle)
+        setMenuToggle((prev)=>({
+            ...prev,
+            playlistToggle:!prev.playlistToggle,
+        }))
+        //setPlaylistToggle(!playlistToggle)
         if(userPlaylist?.data.length===0)  dispatch(messageModal(`No Playlists Found`))
 
     }
@@ -170,7 +186,11 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
     }
 
     function toggleMoreSection():void{
-        setShowMoreSection(prev=>!prev)
+        setMenuToggle((prev)=>({
+            ...prev,
+            moreSectionToggle:!prev.moreSectionToggle,
+        }))
+        //setShowMoreSection(prev=>!prev)
     }
     
 
@@ -194,7 +214,7 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
                 <ListPlus />
                 <span>Add to Playlist</span></p>
                 <div>
-                {((playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-full bottom-0 right-0 left-0 w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
+                {((menuToggle.playlistToggle&&userPlaylist)&&userPlaylist?.data.length!==0)&&<section className='z-10 absolute top-full bottom-0 right-0 left-0 w-[10rem] md:w-[15rem] h-[6rem] md:h-[10rem] overflow-y-auto bg-[rgba(0,0,0,0.7)]'>
                     {userPlaylist.data.map((par)=>{
                         return<div key={par._id} className={`p-1 flex items-center gap-2 border-b border-gray-300 cursor-pointer ${par._id===selectedPlayList.id?"bg-[rgba(255,255,255,0.2)]":""}`} onClick={()=>onSelectPlaylist(par._id)}>
                             <ListPlus />
@@ -207,10 +227,10 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
             </div>
             </div>
             {/* {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{uploadTime}</p>} */}
-            <div className='cursor-pointer' onClick={toggleMoreSection}>{showMoreSection?<ChevronUp />:<ChevronDown />}</div>
+            <div className='cursor-pointer' onClick={toggleMoreSection}>{menuToggle.moreSectionToggle?<ChevronUp />:<ChevronDown />}</div>
          </div>
         </section>
-        {showMoreSection&&<section className='w-full font-roboto py-2'>
+        {menuToggle.moreSectionToggle&&<section className='w-full font-roboto py-2'>
             <div className='text-gray-400 w-[90%] flex justify-between items-center mx-auto py-2'>
                 <p>{videoDetails?.views} views</p>
                 {uploadTime&&<p className='text-[#f1f1f190] text-[14px]'>{uploadTime}</p>}

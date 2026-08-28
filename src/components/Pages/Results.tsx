@@ -1,9 +1,9 @@
 import React,{useCallback, useEffect, useRef, useState} from 'react'
-import { useSearchParams,useLocation } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import { Link } from 'react-router'
-import {messageModal, toggleSideBar} from "../../app/slices/toggleSlice.ts"
+import {messageModal} from "../../app/slices/toggleSlice.ts"
 import { api } from '../../api/AxiosInterceptor.ts'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx'
@@ -67,7 +67,6 @@ interface searchResultsInterface {
 const Results = ():React.JSX.Element => {
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const location =useLocation()
     const [queryResults,setQueryResults] = useState<VideoType[]>([])
     const [loading,setLoading] = useState<boolean>(false)
     const videoContainerRef = useRef<HTMLDivElement>(null)

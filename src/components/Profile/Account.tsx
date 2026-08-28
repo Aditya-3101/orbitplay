@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { RootState } from '../../app/store/store'
@@ -13,6 +14,7 @@ import {resetChannelVideos,resetChannelUser} from '../../app/slices/channelSlice
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
+import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
 
 // interface subscriptionSuccessType{
 //     subscriber: string,
@@ -55,7 +57,7 @@ const Account = ():React.JSX.Element => {
     const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(user?._id)
 
     const channelData = useSelector((state:RootState)=>state.channel)
-    //const [subscribeStatus,setSubscribeStatus] = useState<subscriptionSuccessType|string>()
+
     const [loading,setLoading] = useState({
         profile:false,
     })
@@ -173,6 +175,7 @@ const Account = ():React.JSX.Element => {
         dispatch(()=>dispatch(toggleCreatePlaylistOverlay()))
     }
 
+
     function OpenPlaylistModal():React.JSX.Element{
         return<div className='absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-[rgba(20,20,20,0.96)] z-20 flex items-center justify-center font-roboto'>
             <div className='border-gray-300 border rounded-3xl flex flex-col items-center w-[30rem] p-4 bg-[rgb(10,10,10)]'>
@@ -246,6 +249,7 @@ const Account = ():React.JSX.Element => {
         <div
         ref={videoContainerRef}
         style={{ height: "20px" }}/>
+        <OverLayDialouge/>
     </div>}
     {openCreatePlaylistOverLay===true&&<OpenPlaylistModal/>}
     </React.Fragment>

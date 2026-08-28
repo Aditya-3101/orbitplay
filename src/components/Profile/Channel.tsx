@@ -13,6 +13,7 @@ import {resetChannelVideos,resetChannelUser,toggleChannelSubscription} from '../
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
+import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -250,6 +251,7 @@ const ChannelPage = ():React.JSX.Element => {
         <div
         ref={videoContainerRef}
         style={{ height: "20px" }}/>
+        <OverLayDialouge/>
     </div>}
         {openCreatePlaylistOverLay===true&& <OpenPlaylistModal />}
         </React.Fragment>

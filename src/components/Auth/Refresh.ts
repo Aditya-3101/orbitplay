@@ -29,7 +29,6 @@ export const refreshUser = async (dispatch: Dispatch<UnknownAction>):Promise<voi
   
       dispatch(addUserDetails({
         user:payload,
-        //accessToken:res.data.data.accessToken,
         isLoggedIn: true
       }));
     }

@@ -8,11 +8,12 @@ import { emptyArr } from '../../utility/emptyArrays';
 import { api } from '../../api/AxiosInterceptor';
 import { useDispatch, useSelector } from 'react-redux';
 import { messageModal,openAccountBar,toggleCreatePlaylistOverlay } from '../../app/slices/toggleSlice';
-import {updateVideoVisibility,deleteVideo} from '../../app/slices/channelSlice'
+import {deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
 import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
+import { useToggleVideoPublish } from '../../features/alerts/alerts.queries.ts';
 
 interface channelPlaylistInterface {
     _id:string,
@@ -21,26 +22,6 @@ interface channelPlaylistInterface {
     videos:[],
     owner:string,
     __v:number,
-}
-
-interface togglePublishType{
-    statusCode: number,
-    data: {
-        _id:string,
-        videoFile: string,
-        thumbnail: string,
-        owner: string,
-        title: string,
-        description: string,
-        duration: number,
-        views: number,
-        isPublished: boolean,
-        createdAt: string,
-        updatedAt: string,
-        __v: number
-    },
-    message: string,
-    success: number
 }
 
 interface channelPostsType{
@@ -68,6 +49,7 @@ type AccountTabsProps = {
   channelPosts: channelPostsType | null;
 };
 
+
 export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabsProps):React.JSX.Element => {
 
     const [defaultTab,setDefaultTab] = useState<string>("Videos")
@@ -75,6 +57,8 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
     const location = useLocation()
+
+    const { mutate: togglePublish } = useToggleVideoPublish();
 
     function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
@@ -94,18 +78,9 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
         }
     }
 
-    async function togglePublish(e:React.MouseEvent<HTMLButtonElement>,arg:VideoType):Promise<void>{
-        e.preventDefault()
-        try {
-            const request = await api.patch<togglePublishType>(`/videos/toggle/publish/${arg._id}`)
-            if(request.status===200) {
-                dispatch(updateVideoVisibility(request.data.data))
-                dispatch(messageModal(`Video is now set to ${request.data.data.isPublished===false?"Public":"Private"}`))
-            }
-        } catch (error) {
-            console.log(error)
-            dispatch(messageModal("something went wrong while toggling video visibility"))
-        }
+    function handleToggle(e:React.MouseEvent<HTMLButtonElement>,arg:VideoType):void{
+        e.preventDefault();
+        togglePublish(arg._id)
     }
 
     function openCreatePlaylistOverLay():void{
@@ -147,7 +122,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
             <main className=''>
                 {(!loading && videos)&&videos.data.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-0'>
-                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={togglePublish} />
+                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={handleToggle} />
                     </Link>
                 })}
                 {

@@ -28,7 +28,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const navigate = useNavigate()
     const [options,setOptions]=useState<boolean>(false)
-    const userLocation = window.location.pathname==="/history" ? "invalid": window.location.pathname==="/Liked-videos"?"invalid":"valid"
+    const userLocation = window.location.pathname==="/history" ? "invalid": window.location.pathname==="/Liked-videos"?"invalid": window.location.pathname==="/videos/search"?"invalid":"valid"
 
     function toggleOptions(e: React.MouseEvent):void{
         e.preventDefault()
@@ -48,7 +48,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                 <img src={par?.thumbnail} className='w-full h-full aspect-video object-cover block' loading={index<5?'eager':'lazy'} alt={par.title} />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
-            <section className='grid grid-rows-[35%_65%] md:grid-rows-[40%_60%] min-w-0 w-[100%] aspect-[16/9] h-full overflow-hidden px-4'>
+            <section className='grid grid-rows-[35%_65%] md:grid-rows-[40%_60%] min-w-0 w-full aspect-video h-full overflow-hidden px-4'>
                 <div className='text-slate-50 font-roboto w-full grid grid-cols-[85%_15%] md:grid-cols-[80%_20%] justify-center items-start'>
                     <p className='text-base md:text-xl lg:text-2xl overflow-hidden wrap-break-word line-clamp-1 md:line-clamp-2'>{par.title}</p>
                     {((userLocation==="valid")&&(user?._id===par.owner._id))&&<div className='relative flex justify-end md:justify-center'>
@@ -72,8 +72,8 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] '>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] line-clamp-1 wrap-break-word'>{par.description}</p>
                 <div className='flex items-center gap-2'>
-                    <div onClick={(e)=>navigateToChannel(e,par.owner.username)}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
-                    <div onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-xs md:text-sm font-roboto'>{par.owner.fullName}</div>
+                    <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
+                    <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-xs md:text-sm font-roboto'>{par.owner.fullName}</div>
                 </div>
                 </div>
             </section>

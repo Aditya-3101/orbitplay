@@ -18,7 +18,8 @@ interface videoInterface{
     isPublished:boolean,
     duration:number,
     description:string,
-    createdAt:string
+    createdAt:string,
+    subscriberCount?:number
 }
 
 interface CommentLikeType{
@@ -127,7 +128,7 @@ export const videoDetailSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(saveTheVideo.pending,(state,action)=>{
-            state.loading=true,
+            state.loading=true;
             state.error=null;
             state.loadingVideoId=action.meta.arg
         })
@@ -148,11 +149,11 @@ export const videoDetailSlice = createSlice({
                 isPublished:action.payload.video.isPublished,
                 duration:action.payload.video.duration,
                 description:action.payload.video.description,
-                createdAt:action.payload.video.createdAt
+                createdAt:action.payload.video.createdAt,
+                subscriberCount:action.payload.video.subscriberCount
             }
-            state.loading=false,
+            state.loading=false;
             state.video=videoDetails;
-            state.subscribers=action.payload.subscribers
             state.loadingVideoId=null
 
         })
