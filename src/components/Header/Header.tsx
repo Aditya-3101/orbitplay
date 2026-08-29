@@ -49,8 +49,8 @@ export const Header:React.FC = () => {
     }
 
   return (
-    <nav className='w-full grid justify-between py-4 md:p-4 relative items-center grid-cols-[15%_60%_20%] md:grid-cols-[5%_15%_60%_5%_10%] gap-1 md:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
-        <p className='hidden cursor-pointer md:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
+    <nav className='w-full grid justify-between py-4 lg:p-4 relative items-center grid-cols-[15%_60%_20%] lg:grid-cols-[5%_15%_60%_5%_10%] gap-1 lg:gap-[8px] bg-[rgba(0,0,0,0.9)] border-b border-gray-400'>
+        <p className='hidden cursor-pointer lg:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
         <div className='text-gray-200 text-center flex flex-col items-center justify-center'>
         <NavLink  to="/">
             <img src={Logo} className='object-cover w-[2.2rem] md:w-[2.5rem] lg:w-[3rem]' />
@@ -60,7 +60,7 @@ export const Header:React.FC = () => {
             <input className='w-[80%] md:w-[90%] h-10 p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
             <Search className='text-gray-200 w-[20%] md:w-[10%] cursor-pointer' onClick={onSubmit} />
         </form>
-        <NavLink className='hidden md:block font-oswald' to="/upload">
+        <NavLink className='hidden lg:block font-oswald' to="/upload">
             <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto cursor-pointer' />
         </NavLink>
         <div className='w-full font-oswald text-center flex items-center justify-center relative'>

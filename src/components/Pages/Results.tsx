@@ -9,47 +9,7 @@ import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx'
 import { emptyArr } from '../../utility/emptyArrays.ts'
 import type { VideoType } from "../../types/video.ts";
-
-
-// interface allVideosInterface {
-// createdAt:string,
-// description:string,
-// duration:number,
-// isPublished:boolean
-// owner:{
-//     _id:string,
-//     fullName:string,
-//     avatar:string
-// },
-// thumbnail:string,
-// title:string,
-// updatedAt:string,
-// videoFile:string,
-// views:number
-// __v:number
-// _id:string
-// }
-
-
-// export interface VideoType {
-//     _id: string;
-//     videoFile?: string;
-//     thumbnail: string;
-//     owner: {
-//         _id: string;
-//         username: string;
-//         avatar: string;
-//         fullName?: string;
-//     };
-//     title: string;
-//     description?: string;
-//     duration: number;
-//     views: number;
-//     isPublished: boolean;
-//     createdAt: string;
-//     updatedAt?: string;
-//     __v?: number;
-// }
+import no_results from '../../assets/no_results.svg';
 
 
 interface searchResultsInterface {
@@ -146,7 +106,8 @@ const Results = ():React.JSX.Element => {
         <div ref={videoContainerRef} className='w-full h-[30px]'/>
         </section>
         <section className='w-[90%]'>
-            {queryResults&&queryResults.length===0&&<div className='flex items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>
+            {queryResults&&queryResults.length===0&&<div className='flex flex-col items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>
+                <img src={no_results} className="object-cover w-40 md:w-60" />
                 No Videos found
                 </div>}
         </section>

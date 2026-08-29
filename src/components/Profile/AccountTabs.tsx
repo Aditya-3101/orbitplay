@@ -14,6 +14,7 @@ import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
 import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
 import { useToggleVideoPublish } from '../../features/alerts/alerts.queries.ts';
+import no_results from '../../assets/no_results.svg';
 
 interface channelPlaylistInterface {
     _id:string,
@@ -126,7 +127,8 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
                     </Link>
                 })}
                 {
-                    (!loading&&videos.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-full md:h-[20rem] flex items-center justify-center text-gray-400'>
+                    (!loading&&videos.data.allVideos.length===0) &&<div className='font-roboto h-[10rem] w-full md:h-[20rem] flex flex-col items-center justify-center text-gray-400'>
+                        <img src={no_results} className="object-cover w-40 md:w-60" />
                         No Videos Found
                     </div>
                 }

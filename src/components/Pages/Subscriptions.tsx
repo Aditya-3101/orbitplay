@@ -1,5 +1,6 @@
 import React,{useState,useEffect, useCallback, useRef, useMemo} from 'react'
 import { useSelector } from 'react-redux';
+import no_results from '../../assets/no_results.svg';
 import { RootState } from '../../app/store/store.ts';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
@@ -88,7 +89,9 @@ const Subscriptions = ():React.JSX.Element => {
 
                     {(defaultChannel &&!loadingFollowedVideos &&videosFromChannel?.length==0)&&
                     <section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
-                        <div className='font-roboto text-xl text-gray-200 text-center py-6'>No videos found :(</div> 
+                        <div className='font-roboto text-xl text-gray-200 text-center py-6'>
+                            <img src={no_results} className="object-cover w-40 md:w-60" />
+                            No videos found :(</div> 
                     </section>}
                 {(loadingFollowedVideos)&&(emptyArr.map((par)=>{
                     return<div className='mx-auto w-[96%] py-2' key={par.id}>
