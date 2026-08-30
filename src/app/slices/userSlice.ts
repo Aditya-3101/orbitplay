@@ -60,25 +60,25 @@ export const userDetailSlice = createSlice({
             state.isLoggedIn=action.payload.isLoggedIn;
         },
         setAuthLoading:(state,action)=>{
-            state.isAuthLoading = action.payload
+            state.isAuthLoading = action.payload;
         },
         updateUserAvatar:(state,action)=>{
-            if(state.userTemp) state.userTemp.avatar = action.payload
+            if(state.userTemp) state.userTemp.avatar = action.payload;
         },
         updateUserCover:(state,action)=>{
-            if(state.userTemp) state.userTemp.coverImage = action.payload
+            if(state.userTemp) state.userTemp.coverImage = action.payload;
         },
         updateUserAccount:(state,action)=>{
             if(state.userTemp){
-                state.userTemp.fullName=action.payload.fullName,
-                state.userTemp.email=action.payload.email
+                state.userTemp.fullName=action.payload.fullName;
+                state.userTemp.email=action.payload.email;
             }
         },
         clearUser:(state,action)=>{
             state.userTemp=null;
             state.accessToken=null;
-            state.isLoggedIn=false,
-            state.isAuthLoading=false
+            state.isLoggedIn=false;
+            state.isAuthLoading=false;
         }
     }
 

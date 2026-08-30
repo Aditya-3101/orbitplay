@@ -40,7 +40,8 @@ export const Header:React.FC = () => {
             const request = await api.post('/users/logout',{})
     
             if(request.status===200){
-                dispatch(clearUser(null))
+                dispatch(clearUser(null));
+                sessionStorage.removeItem("accessToken");
                 navigate("/login")
             }
         } catch (error) {
