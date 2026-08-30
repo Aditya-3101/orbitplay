@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { host } from "../Constants.ts";
+import {store} from '../app/store/store.ts';
+import { addUserDetails } from "../app/slices/userSlice";
 
 interface refreshTokenResponse{
     statusCode: number,
@@ -65,6 +67,8 @@ api.interceptors.response.use((response)=>{
 
     if(originalRequest.url?.includes('/refresh-token')){
         console.log("returning promise")
+        store.dispatch(addUserDetails({user:null,isLoggedIn:false}));
+        sessionStorage.removeItem("accessToken");
         return Promise.reject(error)
     }
 
