@@ -66,7 +66,7 @@ api.interceptors.response.use((response)=>{
     }
 
     if(originalRequest.url?.includes('/refresh-token')){
-        console.log("returning promise")
+        //console.log("returning promise")
         store.dispatch(clearUser(null));
         sessionStorage.removeItem("accessToken");
         return Promise.reject(error)

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import { useNavigate } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
+import { convertImageExtention } from '../../utility/covertImageFormat.ts';
 
 interface VideoCardProps {
     data: VideoType;
@@ -45,7 +46,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
     <div>
         <div className='grid grid-cols-[40%_60%] grid-rows-[7rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] my-4 relative overflow-hidden'>
             <section className='relative flex justify-center'>
-                <img src={par?.thumbnail} className='w-full h-full aspect-video object-cover block' loading={index<5?'eager':'lazy'} alt={par.title} />
+                <img src={convertImageExtention(par?.thumbnail)} className='w-full h-full aspect-video object-cover block' loading={index<5?'eager':'lazy'} alt={par.title} />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
             <section className='grid grid-rows-[35%_65%] md:grid-rows-[40%_60%] min-w-0 w-full aspect-video h-full overflow-hidden px-4'>

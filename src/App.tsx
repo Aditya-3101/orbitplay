@@ -83,7 +83,7 @@ const App:React.FC = () => {
 
   useEffect(()=>{
     refreshUser(dispatch)
-  },[])
+  },[dispatch])
 
   
   const isAuthLoading = useSelector((state: RootState) => state.user.isAuthLoading);

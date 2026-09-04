@@ -14,6 +14,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx
 import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
+import { convertImageExtention } from '../../utility/covertImageFormat.ts';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -207,7 +208,7 @@ const ChannelPage = ():React.JSX.Element => {
     {openCreatePlaylistOverLay===false&&<div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {(!loading.profile&&currentUser?.coverImage)&&<img src={currentUser?.coverImage} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtention(currentUser?.coverImage)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
                 {
                     (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-full md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image

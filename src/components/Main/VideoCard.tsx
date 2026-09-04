@@ -1,6 +1,7 @@
 import React,{memo} from 'react';
 import { Link } from 'react-router';
 import { getVideoDuration } from '../../utility/videoDuration';
+import {convertImageExtention} from '../../utility/covertImageFormat.ts'
 
 interface videoCardProps{
     data:{
@@ -43,7 +44,7 @@ export const VideoCard = memo(({data,index}:videoCardProps):React.JSX.Element =>
     <div className='w-full md:my-0'>
         <div className='bg-[rgb(20,20,20)] border-gray-500 w-[96%] mx-auto aspect-video cursor-pointer'>
             <Link className='relative' to={`/v/${_id}`}>            
-            <img src={thumbnail} className='object-cover aspect-video w-full' loading={index<4?'eager':'lazy'} alt={title} />
+            <img src={convertImageExtention(thumbnail)} className='object-cover aspect-video w-full' loading={index<4?'eager':'lazy'} alt={title} />
             <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(duration)}</p>
             </Link>
             <div className='px-2 py-1 grid grid-cols-[15%_85%] gap-2 justify-center items-center border-slate-500'>
