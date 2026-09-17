@@ -10,11 +10,6 @@ import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "./app/store/store.ts";
 import {lazyRetry} from './utility/LazyRetry.ts';
 
-
-// const UploadVideo = lazy(() =>
-//   lazyRetry(() => import("./pages/UploadVideo"))
-// );
-
 const Player = React.lazy(()=>lazyRetry(()=>import('./components/Main/Player.tsx')));
 const Account = React.lazy(()=>lazyRetry(()=>import('./components/Profile/Account.tsx')));
 const History = React.lazy(()=>lazyRetry(()=>import('./components/Pages/History.tsx')));
@@ -82,7 +77,7 @@ const App:React.FC = () => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    refreshUser(dispatch)
+   refreshUser(dispatch)
   },[dispatch])
 
   

@@ -44,19 +44,19 @@ export const VideoCard = memo(({data,index}:videoCardProps):React.JSX.Element =>
     <div className='w-full md:my-0'>
         <div className='bg-[rgb(20,20,20)] border-gray-500 w-[96%] mx-auto aspect-video cursor-pointer'>
             <Link className='relative' to={`/v/${_id}`}>            
-            <img src={convertImageExtention(thumbnail)} className='object-cover aspect-video w-full' loading={index<4?'eager':'lazy'} alt={title} />
+            <img src={convertImageExtention(thumbnail,320)} className='object-cover aspect-video w-full' loading={index<6?'eager':'lazy'} fetchPriority={index < 6 ? "high" : "auto"} alt={title} />
             <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(duration)}</p>
             </Link>
             <div className='px-2 py-1 grid grid-cols-[15%_85%] gap-2 justify-center items-center border-slate-500'>
                 <Link to={`/Channel/${owner.username}`}>
-            <img src={owner?.avatar} loading='lazy' alt={owner.username} className='rounded-full aspect-square w-[2rem] md:w-[1.9rem] object-cover mx-auto' />
+            <img src={convertImageExtention(owner?.avatar,60)} loading='lazy' alt={owner.username} className='rounded-full aspect-square w-[2rem] md:w-[1.9rem] object-cover mx-auto' />
             </Link>
                 <div className='grid grid-cols-[100%] w-full relative'>
                     <Link to={`/v/${_id}`}>
                     <span className='font-roboto text-white text-lg md:text-base truncate overflow-hidden wrap-break-word line-clamp-1 md:line-clamp-2'>{title}</span>
                     </Link>
                     <p className='flex items-center justify-between pr-2'>
-                    <Link className='text-slate-400 md:text-sm' to={`/Channel/${owner.username}`}>{owner?.fullName}</Link>
+                    <Link className='text-slate-400 md:text-sm tracking-wider' to={`/Channel/${owner.username}`}>{owner?.fullName}</Link>
                     <span className='text-slate-400 text-xs md:text-sm flex items-center justify-end'>{views} views</span>
                     </p>
                 </div>
