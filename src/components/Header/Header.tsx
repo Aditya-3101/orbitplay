@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate,Link } from 'react-router';
-import {ArrowUpFromLine, Menu,Search} from 'lucide-react';
+import {ArrowUpFromLine, Menu} from 'lucide-react';
 import { useSelector,useDispatch } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import {toggleSideBar,openAccountBar} from '../../app/slices/toggleSlice.ts'
@@ -8,7 +8,7 @@ import {clearUser} from '../../app/slices/userSlice.ts'
 import { api } from '../../api/AxiosInterceptor.ts';
 import Logo from '../../assets/logo.svg'
 import { SearchVideos } from '../../features/search/SearchVideos.tsx';
-import {convertImageExtention} from '../../utility/covertImageFormat.ts'
+import {convertImageExtension} from '../../utility/covertImageFormat.ts'
 
 
 export const Header:React.FC = () => {
@@ -47,7 +47,7 @@ export const Header:React.FC = () => {
         <p className='hidden cursor-pointer lg:flex md:justify-center' onClick={changeSideBar}><Menu color="gray"/></p>
         <div className='text-gray-200 text-center flex flex-col items-center justify-center'>
         <NavLink  to="/">
-            <img src={Logo} className='object-cover w-[2.2rem] md:w-[2.5rem] lg:w-[3rem] aspect-square' alt="OrbitPlay Logo" aria-label="orbitplay logo" />
+            <img src={Logo} className='object-cover w-[2.2rem] md:w-[2.5rem] lg:w-[3rem] aspect-[8/6]' alt="OrbitPlay Logo" aria-label="orbitplay logo" />
         </NavLink>
         </div>
         <SearchVideos/>
@@ -55,7 +55,7 @@ export const Header:React.FC = () => {
             <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto cursor-pointer' />
         </NavLink>
         <div className='w-full font-oswald text-center flex items-center justify-center relative'>
-            {user?.avatar&&<img src={convertImageExtention(user.avatar,60)} alt={user?.username} loading='lazy' className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
+            {user?.avatar&&<img src={convertImageExtension(user.avatar,60)} alt={user?.username} loading='lazy' className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
             onClick={toggleAccountBar}/>}
             <div className={` ${!currentAccountBarStatus&&"hidden"} absolute flex flex-col top-[110%] left-[-100%] md:left-0 bg-[rgba(0,0,0,0.9)] 
             [&_a]:border [&_a]:border-gray-200 [&_div]:border [&_div]:border-gray-200 font-roboto z-10`}>

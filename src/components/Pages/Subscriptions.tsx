@@ -10,6 +10,7 @@ import { ErrorPage } from './ErrorPage.tsx';
 import { Link } from 'react-router';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import {useSubscribedChannels, useVideosfromSubscribedChannels} from '../../features/subscriptions/subscriptions.queries.ts'
+import { convertImageExtension } from '../../utility/covertImageFormat.ts';
 
 
 interface userSubscriptionsInterface{
@@ -50,6 +51,7 @@ const Subscriptions = ():React.JSX.Element => {
 
     useEffect(()=>{
         if((firstChannel&&firstChannel?.length>0)&&!defaultChannel){
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setDefaultChannel(firstChannel);
         }
     },[ firstChannel,defaultChannel])
@@ -73,7 +75,9 @@ const Subscriptions = ():React.JSX.Element => {
             {(!loadingFollowedChannels&& userSubscriptions?.length>0)&&userSubscriptions.map((param,index)=>{
                 return<div key={param._id} className='h-26 w-[5.4rem] overflow-hidden'>
                     <div className='w-full flex flex-col items-center justify-center py-1' onClick={()=>onChangeChannel(param._id)}>
-                        <img src={param.avatar} className={`w-[90%] aspect-square rounded-full object-cover cursor-pointer ${defaultChannel===param._id?"outline-2 border-2 border-gray-950 outline-[rgb(37,192,239)]":'border-2 border-gray-950'}`} loading={index<6?'eager':'lazy'} />
+                        <img src={convertImageExtension(param.avatar,140)} className={`w-[90%] aspect-square rounded-full object-cover cursor-pointer 
+                            ${defaultChannel===param._id?"outline-2 border-2 border-gray-950 outline-[rgb(37,192,239)]":'border-2 border-gray-950'}`} 
+                            loading={index<6?'eager':'lazy'} />
                         <p className='w-full text-center font-roboto text-gray-200 truncate'>{param.fullName}</p>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { ListVideo } from 'lucide-react'
-import React,{memo} from 'react'
+import {memo} from 'react'
 
 export const SectionHeader = memo(({title,size}:{title:string,size:string}) => {
   return (

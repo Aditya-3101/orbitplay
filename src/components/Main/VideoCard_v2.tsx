@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import { useNavigate } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
-import { convertImageExtention } from '../../utility/covertImageFormat.ts';
+import { convertImageExtension } from '../../utility/covertImageFormat.ts';
 
 interface VideoCardProps {
     data: VideoType;
@@ -46,7 +46,20 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
     <div>
         <div className='grid grid-cols-[40%_60%] grid-rows-[7rem] md:grid-rows-[10rem] lg:grid-rows-[12rem] md:grid-cols-[40%_60%] lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%] my-4 relative overflow-hidden'>
             <section className='relative flex justify-center'>
-                <img src={convertImageExtention(par?.thumbnail)} className='w-full h-full aspect-video object-cover block' loading={index<5?'eager':'lazy'} alt={par.title} />
+                <img 
+                src={convertImageExtension(par?.thumbnail,640)}
+                srcSet={`
+                    ${convertImageExtension(par?.thumbnail, 320)} 320w,
+                    ${convertImageExtension(par?.thumbnail, 480)} 480w,
+                    ${convertImageExtension(par?.thumbnail, 640)} 640w,
+                    ${convertImageExtension(par?.thumbnail, 960)} 960w
+                `}
+                sizes="(max-width: 640px) 40vw,
+                35vw
+                "
+                className='w-full h-full aspect-video object-cover block' 
+                loading={index<6?'eager':'lazy'} 
+                fetchPriority={index<4?'high':'auto'} alt={par.title} />
                 <p className='absolute right-0 bottom-0 px-1 bg-[rgba(0,0,0,0.5)] text-slate-100 text-sm font-roboto'>{getVideoDuration(par.duration)}</p>
             </section>
             <section className='grid grid-rows-[35%_65%] md:grid-rows-[40%_60%] min-w-0 w-full aspect-video h-full overflow-hidden px-4'>
@@ -73,7 +86,8 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] '>{par.views} views | {timeAgo(par.createdAt)}</p>
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] line-clamp-1 wrap-break-word'>{par.description}</p>
                 <div className='flex items-center gap-2'>
-                    <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)}><img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
+                    <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)}>
+                        <img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
                     <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-xs md:text-sm font-roboto'>{par.owner.fullName}</div>
                 </div>
                 </div>

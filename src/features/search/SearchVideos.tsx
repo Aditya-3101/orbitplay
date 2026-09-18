@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Search} from 'lucide-react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
 import { api } from "../../api/AxiosInterceptor";
 import type { searchResponseType,allVideoTypes } from "./searchResponse.types.ts";
@@ -41,6 +41,12 @@ export const SearchVideos = () =>{
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>):void => {
         setSearch(e.target.value)
     }
+
+    const navigateToResults = (e:React.SyntheticEvent,arg1:string):void =>{
+        e.preventDefault();
+        if(arg1!==null&&arg1.length>0) navigate(`/videos/search?q=${arg1}`);
+        setSearch('')
+    }
       
     return<div className="relative flex flex-col">
     <form className='relative font-teko flex items-center border border-gray-400 rounded-xl' onSubmit={onSubmit}>
@@ -50,7 +56,7 @@ export const SearchVideos = () =>{
     <div className='bg-black my-2 absolute z-10 left-0 right-0 top-full'>
         {(search&&searchSuggestions)&&searchSuggestions.map((par,index)=>{
             return<div key={index} className="w-full relative">
-                <Link to={`/videos/search?q=${par.title}`} className='block w-full px-1 text-gray-300 border-b border-b-gray-700'>{par.title}</Link>
+                <p onClick={(e)=>navigateToResults(e,par.title)} className='block w-full px-1 text-gray-300 border-b border-b-gray-700'>{par.title}</p>
             </div>
         })}
     </div>

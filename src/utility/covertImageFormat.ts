@@ -1,9 +1,5 @@
-export function convertImageExtention(param:string,width:number=320){
+export function convertImageExtension(param:string,width:number=320){
     if(typeof param!=="string") return param;
-
-    // let thumb_url = param.replace(/^http:\/\//, "https://").replace('.jpg','').replace("/upload/",`/upload/f_webp/q_auto/w_${width}/`).;
-    
-    // return thumb_url;
 
     let secureUrl = param.replace(/^http:\/\//, "https://");
 
@@ -17,7 +13,6 @@ export function convertImageExtention(param:string,width:number=320){
         `/upload/f_webp/q_auto/w_${width}/` + 
         secureUrl.slice(uploadIndex + 8);
 
-    console.log(transformedUrl)
 
     return transformedUrl;
 }
