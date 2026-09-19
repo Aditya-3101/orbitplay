@@ -55,7 +55,7 @@ export const Header:React.FC = () => {
             <ArrowUpFromLine color="rgb(240,240,240)" className='mx-auto cursor-pointer' />
         </NavLink>
         <div className='w-full font-oswald text-center flex items-center justify-center relative'>
-            {user?.avatar&&<img src={convertImageExtension(user.avatar,60)} alt={user?.username} loading='lazy' className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
+            {user?.avatar&&<img src={convertImageExtension(user.avatar,240)} alt={user?.username} loading='lazy' className='aspect-square rounded-full w-[2.4rem] object-cover border border-gray-400 cursor-pointer' 
             onClick={toggleAccountBar}/>}
             <div className={` ${!currentAccountBarStatus&&"hidden"} absolute flex flex-col top-[110%] left-[-100%] md:left-0 bg-[rgba(0,0,0,0.9)] 
             [&_a]:border [&_a]:border-gray-200 [&_div]:border [&_div]:border-gray-200 font-roboto z-10`}>

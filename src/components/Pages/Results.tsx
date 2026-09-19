@@ -10,6 +10,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx
 import { emptyArr } from '../../utility/emptyArrays.ts'
 import type { VideoType } from "../../types/video.ts";
 import no_results from '../../assets/no_results.svg';
+import axios from 'axios'
 
 
 interface searchResultsInterface {
@@ -30,14 +31,16 @@ const Results = ():React.JSX.Element => {
     const [queryResults,setQueryResults] = useState<VideoType[]>([])
     const [loading,setLoading] = useState<boolean>(false)
     const videoContainerRef = useRef<HTMLDivElement>(null)
-    const [page,setPage] = useState<number>(1)
+    const [page,setPage] = useState<number>(1);
     const [hasMore,setHasmore]=useState<boolean>(false)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const pageCallback = useCallback(()=>{
         if(!loading&&hasMore){
           setPage(prev=>prev+1)
         }
-    },[loading,hasMore])
+    },[loading,hasMore]);
+    const previousQuery = useRef<string | null>(null);
+
 
     useIntersectionObserver(videoContainerRef,pageCallback)
 
@@ -46,13 +49,28 @@ const Results = ():React.JSX.Element => {
     
 
     useEffect(()=>{
-        const abortController = new AbortController()
+        const abortController = new AbortController();
+
+        if (previousQuery.current !== query) {
+            previousQuery.current = query;
+            setQueryResults([]);
+            setHasmore(false);
+            
+            if (page !== 1) {
+                setPage(1);
+                return;
+            }
+        }
+        
+        if (!query) {
+            return;
+        }
 
         async function fetchSearchResult(page:number,params:string,controller:AbortController):Promise<void> {
-        setLoading(true)
-        try {
-            const req = await api.get<searchResultsInterface>(`/videos?query=${params}&page=${page}`,
-            {
+            setLoading(true)
+            try {
+                const req = await api.get<searchResultsInterface>(`/videos?query=${encodeURIComponent(params)}&page=${page}`,
+                {
                 withCredentials:true,
                 signal:controller.signal
             })
@@ -68,28 +86,27 @@ const Results = ():React.JSX.Element => {
                 setHasmore((req.data.data.limit*req.data.data.page)<req.data.data.allVideoCount)
             }
 
-        } catch (error) {
-            dispatch(messageModal("something went wrong while fetching results"))
+        } catch (error:unknown) {
+            if (!axios.isCancel(error)) {
+                dispatch(messageModal("Something went wrong while fetching results"));
+            }
         }finally{
-            setLoading(false)
+            if (!abortController.signal.aborted) {
+                setLoading(false);
+            }
         }
     }  
 
         if (query!==null) {
             fetchSearchResult(page,query,abortController)
         }
-        //dispatch(toggleSideBar(true))
         return() => {
             abortController.abort()
-            setPage(1);
-            setQueryResults([]);
+            //setPage(1);
+            //setQueryResults([]);
         }
     },[query, page, dispatch])
 
-    // useEffect(()=>{
-    //     // setQueryResults([])
-    //     setPage(1)
-    // },[location.search])  
 
   return (
     <div className='bg-[rgba(0,0,0,0.9)] flex flex-col gap-4 justify-center items-center'>
@@ -106,7 +123,7 @@ const Results = ():React.JSX.Element => {
         <div ref={videoContainerRef} className='w-full h-[30px]'/>
         </section>
         <section className='w-[90%]'>
-            {queryResults&&queryResults.length===0&&<div className='flex flex-col items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>
+            {!loading&&queryResults.length===0&&<div className='flex flex-col items-center justify-center font-roboto text-gray-300 h-[10rem] md:h-[20rem]'>
                 <img src={no_results} className="object-cover w-40 md:w-60" />
                 No Videos found
                 </div>}

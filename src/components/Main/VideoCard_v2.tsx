@@ -83,7 +83,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                     </div>}
                     </div>
                     <div className='flex flex-col gap-2'>   
-                <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] '>{par.views} views | {timeAgo(par.createdAt)}</p>
+                <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] '>{par.views} views • {timeAgo(par.createdAt)}</p>
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] line-clamp-1 wrap-break-word'>{par.description}</p>
                 <div className='flex items-center gap-2'>
                     <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)}>

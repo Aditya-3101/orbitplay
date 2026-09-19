@@ -66,7 +66,7 @@ const LikedVideos = ():React.JSX.Element => {
     useEffect(()=>{
         fetchLikedVideos()
         dispatch(openAccountBar(false))
-    },[])
+    },[dispatch])
 
 
 

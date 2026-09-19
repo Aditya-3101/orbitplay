@@ -3,7 +3,7 @@ import {formatDistanceToNow,format, isToday, isYesterday} from 'date-fns'
 export const timeAgo = (paramter:string):string => {
     return formatDistanceToNow(new Date(paramter),{
         addSuffix:true
-    });
+    }).replace('about','');
 }
 
 export const dateAgo = (parameter:string):string => {

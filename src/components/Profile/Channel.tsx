@@ -128,7 +128,7 @@ const ChannelPage = ():React.JSX.Element => {
         fetchData()
     },[params.channelName,dispatch])
 
-    if(channelData.error!==null){
+    if(channelData.error!==null||error){
         return<ErrorPage msg="Channel Details"/>
     }
 

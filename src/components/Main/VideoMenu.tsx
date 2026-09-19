@@ -67,6 +67,23 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
         id:null,
     })
 
+    async function fetchLikes(par:string|unknown):Promise<void> {
+        try {
+            const req = await api.get<fetchLikeType>(`/likes/v/${par}`)
+            if(req.status===200){
+                const response = req.data.data
+                setLikes((prev)=>({
+                    ...prev,
+                    count:response!=undefined?response.length!==0? response[0].likeCount:0:0,
+                    likedByUser:response!=undefined?response.length!==0?response[0].isLiked:false:false
+                }))
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(()=>{
         const v_id: string|unknown = videoDetails?._id?videoDetails._id:videoId
         fetchLikes(v_id);
@@ -113,22 +130,6 @@ export const VideoMenu = memo(({uploadTime}:{uploadTime:string}):React.JSX.Eleme
         }
     }
 
-    async function fetchLikes(par:string|unknown):Promise<void> {
-        try {
-            const req = await api.get<fetchLikeType>(`/likes/v/${par}`)
-            if(req.status===200){
-                const response = req.data.data
-                setLikes((prev)=>({
-                    ...prev,
-                    count:response!=undefined?response.length!==0? response[0].likeCount:0:0,
-                    likedByUser:response!=undefined?response.length!==0?response[0].isLiked:false:false
-                }))
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     function onSelectPlaylist(param:string):void{
         setSelectedPlaylist(()=>({

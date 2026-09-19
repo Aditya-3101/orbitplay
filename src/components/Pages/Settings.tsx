@@ -35,7 +35,7 @@ const Settings = ():React.JSX.Element => {
 
     useEffect(()=>{
         dispatch(openAccountBar(false))
-    },[])
+    },[dispatch])
 
     function getIcon(par:string):React.ReactNode{
         switch(par){

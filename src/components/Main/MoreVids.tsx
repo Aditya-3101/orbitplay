@@ -8,37 +8,8 @@ import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 import { useDispatch } from 'react-redux';
 import { messageModal } from '../../app/slices/toggleSlice.ts';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
-
-interface Video {
-    _id: string;
-    videoFile: string;
-    thumbnail: string;
-    owner: {
-      _id:string,
-      username:string,
-      avatar:string
-    };
-    title: string;
-    description: string;
-    duration: number;
-    views: number;
-    isPublished: boolean;
-    createdAt: string;
-    updatedAt: string;
-  }
+import type {Video,GetVideosResponse} from '../../features/videos/videos.types.ts';
   
-  interface GetVideosResponse {
-    statusCode: number;
-    data: {
-      result:Video[];
-      videosCount: number,
-      page: number,
-      limit: number
-    }
-    message: string;
-    success: number;
-  }
-
 export const MoreVids = () => {
     const {videoId} = useParams()
     const [page,setPage] = useState<number>(1)

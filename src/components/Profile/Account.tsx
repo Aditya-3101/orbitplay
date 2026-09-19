@@ -78,6 +78,10 @@ const Account = ():React.JSX.Element => {
     }
     : undefined;
 
+    if(error){
+        return<ErrorPage msg="Account Details"/>
+    }
+
     useEffect(()=>{
             if(user?._id!==undefined) {
                 dispatch(getChannelPosts({userId:user?._id}))

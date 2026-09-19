@@ -59,7 +59,6 @@ const router = createBrowserRouter(
       <Route path="/settings/update-avatar" element={<OptionsPage key="update-avatar" />} errorElement={<ErrorBoundry/>} />
       <Route path="/settings/update-cover" element={<OptionsPage key="update-cover" />} errorElement={<ErrorBoundry/>} />
       <Route path="/settings/update-Account" element={<OptionsPage key="update-account" />} errorElement={<ErrorBoundry/>} />
-
     </Route>
     </Route>
     <Route path='*' element={<UnknownPage/>} />
