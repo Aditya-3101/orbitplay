@@ -92,7 +92,7 @@ const Subscriptions = ():React.JSX.Element => {
                     })}
 
                     {(defaultChannel &&!loadingFollowedVideos &&videosFromChannel?.length==0)&&
-                    <section className='h-[5rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
+                    <section className='h-[12rem] md:h-[15rem] lg:h-[25rem] flex justify-center items-center'>
                         <div className='font-roboto text-xl text-gray-200 text-center py-6'>
                             <img src={no_results} className="object-cover w-40 md:w-60" />
                             No videos found :(</div> 
