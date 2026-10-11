@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
 import { api } from "../../api/AxiosInterceptor";
 import type { searchResponseType,allVideoTypes } from "./searchResponse.types.ts";
+import { convertImageExtension } from "../../utility/covertImageFormat.ts";
 
 
 export const SearchVideos = () =>{
@@ -35,7 +36,8 @@ export const SearchVideos = () =>{
     const onSubmit = (e:React.SyntheticEvent):void => {
         e.preventDefault();
         if(search!==null&&search.length>0) navigate(`/videos/search?q=${encodeURIComponent(search)}`) 
-        setSearch('')
+        setSearch('');
+        setSearchSuggestions([]);
     }
 
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>):void => {
@@ -55,8 +57,9 @@ export const SearchVideos = () =>{
     </form>
     <div className='bg-black my-2 absolute z-10 left-0 right-0 top-full'>
         {(search&&searchSuggestions)&&searchSuggestions.map((par,index)=>{
-            return<div key={index} className="w-full relative">
-                <p onClick={(e)=>navigateToResults(e,par.title)} className='block w-full px-1 text-gray-300 border-b border-b-gray-700'>{par.title}</p>
+            return<div key={index} className="w-full relative flex items-center p-2 border-b border-b-gray-700 gap-1.5">
+                {par?.thumbnail&&<img src={convertImageExtension(par.thumbnail,320)} alt={par.title} className="aspect-video w-[2rem] md:w-[2.4rem] object-contain" />}
+                <p onClick={(e)=>navigateToResults(e,par.title)} className='block w-full text-gray-300 hover:text-[#25c0ef] cursor-pointer'>{par.title}</p>
             </div>
         })}
     </div>

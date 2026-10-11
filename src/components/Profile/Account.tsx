@@ -194,7 +194,7 @@ const Account = ():React.JSX.Element => {
     {openCreatePlaylistOverLay===false&&<div className={`relative ${openCreatePlaylistOverLay&&'h-dvh overflow-hidden'}`}>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,960)} className='aspect-16/6 object-cover w-full md:w-[96%] md:aspect-16/4 md:mx-auto' alt="" loading='lazy' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-16/6 object-cover w-full md:w-[96%] md:aspect-16/4 md:mx-auto' alt="" loading='lazy' />}
                 {
                     (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-16/4 w-full md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image
@@ -218,15 +218,6 @@ const Account = ():React.JSX.Element => {
                     <span className='font-roboto text-gray-400 text-sm md:text-2xl'>{currentUser.subscribersCount} Followers</span>
                     )}
                     </p>
-                    {/* <span className=''>
-                        {(currentUser && "isSubscribed" in currentUser) && (
-                            checkUserAsChannel!==true &&
-                            <button className={`font-roboto text-gray-400 text-sm ${currentUser.isSubscribed?
-                            "border border-gray-300 p-2 my-2 rounded":"bg-red-500 p-2 my-2 text-gray-950 rounded"} md:text-2xl`} onClick={()=>toggleSubscription(currentUser._id,currentUser.username)}>
-                                {currentUser.isSubscribed?"Subscribed":"Subscribe"}
-                            </button>
-                        )}
-                    </span> */}
                     {(currentUser===user)&&<Link className='text-gray-300' to="/settings">
                         <Wrench/>
                     </Link>}

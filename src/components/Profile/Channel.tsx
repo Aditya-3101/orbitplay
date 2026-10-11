@@ -208,7 +208,7 @@ const ChannelPage = ():React.JSX.Element => {
     {openCreatePlaylistOverLay===false&&<div>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
-                {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,960)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
+                {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
                 {
                     (!loading.profile&&currentUser?.coverImage==undefined) && <div className='aspect-[16/4] w-full md:w-[96%] md:mx-auto font-roboto text-gray-400 flex items-center justify-center bg-[rgba(0,0,0,0.8)] border border-gray-700'>
                         No Cover Image

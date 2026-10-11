@@ -87,7 +87,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                 <p className=' text-slate-400 text-[12px] md:text-sm font-roboto w-[80%] line-clamp-1 wrap-break-word'>{par.description}</p>
                 <div className='flex items-center gap-2'>
                     <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)}>
-                        <img src={par.owner.avatar} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
+                        <img src={convertImageExtension(par.owner.avatar,320)} className='aspect-square object-cover w-[1rem] md:w-[2rem] rounded-full' /></div>
                     <div aria-label='navigate to channel' onClick={(e)=>navigateToChannel(e,par.owner.username)} className='text-slate-500 text-xs md:text-sm font-roboto'>{par.owner.fullName}</div>
                 </div>
                 </div>
