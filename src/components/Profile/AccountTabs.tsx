@@ -76,14 +76,14 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
                 dispatch(deleteVideo(arg))
             }
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             dispatch(messageModal("something went wrong while deleting the video"))
         }
     }
 
     function onEditVideo(e:React.MouseEvent,meta:VideoType){
         e.preventDefault();
-        console.log(meta)
+        //console.log(meta)
         dispatch(selectedVideo(meta))
         dispatch(toggleEditVideoOverlay())
     }
