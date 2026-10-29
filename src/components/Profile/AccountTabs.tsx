@@ -7,7 +7,8 @@ import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
 import { api } from '../../api/AxiosInterceptor';
 import { useDispatch, useSelector } from 'react-redux';
-import { messageModal,openAccountBar,toggleCreatePlaylistOverlay } from '../../app/slices/toggleSlice';
+import { messageModal,openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay } from '../../app/slices/toggleSlice';
+import {selectedVideo} from '../../app/slices/videoSlice.ts'
 import {deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
@@ -15,6 +16,7 @@ import type { VideoType } from "../../types/video.ts";
 import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
 import { useToggleVideoPublish } from '../../features/alerts/alerts.queries.ts';
 import no_results from '../../assets/no_results.svg';
+
 
 interface channelPlaylistInterface {
     _id:string,
@@ -57,6 +59,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
     const dispatch = useDispatch()
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
+    // const openEditVideoOverLay = useSelector((state:RootState)=>state.toggle.editVideoOverlay)
     const location = useLocation()
 
     const { mutate: togglePublish } = useToggleVideoPublish();
@@ -77,6 +80,12 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
             console.log(error)
             dispatch(messageModal("something went wrong while deleting the video"))
         }
+    }
+
+    function onEditVideo(e:React.MouseEvent,meta:VideoType){
+        e.preventDefault();
+        dispatch(selectedVideo(meta))
+        dispatch(toggleEditVideoOverlay())
     }
 
     function handleToggle(e:React.MouseEvent<HTMLButtonElement>,arg:VideoType):void{
@@ -123,7 +132,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
             <main className=''>
                 {(!loading && videos)&&videos.data.allVideos.map((par,index)=>{
                     return <Link to={`/v/${par._id}`} key={par._id} className='relative z-0'>
-                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} index={index} onTogglePublish={handleToggle} />
+                    <VideoCard_v2 data={par} onDelete={onDeleteVideo} onEdit={onEditVideo} index={index} onTogglePublish={handleToggle} />
                     </Link>
                 })}
                 {
@@ -183,7 +192,6 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
                     <div className='w-full h-[10rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
                     </div>)}
-                  )
             </>
             }
         </div>

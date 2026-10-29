@@ -33,3 +33,30 @@ export interface GetChannelVideosResponse {
     message: string;
     success: number;
   }
+
+export interface requestedEditVideoParamType{
+  updatedThumbnail:File|null,
+  videoId:string,
+  videoTitle:string,
+  videoDescription:string
+}
+
+export interface updatedVideoResponseType{
+  statusCode: 200,
+  data: {
+    _id: string,
+    videoFile: string,
+    thumbnail: string,
+    owner: string,
+    title: string,
+    description: string,
+    duration: number,
+    views: number,
+    isPublished: boolean,
+    createdAt: string,
+    updatedAt: string,
+     __v: number
+    },
+  message: string,
+  success: number
+ }

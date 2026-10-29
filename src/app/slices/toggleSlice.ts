@@ -4,14 +4,16 @@ interface initialStateInterface {
     sideBar:boolean,
     msg:string|null,
     accountOptionToggle:boolean,
-    createPlaylistOverlay:boolean
+    createPlaylistOverlay:boolean,
+    editVideoOverlay:boolean
 }
 
 const initialState:initialStateInterface = {
     sideBar:true,
     msg:null,
     accountOptionToggle:false,
-    createPlaylistOverlay:false
+    createPlaylistOverlay:false,
+    editVideoOverlay:false,
 }
 
 export const toggleSlice = createSlice({
@@ -29,10 +31,13 @@ export const toggleSlice = createSlice({
         },
         toggleCreatePlaylistOverlay:(state)=>{
             state.createPlaylistOverlay=!state.createPlaylistOverlay
+        },
+        toggleEditVideoOverlay:(state)=>{
+            state.editVideoOverlay=!state.editVideoOverlay
         }
     }
 })
 
-export const {toggleSideBar,messageModal,openAccountBar,toggleCreatePlaylistOverlay} = toggleSlice.actions;
+export const {toggleSideBar,messageModal,openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay} = toggleSlice.actions;
 
 export default toggleSlice.reducer

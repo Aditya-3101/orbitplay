@@ -13,7 +13,8 @@ interface videoInterface{
     owner:{
         _id:string,
         username:string,
-        avatar:string
+        avatar:string;
+        fullName?:string
     },
     isPublished:boolean,
     duration:number,
@@ -55,6 +56,7 @@ interface commentInterface{
 }
 interface initialStateInterface{
     video:videoInterface|null;
+    selectedVideo:videoInterface|null;
     loading:boolean,
     loadingComments:boolean,
     loadingVideoId:unknown|null,
@@ -83,6 +85,7 @@ const initialState:initialStateInterface = {
     description:'',
     createdAt:''
 },
+selectedVideo:null,
 comments:null,
 loadingComments:true,
 hasMoreComments:false,
@@ -124,6 +127,9 @@ export const videoDetailSlice = createSlice({
         },
         addComment:(state,action)=>{
             state.comments?.data.docs.push(action.payload)
+        },
+        selectedVideo:(state,action)=>{
+            state.selectedVideo = action.payload   
         }
     },
     extraReducers(builder) {
@@ -180,7 +186,7 @@ export const videoDetailSlice = createSlice({
     },
 })
 
-export const {toggleCommentLikes,updateUserComment,deleteCommentById,addComment} = videoDetailSlice.actions
+export const {toggleCommentLikes,updateUserComment,deleteCommentById,addComment,selectedVideo} = videoDetailSlice.actions
 
 //export const {addVideoDetails} = videoDetailSlice.actions
 

@@ -157,8 +157,8 @@ export const CommentsCard:React.NamedExoticComponent<commentsInterfaceDocs> = Re
                     {currentUser===par.owner._id&&<div className='blank relative'>
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-5' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        <p className='flex items-center gap-1' onClick={()=>handleEditClick(par)}><Pencil className='w-3 h-[12x] cursor-pointer' />Edit</p>
-                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1'><Trash className='w-3 h-[12x] cursor-pointer' />Delete</p>
+                        <p className='flex items-center gap-1 cursor-pointer' onClick={()=>handleEditClick(par)}><Pencil className='w-3 h-[12x] '/>Edit</p>
+                        <p onClick={()=>deleteComment(par._id)} className='flex items-center gap-1 cursor-pointer'><Trash className='w-3 h-[12x]' />Delete</p>
                     </section>}
                     </div>}</div>
                     <p className='blank'></p>

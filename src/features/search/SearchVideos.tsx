@@ -30,6 +30,8 @@ export const SearchVideos = () =>{
         }
     }
         AutoSearchSuggestions(debouncedSearch)
+
+        return () => setSearchSuggestions([]);
     },[debouncedSearch])
 
     
@@ -55,8 +57,8 @@ export const SearchVideos = () =>{
         <input className='w-[80%] md:w-[90%] h-10 p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
         <Search className='text-gray-200 w-[20%] md:w-[10%] cursor-pointer' onClick={onSubmit} />
     </form>
-    <div className='bg-black my-2 absolute z-10 left-0 right-0 top-full'>
-        {(search&&searchSuggestions)&&searchSuggestions.map((par,index)=>{
+    <div className='bg-black my-2 absolute z-10 left-0 right-0 top-full max-h-64 overflow-y-auto no-scrollbar'>
+        {((search&&searchSuggestions))&&searchSuggestions.map((par,index)=>{
             return<div key={index} className="w-full relative flex items-center p-2 border-b border-b-gray-700 gap-1.5">
                 {par?.thumbnail&&<img src={convertImageExtension(par.thumbnail,320)} alt={par.title} className="aspect-video w-[2rem] md:w-[2.4rem] object-contain" />}
                 <p onClick={(e)=>navigateToResults(e,par.title)} className='block w-full text-gray-300 hover:text-[#25c0ef] cursor-pointer'>{par.title}</p>

@@ -252,7 +252,7 @@ export const UpdateAccountDetails = () => {
                 <p className='text-gray-400'>
                     Current Password
                 </p>
-                <input type='password' value={userDetail.oldPassword} autoComplete='false' name="oldPassword" onChange={changeHandler} className='h-[2.4rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 p-1' placeholder='Enter Your Old Password'  />
+                <input type='password' value={userDetail.oldPassword} autoComplete='off' name="oldPassword" onChange={changeHandler} className='h-[2.4rem] outline outline-gray-400 w-[90%] font-roboto text-gray-200 p-1' placeholder='Enter Your Old Password'  />
             </div>
             <div>
                 <p className='text-gray-400'>

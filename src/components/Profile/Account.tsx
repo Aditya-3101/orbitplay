@@ -12,9 +12,10 @@ import {Link} from 'react-router'
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import {resetChannelVideos,resetChannelUser} from '../../app/slices/channelSlice.ts';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
-import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
+import {messageModal, openAccountBar, toggleCreatePlaylistOverlay,toggleEditVideoOverlay} from '../../app/slices/toggleSlice.ts'
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
+import {OpenVideoModal} from './OpenVideoEditModal.tsx'
 import {convertImageExtension} from '../../utility/covertImageFormat.ts'
 
 
@@ -36,6 +37,7 @@ interface playlistDetailType{
     playlistDescription:string
 }
 
+
 const Account = ():React.JSX.Element => {
 
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
@@ -50,6 +52,7 @@ const Account = ():React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams<string>();
     const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay)
+    const openEditVideoOverLay = useSelector((state:RootState)=>state.toggle.editVideoOverlay)
     const [newPlaylistDetails,setNewPlaylistDetails]=useState<playlistDetailType>({
         playlistName:'',
         playlistDescription:''
@@ -166,6 +169,7 @@ const Account = ():React.JSX.Element => {
     }
 
 
+
     function OpenPlaylistModal():React.JSX.Element{
         return<div className='absolute top-0 left-0 right-0 bottom-0 overflow-hidden bg-[rgba(20,20,20,0.96)] z-20 flex items-center justify-center font-roboto'>
             <div className='border-gray-300 border rounded-3xl flex flex-col items-center w-[30rem] p-4 bg-[rgb(10,10,10)]'>
@@ -189,9 +193,12 @@ const Account = ():React.JSX.Element => {
             </div>
     }
 
+   
+
   return (
     <React.Fragment>
-    {openCreatePlaylistOverLay===false&&<div className={`relative ${openCreatePlaylistOverLay&&'h-dvh overflow-hidden'}`}>
+    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay==false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay)&&'h-dvh overflow-hidden'}`}>
+    
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
                 {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-16/6 object-cover w-full md:w-[96%] md:aspect-16/4 md:mx-auto' alt="" loading='lazy' />}
@@ -231,8 +238,9 @@ const Account = ():React.JSX.Element => {
         ref={videoContainerRef}
         style={{ height: "20px" }}/>
         <OverLayDialouge/>
-    </div>}
+    </div>:<div className='overflow-hidden h-dvh'></div>}
     {openCreatePlaylistOverLay===true&&<OpenPlaylistModal/>}
+    {openEditVideoOverLay===true&&<OpenVideoModal/>}
     </React.Fragment>
   )
 }

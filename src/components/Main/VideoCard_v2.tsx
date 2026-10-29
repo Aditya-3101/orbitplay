@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import { getVideoDuration } from '../../utility/videoDuration';
 import { timeAgo } from '../../utility/timeStamp.ts';
-import { EllipsisVertical, Eye, EyeClosed, Trash } from 'lucide-react';
+import { EllipsisVertical, Eye, EyeClosed, Pencil, Trash } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import { useNavigate } from 'react-router';
@@ -21,11 +21,16 @@ interface VideoCardProps {
         video: VideoType
     ) => void | Promise<void>;
 
+    onEdit?:(
+        e:React.MouseEvent<HTMLButtonElement>,
+        meta:VideoType
+    ) => void | Promise<void>;
+
     index: number;
 }
 
 
-export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:VideoCardProps):React.JSX.Element => {
+export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,onEdit,index}:VideoCardProps):React.JSX.Element => {
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const navigate = useNavigate()
     const [options,setOptions]=useState<boolean>(false)
@@ -74,10 +79,12 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,index}:Vide
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-4 lg:w-5 lg:h-5 z-10'/></button>
                         {options===true&&
                         <section className='absolute top-[110%] right-[50%] bg-[rgb(20,20,20)] border border-gray-600 flex flex-col items-start px-1 z-20'>
-                        <button className='flex items-center gap-2 border-b border-gray-400 p-1 cursor-pointer' role="button" onClick={(e)=>onTogglePublish?.(e,par)}>
+                        <button className='flex items-center gap-2 border-b border-gray-400 p-1 cursor-pointer text-xs md:text-base' role="button" onClick={(e)=>onTogglePublish?.(e,par)}>
                             {!par.isPublished?<Eye className='w-3 lg:w-4 h-[12x] lg:h-4 ' />:<EyeClosed className='w-3 lg:w-4 h-[12x] lg:h-4 ' />}
                             {par.isPublished?"Private":"Public"}</button>
-                        <p onClick={(e)=>onDelete?.(e,par._id)} className='flex items-center gap-1 p-1 cursor-pointer'>
+                         <button onClick={(e)=>onEdit?.(e,par)} className='w-full flex items-center gap-2 p-1 cursor-pointer border-b border-gray-400 text-xs md:text-base'>
+                            <Pencil className='w-3 h-3 lg:w-4 lg:h-4' />Edit</button>
+                        <p onClick={(e)=>onDelete?.(e,par._id)} className='flex items-center gap-2 p-1 cursor-pointer text-xs md:text-base'>
                             <Trash className='w-3 h-3 lg:w-4 lg:h-4' />Delete</p>
                         </section>}
                     </div>}
