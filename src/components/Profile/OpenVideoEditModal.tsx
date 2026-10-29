@@ -25,7 +25,7 @@ export function OpenVideoModal():React.JSX.Element{
         const [updateError,setUpdatedError] = useState<string>('')
 
 
-        const mutation = useMutation({
+        const {mutate,isPending} = useMutation({
             mutationFn:updateVideoDetails,
             onSuccess:()=>{
                 dispatch(()=>dispatch(toggleEditVideoOverlay()))
@@ -80,7 +80,7 @@ export function OpenVideoModal():React.JSX.Element{
                 return null;
             }
 
-            mutation.mutate({
+            mutate({
                 updatedThumbnail:selectedVideoDetails.updatedVideoThumbnail,
                 videoId:selectedVideoForEdit?._id,
                 videoTitle:selectedVideoDetails.videoTitle,
@@ -134,8 +134,8 @@ export function OpenVideoModal():React.JSX.Element{
                     <textarea value={selectedVideoDetails.videoDescription} name="videoDescription" placeholder='Enter your playlist description' className='p-2 text-gray-200 border-gray-300 border resize-y min-h-12 max-h-18 rounded-lg' onChange={changeSelectedVideoHandler} />
                 </div>
                 <button 
-                className={`text-[rgb(10,10,10)] text-center p-2 rounded-lg bg-gray-300 border border-gray-300`} onClick={updateVideo}>
-                    Update</button>
+                className={`text-[rgb(10,10,10)] text-center p-2 rounded-lg bg-gray-300 border border-gray-300 transition-opacity ${isPending ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200 cursor-pointer'}`}  disabled={isPending} onClick={updateVideo}>
+                    {isPending?'updating...':'Update'}</button>
             </div>}
             </div>
     }

@@ -68,7 +68,7 @@ const Settings = ():React.JSX.Element => {
             </div>
             <div className='flex flex-col gap-1 [&_a]:border-b [&_a]:border-gray-200 w-[90%] mx-auto'>
                 {arr.map((par)=>{
-                    return<Link to={`/settings/${par.path}`} key={par.id} className='text-gray-300 font-roboto flex flex-row px-4 py-2 gap-2 cursor-pointer'>
+                    return<Link to={`/settings/${par.path}`} key={par.id} className='text-gray-300 font-roboto flex flex-row px-4 py-2 gap-2 cursor-pointer hover:bg-[#222]'>
                         <span>{getIcon(par.icon)}</span>
                         <span>{par.text}</span>
                     </Link>

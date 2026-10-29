@@ -38,8 +38,8 @@ const SideBarComponent = ():React.JSX.Element => {
                     key={to}
                     to={to}
                     className={({ isActive }) =>
-                        isActive ? 'text-[#25c0ef] flex items-center gap-4 p-4 border-b border-gray-400'
-                    : 'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200'
+                        isActive ? 'text-[#25c0ef] flex items-center gap-4 p-4 border-b border-gray-400 bg-[#222]'
+                    : 'flex items-center gap-4 p-4 border-b border-gray-400 text-slate-200 hover:bg-[#222]'
                     }
                 >
                     {React.createElement(icon, null)}

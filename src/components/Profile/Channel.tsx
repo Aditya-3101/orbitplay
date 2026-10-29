@@ -15,6 +15,7 @@ import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../a
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
 import { convertImageExtension } from '../../utility/covertImageFormat.ts';
+import { OpenVideoModal } from './OpenVideoEditModal.tsx';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -54,10 +55,10 @@ interface playlistDetailType{
 const ChannelPage = ():React.JSX.Element => {
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
-
     const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(channelData.channelUserDetail?._id)
 
-    const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay)
+    const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay);
+    const openEditVideoOverLay = useSelector((state:RootState)=>state.toggle.editVideoOverlay)
     const [loading,setLoading] = useState({
         profile:false,
     })
@@ -67,7 +68,6 @@ const ChannelPage = ():React.JSX.Element => {
     })
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams<string>();
-    //const [page,setPage]=useState<number>(1)
     const videoContainerRef = useRef(null)
 
     const pageCallback = useCallback(()=>{
@@ -133,7 +133,6 @@ const ChannelPage = ():React.JSX.Element => {
     }
 
     const currentUser = params.channelName ? channelData.channelUserDetail : null
-    //const checkUserAsChannel = (user?.username === channelData.channelUserDetail?.username)? true:false;
 
     
     async function toggleSubscription(par1:string,par2?:string):Promise<void>{
@@ -203,9 +202,12 @@ const ChannelPage = ():React.JSX.Element => {
             </div>
     }
 
+    console.log(openEditVideoOverLay)
+    console.log(openCreatePlaylistOverLay);
+
   return (
     <React.Fragment>
-    {openCreatePlaylistOverLay===false&&<div>
+    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay==false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay)&&'h-dvh overflow-hidden'}`}>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
                 {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
@@ -253,8 +255,9 @@ const ChannelPage = ():React.JSX.Element => {
         ref={videoContainerRef}
         style={{ height: "20px" }}/>
         <OverLayDialouge/>
-    </div>}
+        </div>:<div className='overflow-hidden h-dvh'></div>}
         {openCreatePlaylistOverLay===true&& <OpenPlaylistModal />}
+        {openEditVideoOverLay===true&&<OpenVideoModal/>}
         </React.Fragment>
 
   )

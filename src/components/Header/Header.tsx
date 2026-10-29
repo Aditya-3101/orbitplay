@@ -59,14 +59,14 @@ export const Header:React.FC = () => {
             onClick={toggleAccountBar}/>}
             <div className={` ${!currentAccountBarStatus&&"hidden"} absolute flex flex-col top-[110%] left-[-100%] md:left-0 bg-[rgba(0,0,0,0.9)] 
             [&_a]:border [&_a]:border-gray-200 [&_div]:border [&_div]:border-gray-200 font-roboto z-10`}>
-                <Link to={`/upload`} className='text-gray-300 bg-black px-4 py-1'>Upload</Link>
-                <Link to={`/Account`} className='text-gray-300 bg-black px-4 py-1'>My Account</Link>
-                <Link to={`/my-posts`} className='text-gray-300 bg-black px-4 py-1'>My Posts</Link>
-                <Link to={`/subscriptions`} className='text-gray-300 bg-black px-4 py-1'>Subscriptions</Link>
-                <Link to={`/Liked-videos`} className='text-gray-300 bg-black px-4 py-1'>Liked Videos</Link>
-                <Link to={`/history`} className='text-gray-300 bg-black px-4 py-1'>Watch history</Link>
-                <Link to={`/settings`} className='text-gray-300 bg-black px-4 py-1'>Settings</Link>
-                <div className='text-gray-300 bg-black px-4 py-1 cursor-pointer' aria-label="logout button" onClick={logOutSession}>Logout</div>
+                <Link to={`/upload`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>Upload</Link>
+                <Link to={`/Account`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>My Account</Link>
+                <Link to={`/my-posts`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>My Posts</Link>
+                <Link to={`/subscriptions`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>Subscriptions</Link>
+                <Link to={`/Liked-videos`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>Liked Videos</Link>
+                <Link to={`/history`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>Watch history</Link>
+                <Link to={`/settings`} className='text-gray-300 bg-black px-4 py-1 hover:bg-[#222]'>Settings</Link>
+                <div className='text-gray-300 bg-black px-4 py-1 cursor-pointer hover:bg-[#222]' aria-label="logout button" onClick={logOutSession}>Logout</div>
             </div>
         </div>
     </nav>

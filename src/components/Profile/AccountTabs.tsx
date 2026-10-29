@@ -59,7 +59,6 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
     const dispatch = useDispatch()
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
-    // const openEditVideoOverLay = useSelector((state:RootState)=>state.toggle.editVideoOverlay)
     const location = useLocation()
 
     const { mutate: togglePublish } = useToggleVideoPublish();
@@ -84,6 +83,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
 
     function onEditVideo(e:React.MouseEvent,meta:VideoType){
         e.preventDefault();
+        console.log(meta)
         dispatch(selectedVideo(meta))
         dispatch(toggleEditVideoOverlay())
     }

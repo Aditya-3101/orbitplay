@@ -12,7 +12,7 @@ import {Link} from 'react-router'
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import {resetChannelVideos,resetChannelUser} from '../../app/slices/channelSlice.ts';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
-import {messageModal, openAccountBar, toggleCreatePlaylistOverlay,toggleEditVideoOverlay} from '../../app/slices/toggleSlice.ts'
+import {messageModal, openAccountBar, toggleCreatePlaylistOverlay} from '../../app/slices/toggleSlice.ts'
 import { useAccountVideos } from '../../features/Accounts/accounts.queries.ts';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
 import {OpenVideoModal} from './OpenVideoEditModal.tsx'
@@ -41,9 +41,7 @@ interface playlistDetailType{
 const Account = ():React.JSX.Element => {
 
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
-
     const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(user?._id)
-
     const channelData = useSelector((state:RootState)=>state.channel)
 
     const [loading,setLoading] = useState({
