@@ -47,3 +47,21 @@ Port 5173 is in use, trying another one...
 6:28:03 PM [vite] (client) hmr update /src/index.css, /src/components/Main/VideoCard_v2.tsx
 6:32:42 PM [vite] (client) hmr update /src/components/Main/Player.tsx, /src/index.css
 6:33:43 PM [vite] (client) page reload src/Constants.ts
+
+> yttube@1.5.0 dev
+> vite
+
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+
+  VITE v8.0.0  ready in 1429 ms
+
+  ➜  Local:   http://localhost:5175/
+  ➜  Network: use --host to expose
+6:44:59 PM [vite] (client) page reload src/Constants.ts
+6:45:23 PM [vite] (client) hmr update /src/components/Profile/Channel.tsx, /src/index.css
+6:46:19 PM [vite] (client) hmr update /src/components/Profile/Channel.tsx, /src/index.css
+6:46:46 PM [vite] (client) hmr update /src/components/Profile/Channel.tsx, /src/index.css
+6:47:17 PM [vite] (client) hmr update /src/components/Profile/Channel.tsx, /src/index.css
+6:49:24 PM [vite] (client) page reload src/Constants.ts
+6:49:58 PM [vite] (client) hmr update /src/components/Profile/Account.tsx, /src/index.css

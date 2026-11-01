@@ -17,6 +17,7 @@ import OverLayDialouge from '../Layouts/OverLayDialouge.tsx';
 import { convertImageExtension } from '../../utility/covertImageFormat.ts';
 import { OpenVideoModal } from './OpenVideoEditModal.tsx';
 import { OpenPlaylistModal } from './OpenPlaylistModal.tsx';
+import { OpenDeleteVideoModal } from './OpenDeleteVideoModal.tsx';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -53,8 +54,8 @@ const ChannelPage = ():React.JSX.Element => {
     const channelData = useSelector((state:RootState)=>state.channel)
     const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(channelData.channelUserDetail?._id)
 
-    const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay);
-    const openEditVideoOverLay = useSelector((state:RootState)=>state.toggle.editVideoOverlay)
+    // const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay);
+    const {deleteVideoOverlay,editVideoOverlay:openEditVideoOverLay,createPlaylistOverlay:openCreatePlaylistOverLay} = useSelector((state:RootState)=>state.toggle)
     const [loading,setLoading] = useState({
         profile:false,
     })
@@ -144,7 +145,7 @@ const ChannelPage = ():React.JSX.Element => {
 
   return (
     <React.Fragment>
-    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay==false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay)&&'h-dvh overflow-hidden'}`}>
+    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay==false&&deleteVideoOverlay===false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
                 {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
@@ -195,6 +196,7 @@ const ChannelPage = ():React.JSX.Element => {
         </div>:<div className='overflow-hidden h-dvh'></div>}
         {openCreatePlaylistOverLay===true&& <OpenPlaylistModal />}
         {openEditVideoOverLay===true&&<OpenVideoModal/>}
+        {deleteVideoOverlay===true&&<OpenDeleteVideoModal/>}
         </React.Fragment>
 
   )

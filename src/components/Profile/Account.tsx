@@ -129,7 +129,7 @@ const Account = ():React.JSX.Element => {
 
   return (
     <React.Fragment>
-    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay===false&&deleteVideoOverlay===false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay)&&'h-dvh overflow-hidden'}`}>
+    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay===false&&deleteVideoOverlay===false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
     
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
