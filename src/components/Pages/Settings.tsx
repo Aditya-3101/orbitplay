@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { openAccountBar } from '../../app/slices/toggleSlice';
 import {clearUser} from '../../app/slices/userSlice'
-import { api } from '../../api/AxiosInstance.ts
+import { api } from '../../api/AxiosInstance.ts';
 
 const Settings = ():React.JSX.Element => {
 
