@@ -67,7 +67,7 @@ const Player:React.FC = () => {
                 "videoId":vidId
             })
             if(request.status==200) {
-                console.log("video is added into watch history")
+                //console.log("video is added into watch history")
             }
         } catch (error) {
             console.log(error)

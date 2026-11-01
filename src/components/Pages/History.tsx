@@ -76,7 +76,6 @@ const History:React.FC = () => {
 
       setSortWatchHistory(globalArr)
     }
-
   return (
     <div>
       <div className='w-full mx-auto bg-[rgba(0,0,0,0.9)]'>
@@ -85,7 +84,7 @@ const History:React.FC = () => {
         <div className='w-full'>
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<SectionHeader title="Today" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.today.length!==0)&&<div>
-          {sortWatchHistory.today.map((par,index)=>{
+          {sortWatchHistory?.today.map((par,index)=>{
             return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
               <VideoCard_v2 data={par.video} index={index} />
             </Link>
@@ -96,7 +95,7 @@ const History:React.FC = () => {
           <div className='w-full'>
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<SectionHeader title="Yesterday" size="text-base md:text-lg" />}
           {(sortWatchHistory&&sortWatchHistory.yesterday.length!==0)&&<div>
-          {sortWatchHistory.yesterday.map((par,index)=>{
+          {sortWatchHistory?.yesterday.map((par,index)=>{
             return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
               <VideoCard_v2 data={par.video} index={index} />
             </Link>
@@ -109,9 +108,9 @@ const History:React.FC = () => {
             Object.entries(sortWatchHistory.remaining).reverse().map(([label,arr])=>(
               <div key={label}>
                 <SectionHeader title={label} size="text-base md:text-lg" />
-                {arr&&arr?.map((par,index)=>{
+                {arr!==undefined&&arr?.map((par,index)=>{
                   return<Link to={`/v/${par.video._id}`} key={index} className='w-full block bg-[rgb(5,5,5)]'>
-                    <VideoCard_v2 data={par.video} />
+                    <VideoCard_v2 data={par.video} index={index} />
                   </Link>
                 })}
               </div>
