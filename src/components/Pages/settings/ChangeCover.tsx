@@ -2,7 +2,7 @@ import React,{useState,useRef} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { RootState } from '../../../app/store/store.ts';
 import { updateUserCover } from '../../../app/slices/userSlice.ts';
-import { api } from '../../../api/AxiosInterceptor';
+import { api } from '../../../api/AxiosInstance.ts';
 
 export const ChangeCover = ():React.JSX.Element => {
     const user = useSelector((state:RootState)=>state.user.userTemp);

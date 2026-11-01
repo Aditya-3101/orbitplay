@@ -1,5 +1,5 @@
 import React,{useEffect, useRef, useState} from 'react';
-import { useParams,useNavigate } from 'react-router';
+import { useParams,useNavigate,Link } from 'react-router-dom';
 import { useSelector,useDispatch, shallowEqual } from 'react-redux';
 import { saveTheVideo } from '../../app/thunks/videothunk.ts';
 import { RootState } from '../../app/store/store.ts';
@@ -10,11 +10,10 @@ import type {AppDispatch} from '../../app/store/store.ts';
 import { format } from 'date-fns';
 import { MoreVids } from './MoreVids.tsx';
 import OverLayDialouge from '../Layouts/OverLayDialouge.tsx'
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
-import { Link } from 'react-router-dom';
 
 const Player:React.FC = () => {
     const {videoId} = useParams()
@@ -106,7 +105,7 @@ const Player:React.FC = () => {
         }
     }
 
-    if(error!==null){
+    if(error){
         return<ErrorPage msg="video" />
     }
 
@@ -120,7 +119,7 @@ const Player:React.FC = () => {
         {(video&&!loading)&&<div className='aspect-video bg-[rgba(20,20,20,0.9)]'>
         {video.videoFile&&<video src={video.videoFile} poster={video.thumbnail} controls={true} onPlay={()=>trackUserPlay(video._id)} controlsList='nodownload' className='aspect-video w-full'/>}
         <p className='p-2 flex justify-between'>
-            <span className='font-poppins text-xl text-slate-200'>{video.title}</span>
+            <span data-testid="video-title" className='font-poppins text-xl text-slate-200'>{video.title}</span>
             {/* <span className='text-slate-200'>{video.video?.views} views</span> */}
         </p>
         {(uploadedDate!==undefined&&!loading)&&<VideoMenu uploadTime={uploadedDate}/>}

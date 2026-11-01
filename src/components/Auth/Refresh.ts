@@ -1,6 +1,6 @@
 import { addUserDetails,setAuthLoading } from "../../app/slices/userSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { api } from "../../api/AxiosInterceptor.ts";
+import { api } from "../../api/AxiosInstance.ts";
 
 export const refreshUser = async (dispatch: Dispatch<UnknownAction>):Promise<void> => {
 

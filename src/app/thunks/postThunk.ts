@@ -1,4 +1,4 @@
-import { api } from "../../api/AxiosInterceptor.ts";
+import { api } from "../../api/AxiosInstance.ts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUserPosts = createAsyncThunk(

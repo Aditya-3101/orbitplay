@@ -1,4 +1,4 @@
-import { api } from "../../api/AxiosInterceptor.ts";
+import { api } from "../../api/AxiosInstance.ts";
 import type {videosFromChannelInterface,videoObjectResponse,userSubscriptionsResponse,SubscriptionGroup} from './subscriptions.types.ts'
 
 

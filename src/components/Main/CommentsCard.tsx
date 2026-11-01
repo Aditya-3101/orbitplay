@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { timeAgo } from '../../utility/timeStamp.ts';
 import { EllipsisVertical, Heart, Pencil, Trash } from 'lucide-react';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState} from "../../app/store/store.ts"
 import {updateIsLikedBy,deletePostById} from '../../app/slices/postSlice.ts'
@@ -181,9 +181,9 @@ export const CommentsCard:React.NamedExoticComponent<commentsInterfaceDocs> = Re
                         <span>{timeAgo(post.createdAt)}</span>
                     <div className='blank relative'>
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-5' onClick={toggleOptions} />
-                        {options&&<section className='absolute top-[110%] right-full border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)] rounded'>
-                        <p className='flex items-center gap-1 cursor-pointer border-b border-gray-400 w-full' onClick={()=>handleEditClick(post)}><Pencil className='w-3 h-[12x]' />Edit</p>
-                        <p onClick={()=>deletePost(post._id)} className='flex items-center gap-1 cursor-pointer'><Trash className='w-3 h-[12x]' />Delete</p>
+                        {options&&<section className='absolute top-[110%] right-full border border-gray-600 flex flex-col items-start bg-[rgb(0,0,0)] px-'>
+                        <p className='flex items-center gap-1 cursor-pointer border-b border-gray-400 w-full hover:bg-[#222] px-1' onClick={()=>handleEditClick(post)}><Pencil className='w-3 h-[12x]' />Edit</p>
+                        <p onClick={()=>deletePost(post._id)} className='w-full flex items-center gap-1 cursor-pointer hover:bg-[#222] px-1'><Trash className='w-3 h-[12x]' />Delete</p>
                     </section>}
                     </div>
                     </div>
@@ -209,8 +209,6 @@ export const CommentsCard:React.NamedExoticComponent<commentsInterfaceDocs> = Re
                     {currentUser===chPosts.owner._id&&<div className='blank relative'>
                         <EllipsisVertical color="rgba(240,240,240)" className='cursor-pointer w-4 h-[16px]lg:w-[20px] lg:h-[20px]' onClick={toggleOptions} />
                         {options&&<section className='absolute top-[110%] right-[100%] border border-gray-600 flex flex-col items-start px-1 bg-[rgb(0,0,0)]'>
-                        {/* <p className='flex items-center gap-1' onClick={()=>onEdit(chPosts)}><Pencil className='w-3 h-[12x] cursor-pointer' />Edit</p> */}
-                        {/* <p onClick={()=>deleteComment(chPosts._id)} className='flex items-center gap-1'><Trash className='w-3 h-[12px] cursor-pointer' />Delete</p> */}
                     </section>}
                     </div>}</div>
                     <p className='blank'></p>

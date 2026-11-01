@@ -1,4 +1,4 @@
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import type {videoDataType,GetVideosResponse} from './videos.types.ts'
 
 export async function fetchHomeVideos(par:number): Promise<videoDataType>{

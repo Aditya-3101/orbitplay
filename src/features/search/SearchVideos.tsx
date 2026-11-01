@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Search} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
-import { api } from "../../api/AxiosInterceptor";
+import { api } from "../../api/AxiosInstance.ts";
 import type { searchResponseType,allVideoTypes } from "./searchResponse.types.ts";
 import { convertImageExtension } from "../../utility/covertImageFormat.ts";
 

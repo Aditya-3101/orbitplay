@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { RootState } from '../../../app/store/store.ts'
-import { api } from '../../../api/AxiosInterceptor.ts'
+import { api } from '../../../api/AxiosInstance.ts'
 import {updateUserAvatar} from '../../../app/slices/userSlice.ts'
 
 export const ChangeAvatar = ():React.JSX.Element => {

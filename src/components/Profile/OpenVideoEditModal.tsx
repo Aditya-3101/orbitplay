@@ -27,11 +27,14 @@ export function OpenVideoModal():React.JSX.Element{
 
         const {mutate,isPending} = useMutation({
             mutationFn:updateVideoDetails,
-            onSuccess:()=>{
-                dispatch(()=>dispatch(toggleEditVideoOverlay()))
-                return queryClient.invalidateQueries({
-                    queryKey:['videos']
-                })
+            onSuccess:async()=>{
+                dispatch(toggleEditVideoOverlay())
+                await Promise.all( 
+                    [
+                        queryClient.invalidateQueries({queryKey:['channelVideos'],}),
+                        queryClient.invalidateQueries({queryKey:['video',selectedVideoForEdit?._id]})
+                    ]
+                )
             }
         });
         
@@ -68,9 +71,7 @@ export function OpenVideoModal():React.JSX.Element{
 
         const handleDivClick = () => {
             fileInputRef.current?.click();
-        };
-
-        
+        };  
         
         function updateVideo(event: React.MouseEvent<HTMLButtonElement>): void|null {
             event.preventDefault();
@@ -95,8 +96,8 @@ export function OpenVideoModal():React.JSX.Element{
                     <span className='border border-gray-400 rounded-lg cursor-pointer'><X onClick={closeEditVideoOverlay} /></span>
                 </p>
                 {updateError&&<div className='border border-red-700 p-2 text-gray-300 my-2'>{updateError}</div>}
-                <div>
-                    <div className="w-[90%] mx-auto grid grid-cols-[35%_65%] gap-0.5 items-stretch">
+                <div className="w-[90%]">
+                    <div className="w-full mx-auto grid grid-cols-[35%_65%] gap-0.5 items-stretch">
                         <div className='relative object-center rounded-2xl'>
                         {!selectedVideoDetails.updatedVideoThumbnail&&<img src={selectedVideoForEdit.thumbnail} className='w-full h-full object-contain' alt={selectedVideoForEdit.title} />}
                         {selectedVideoDetails.updatedVideoThumbnail&&<img src={URL.createObjectURL(selectedVideoDetails.updatedVideoThumbnail)} className='w-full h-full object-contain' alt={selectedVideoDetails.videoTitle} />}

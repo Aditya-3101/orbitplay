@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
-import { api } from "../../api/AxiosInterceptor";
+import { api } from "../../api/AxiosInstance.ts";
 import { getApiErrorMessage } from "../../utility/axiosError.ts";
 
 

@@ -3,7 +3,7 @@ import { useParams,Link } from 'react-router'
 import { SectionHeader } from '../../Header/sectionHeader.tsx'
 import { VideoCard_v2 } from '../../Main/VideoCard_v2.tsx'
 import VideoCard_v2_skeleton from '../../Main/VideoCard_v2_skeleton.tsx'
-import { api } from '../../../api/AxiosInterceptor.ts'
+import { api } from '../../../api/AxiosInstance.ts'
 import {PlaylistErrorCard} from './PlaylistErrorCard.tsx'
 
 

@@ -85,7 +85,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,onEdit,inde
                             {par.isPublished?"Private":"Public"}</button>
                          <button onClick={(e)=>onEdit?.(e,par)} className='w-full flex items-center gap-2 p-1 cursor-pointer border-b border-gray-400 text-xs md:text-base hover:bg-[#444]'>
                             <Pencil className='w-3 h-3 lg:w-4 lg:h-4' />Edit</button>
-                        <p onClick={(e)=>onDelete?.(e,par._id)} className='w-full flex items-center gap-2 p-1 cursor-pointer text-xs md:text-base hover:bg-[#444]'>
+                        <p onClick={(e)=>onDelete?.(e,par)} className='w-full flex items-center gap-2 p-1 cursor-pointer text-xs md:text-base hover:bg-[#444]'>
                             <Trash className='w-3 h-3 lg:w-4 lg:h-4' />Delete</p>
                         </section>}
                     </div>}

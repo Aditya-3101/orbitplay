@@ -1,0 +1,13 @@
+
+> yttube@1.4.8 dev
+> vite
+
+
+  VITE v8.0.0  ready in 1118 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+4:55:06 PM [vite] (client) hmr update /src/components/Main/Player.tsx, /src/index.css
+4:55:16 PM [vite] (client) hmr update /src/components/Main/Player.tsx, /src/index.css
+5:31:26 PM [vite] (client) hmr update /src/index.css, /src/components/Main/VideoCard.tsx
+5:43:48 PM [vite] (client) page reload src/Constants.ts

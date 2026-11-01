@@ -1,6 +1,5 @@
-import { api } from "../../api/AxiosInterceptor"
-import type { GetChannelVideosResponse ,updatedVideoResponseType, requestedEditVideoParamType} from "./accounts.types.ts"
-
+import { api } from "../../api/AxiosInstance.ts"
+import type { GetChannelVideosResponse ,updatedVideoResponseType, requestedEditVideoParamType,deleteVideoParamType} from "./accounts.types.ts"
 
 export async function getChannelVideos(pageNum:number,userId?:string):Promise<GetChannelVideosResponse>{
     const request = await api.get<GetChannelVideosResponse>(`/videos/channel?Page=${pageNum}&userId=${userId}`)
@@ -20,4 +19,10 @@ export async function updateVideoDetails({updatedThumbnail=null,videoId,videoTit
     });
 
     return request.data;
+}
+
+export async function deletedVideoDetails({videoId}:deleteVideoParamType){
+    const request = await api.delete(`/videos/${videoId}`);
+
+    return request.data
 }

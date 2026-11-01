@@ -7,7 +7,7 @@ import {getUserPosts} from '../../app/thunks/postThunk.ts'
 import type { AppDispatch } from "../../app/store/store.ts"
 import { SectionHeader } from '../Header/sectionHeader.tsx'
 import { messageModal, openAccountBar } from '../../app/slices/toggleSlice.ts'
-import { api } from '../../api/AxiosInterceptor.ts'
+import { api } from '../../api/AxiosInstance.ts'
 import {updateUserPost} from '../../app/slices/postSlice.ts'
 import { ErrorPage } from './ErrorPage.tsx'
 
@@ -142,7 +142,7 @@ const Posts = ():React.JSX.Element => {
                 <textarea className='w-full border border-gray-400 text-[#f1f1f1] resize-y min-h-10 md:min-h-20 max-h-20 md:max-h-30 p-1' autoCorrect='false' value={userComment} name="userComment" placeholder='Express your thoughts....' onChange={postHandler} />
             </div>
             <div className='ml-auto py-2'>
-                <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline' onClick={cancelChanges}>Cancel</button>
+                <button className='font-sans mr-2 px-2 py-0.5 text-[#f1f1f1d0] rounded outline cursor-pointer' onClick={cancelChanges}>Cancel</button>
                 {currentlyEditing===null&&<button className='font-sans bg-[#f1f1f1d0] ml-2 px-2 py-0.5 rounded cursor-pointer' disabled={userComment.length!==0?false:true} onClick={submitPost}>Post</button>}
                 {currentlyEditing!==null&&<button className='font-sans bg-[#f1f1f1d0] ml-2 px-2 py-0.5 rounded cursor-pointer' disabled={userComment.length!==0?false:true} onClick={updatePost}>Update</button>}
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { api } from '../../../api/AxiosInterceptor'
+import { api } from '../../../api/AxiosInstance.ts'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../app/store/store.ts'
 import {updateUserAccount} from '../../../app/slices/userSlice.ts'

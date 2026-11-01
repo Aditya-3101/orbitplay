@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 import {useDispatch} from 'react-redux';
 import {addUserDetails} from '../../app/slices/userSlice.ts';
 import { useNavigate,useLocation } from 'react-router';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import { ErrorPage } from '../Pages/ErrorPage.tsx';
 import WarningSignLogo from '../../assets/incorrect.svg'
 import {isAxiosError} from 'axios';

@@ -14,6 +14,8 @@ export interface Video {
   isPublished: boolean;
   createdAt: string;
   updatedAt: string;
+  __v?:number
+  subscriberCount?:number
 }
 
 export interface videoDataType{

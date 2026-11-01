@@ -4,7 +4,7 @@ import { RootState } from '../../app/store/store.ts';
 import { useSelector, useDispatch } from 'react-redux';
 import { ChevronDown, ChevronUp, Link, ListPlus, ThumbsUp } from 'lucide-react';
 import {messageModal} from '../../app/slices/toggleSlice.ts'
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import { isAxiosError } from 'axios';
 
 interface playlistType{

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { X } from 'lucide-react';
 import { Link } from 'react-router';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 
 interface userFormType{
   username:string,

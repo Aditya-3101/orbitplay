@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from '../../app/store/store.ts';
 import { useParams } from 'react-router';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import {ChevronDown,ChevronUp} from 'lucide-react';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import { CommentsCard } from './CommentsCard.tsx';
 import { getVideoComments } from '../../app/thunks/CommentThunk.ts';
 import { messageModal } from '../../app/slices/toggleSlice.ts';

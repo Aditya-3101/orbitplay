@@ -5,11 +5,9 @@ import { VideoCard_v2 } from '../Main/VideoCard_v2';
 import { CommentsCard } from '../Main/CommentsCard.tsx'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
-import { api } from '../../api/AxiosInterceptor';
 import { useDispatch, useSelector } from 'react-redux';
-import { messageModal,openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay } from '../../app/slices/toggleSlice';
+import { openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay,toggleDeleteVideoOverlay } from '../../app/slices/toggleSlice';
 import {selectedVideo} from '../../app/slices/videoSlice.ts'
-import {deleteVideo} from '../../app/slices/channelSlice'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
@@ -67,23 +65,14 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
         setDefaultTab(e.currentTarget.name)
     }
 
-    async function onDeleteVideo(e:React.MouseEvent,arg:string):Promise<void>{
-        e.preventDefault()
-        try {
-            const req = await api.delete(`/videos/${arg}`)
-            if(req.status===200) {
-                dispatch(messageModal("Video Delete Successfully"))
-                dispatch(deleteVideo(arg))
-            }
-        } catch (error) {
-            //console.log(error)
-            dispatch(messageModal("something went wrong while deleting the video"))
-        }
+    function onDeleteVideo(e:React.MouseEvent,arg:string){
+        e.preventDefault();
+        dispatch(selectedVideo(arg))
+        dispatch(toggleDeleteVideoOverlay())
     }
 
     function onEditVideo(e:React.MouseEvent,meta:VideoType){
         e.preventDefault();
-        //console.log(meta)
         dispatch(selectedVideo(meta))
         dispatch(toggleEditVideoOverlay())
     }

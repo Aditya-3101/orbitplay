@@ -1,7 +1,7 @@
-import axios, { AxiosInstance } from "axios";
-import { host } from "../Constants.ts";
 import {store} from '../app/store/store.ts';
 import { clearUser } from "../app/slices/userSlice.ts";
+import { api } from './AxiosInstance.ts';
+
 
 interface refreshTokenResponse{
     statusCode: number,
@@ -29,10 +29,10 @@ interface refreshTokenResponse{
     success: number
 }
 
-export const api:AxiosInstance = axios.create({
-    baseURL:`${host}/api/v1`,
-    withCredentials:true,
-})
+// export const api:AxiosInstance = axios.create({
+//     baseURL:`${host}/api/v1`,
+//     withCredentials:true,
+// })
 
 let refreshPromise: Promise<void> | null = null;
 

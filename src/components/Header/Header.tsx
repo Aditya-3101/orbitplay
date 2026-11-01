@@ -5,7 +5,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import { RootState } from '../../app/store/store.ts';
 import {toggleSideBar,openAccountBar} from '../../app/slices/toggleSlice.ts'
 import {clearUser} from '../../app/slices/userSlice.ts'
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import Logo from '../../assets/logo.svg'
 import { SearchVideos } from '../../features/search/SearchVideos.tsx';
 import {convertImageExtension} from '../../utility/covertImageFormat.ts'

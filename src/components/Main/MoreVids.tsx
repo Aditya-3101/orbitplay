@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { VideoCard } from './VideoCard';
-import { api } from '../../api/AxiosInterceptor';
+import { api } from '../../api/AxiosInstance.ts';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import VideoCard_v2_skeleton from './VideoCard_v2_skeleton.tsx';

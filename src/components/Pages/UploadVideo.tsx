@@ -1,6 +1,6 @@
 import React,{useEffect, useRef, useState} from 'react';
 import { X } from 'lucide-react';
-import { api } from '../../api/AxiosInterceptor';
+import { api } from '../../api/AxiosInstance.ts';
 import { useDispatch } from 'react-redux';
 import { messageModal, openAccountBar } from '../../app/slices/toggleSlice.ts';
 

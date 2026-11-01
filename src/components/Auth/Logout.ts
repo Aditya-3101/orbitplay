@@ -1,4 +1,4 @@
-import { api } from "../../api/AxiosInterceptor"
+import { api } from "../../api/AxiosInstance.ts"
 
 export async function logOutSession(param):Promise<void>{
     try {

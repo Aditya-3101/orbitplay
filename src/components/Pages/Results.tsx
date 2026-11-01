@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx'
 import { Link } from 'react-router'
 import {messageModal} from "../../app/slices/toggleSlice.ts"
-import { api } from '../../api/AxiosInterceptor.ts'
+import { api } from '../../api/AxiosInstance.ts'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.tsx'
 import { emptyArr } from '../../utility/emptyArrays.ts'

@@ -1,4 +1,4 @@
-import { api } from "../../api/AxiosInterceptor";
+import { api } from "../../api/AxiosInstance.ts";
 import {videoPublishToggleType} from './publish.types.ts'
 
 export async function toggleVideoPublish(videoId: string) {

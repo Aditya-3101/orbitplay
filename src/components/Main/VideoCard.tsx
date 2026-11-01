@@ -1,5 +1,5 @@
 import React,{memo} from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { getVideoDuration } from '../../utility/videoDuration';
 import {convertImageExtension} from '../../utility/covertImageFormat.ts'
 import { timeAgo } from '../../utility/timeStamp.ts';
@@ -44,7 +44,7 @@ export const VideoCard = memo(({data,index}:videoCardProps):React.JSX.Element =>
     return (
     <div className='w-full h-full md:my-0'>
         <div className='bg-[rgb(20,20,20)] border-gray-500 w-[96%] h-full mx-auto cursor-pointer'>
-            <Link className='relative' to={`/v/${_id}`}>            
+            <Link data-testid="videoCard-nav-link" className='relative block' to={`/v/${_id}`}>            
             <img src={convertImageExtension(thumbnail,640)} 
             className='object-cover aspect-video w-full' 
             loading={index<6?'eager':'lazy'} 
@@ -67,11 +67,11 @@ export const VideoCard = memo(({data,index}:videoCardProps):React.JSX.Element =>
             </Link>
                 <div className='grid grid-cols-[100%] w-full relative'>
                     <Link to={`/v/${_id}`}>
-                    <span className="font-roboto text-white text-lg md:text-base leading-6 md:leading-5 line-clamp-2 h-12 md:h-10 overflow-hidden flex items-center">{title}</span>
+                    <span data-testid="videoCard-video-title" className="font-roboto text-white text-lg md:text-base leading-6 md:leading-5 line-clamp-2 h-12 md:h-10 overflow-hidden flex items-center">{title}</span>
                     </Link>
                     <p className='flex flex-col pr-1'>
-                    <Link className='text-slate-400 md:text-sm tracking-wide' to={`/Channel/${owner.username}`}>{owner?.fullName}</Link>
-                    <span className='text-slate-400 text-sm md:text-sm flex items-center '>{views} views • {timeAgo(createdAt)}</span>
+                    <Link data-testid="videoCard-video-owner" className='text-slate-400 md:text-sm tracking-wide' to={`/Channel/${owner.username}`}>{owner?.fullName}</Link>
+                    <span data-testid="videoCard-video-meta" className='text-slate-400 text-sm md:text-sm flex items-center '>{views} views • {timeAgo(createdAt)}</span>
                     </p>
                 </div>
             </div>

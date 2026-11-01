@@ -3,7 +3,7 @@ import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
 import { dateAgo } from '../../utility/timeStamp.ts';
 import { Link } from 'react-router';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 import { ErrorPage } from './ErrorPage.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';

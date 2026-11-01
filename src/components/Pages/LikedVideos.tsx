@@ -2,7 +2,7 @@
 import React,{useState,useEffect} from 'react';
 import { SectionHeader } from '../Header/sectionHeader.tsx';
 import { VideoCard_v2 } from '../Main/VideoCard_v2.tsx';
-import { api } from '../../api/AxiosInterceptor.ts';
+import { api } from '../../api/AxiosInstance.ts';
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton.tsx';
 import { emptyArr } from '../../utility/emptyArrays.ts';
 import { ErrorPage } from './ErrorPage.tsx';

@@ -59,4 +59,8 @@ export interface updatedVideoResponseType{
     },
   message: string,
   success: number
- }
+}
+
+export interface deleteVideoParamType{
+  videoId:string
+}
