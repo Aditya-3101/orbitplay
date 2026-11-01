@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# OrbitPlay 🎬
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A video streaming platform built to explore and experience modern web development.**
 
-Currently, two official plugins are available:
+OrbitPlay is a video-streaming web application where users can discover videos, manage their channels, interact with content, and enjoy a personalized viewing experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project focuses on building a complete video platform with a responsive interface, user authentication, video management, and interactive features.
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Video Streaming** – Browse and watch uploaded videos.
+- **User Authentication** – Secure account registration and login.
+- **Channel Management** – Manage your personal channel and uploaded content.
+- **Video Management** – Upload videos, update video details, and manage publishing status.
+- **Subscriptions** – Subscribe to channels and manage subscriptions.
+- **Watch History** – Keep track of previously watched videos.
+- **Liked Videos** – Access videos you've liked.
+- **Search** – Discover videos through search.
+- **Comments** – Interact with videos through comments.
+- **User Profiles** – Manage account information and personal settings.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Frontend**
+- React
+- TypeScript
+- Tailwind CSS
+- Redux Toolkit
+- TanStack Query
+- React Router
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Backend**
+- Node.js
+- Express.js
+- MongoDB
+- REST APIs
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Other Tools & Services**
+- Cloudinary
+- Vercel
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🌐 Project Links
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Live Application:** https://orbitplay.vercel.app
+- **Backend API:** https://orbitplay-api.vercel.app
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎯 Project Purpose
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+OrbitPlay is a personal development project built to strengthen my understanding of modern frontend development and full-stack application architecture.
+
+It has been an opportunity to work with React, TypeScript, state management, asynchronous data fetching, REST API integration, authentication, and real-world application workflows.
+
+---
+
+<p align="center">
+  **OrbitPlay — Your videos, your space.**
+</p>
