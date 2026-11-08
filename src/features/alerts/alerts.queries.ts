@@ -28,9 +28,6 @@ export function useToggleVideoPublish() {
                         };
                 }
             )
-
-            // update cache here
-            //dispatch(updateVideoVisibility(updatedVideo.data.data));
             dispatch(messageModal(`Video is now set to ${updatedVideo.isPublished===true?"Public":"Private"}`))
         },
 

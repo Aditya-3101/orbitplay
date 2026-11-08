@@ -18,6 +18,7 @@ import { convertImageExtension } from '../../utility/covertImageFormat.ts';
 import { OpenVideoModal } from './OpenVideoEditModal.tsx';
 import { OpenPlaylistModal } from './OpenPlaylistModal.tsx';
 import { OpenDeleteVideoModal } from './OpenDeleteVideoModal.tsx';
+import { OpenVisibilityModal } from './OpenVisibilityModal.tsx';
 
 interface subscriptionSuccessType{
     subscriber: string,
@@ -53,9 +54,7 @@ const ChannelPage = ():React.JSX.Element => {
     const user:userType | null = useSelector((state:RootState)=>state.user.userTemp)
     const channelData = useSelector((state:RootState)=>state.channel)
     const {data,error,fetchNextPage,isLoading,hasNextPage,isFetchingNextPage} = useAccountVideos(channelData.channelUserDetail?._id)
-
-    // const openCreatePlaylistOverLay = useSelector((state:RootState)=>state.toggle.createPlaylistOverlay);
-    const {deleteVideoOverlay,editVideoOverlay:openEditVideoOverLay,createPlaylistOverlay:openCreatePlaylistOverLay} = useSelector((state:RootState)=>state.toggle)
+    const {deleteVideoOverlay,editVideoOverlay:openEditVideoOverLay,createPlaylistOverlay:openCreatePlaylistOverLay,visibilityVideoOverlay} = useSelector((state:RootState)=>state.toggle)
     const [loading,setLoading] = useState({
         profile:false,
     })
@@ -88,7 +87,6 @@ const ChannelPage = ():React.JSX.Element => {
     useEffect(()=>{
             if(channelData.channelUserDetail?._id!==null&&channelData.channelUserDetail?._id!==undefined) {
                 dispatch(getChannelPlaylist({userId:channelData.channelUserDetail._id}))
-                //dispatch(getChannelVideos({pageNum:page,userId:channelData.channelUserDetail._id}))
                 dispatch(getChannelPosts({userId:channelData.channelUserDetail._id}))
             }
     },[channelData.channelUserDetail?._id,dispatch])
@@ -121,7 +119,7 @@ const ChannelPage = ():React.JSX.Element => {
         fetchData()
     },[params.channelName,dispatch])
 
-    if(channelData.error!==null||error){
+    if(channelData.error||error){
         return<ErrorPage msg="Channel Details"/>
     }
 
@@ -143,9 +141,17 @@ const ChannelPage = ():React.JSX.Element => {
         }
     }
 
+    function precheckModalStatus(){
+        if(openCreatePlaylistOverLay===false&&openEditVideoOverLay===false&&deleteVideoOverlay===false&&visibilityVideoOverlay===false){
+            return true
+        }
+
+        return false;
+    }
+
   return (
     <React.Fragment>
-    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay==false&&deleteVideoOverlay===false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
+    {precheckModalStatus()?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
                 {(!loading.profile&&currentUser?.coverImage)&&<img src={convertImageExtension(currentUser?.coverImage,720)} className='aspect-[16/6] object-cover w-full md:w-[96%] md:aspect-[16/4] md:mx-auto' />}
@@ -197,6 +203,7 @@ const ChannelPage = ():React.JSX.Element => {
         {openCreatePlaylistOverLay===true&& <OpenPlaylistModal />}
         {openEditVideoOverLay===true&&<OpenVideoModal/>}
         {deleteVideoOverlay===true&&<OpenDeleteVideoModal/>}
+        {visibilityVideoOverlay===true&&<OpenVisibilityModal/>}
         </React.Fragment>
 
   )

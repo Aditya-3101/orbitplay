@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../app/store/store.ts'
 import { toggleDeleteVideoOverlay } from '../../app/slices/toggleSlice.ts';
@@ -23,6 +23,10 @@ export const OpenDeleteVideoModal = () => {
       )
     }
   })
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   
 
   function closeEditVideoOverlay():void{

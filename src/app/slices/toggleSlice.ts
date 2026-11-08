@@ -6,7 +6,8 @@ interface initialStateInterface {
     accountOptionToggle:boolean,
     createPlaylistOverlay:boolean,
     editVideoOverlay:boolean,
-    deleteVideoOverlay:boolean
+    deleteVideoOverlay:boolean,
+    visibilityVideoOverlay:boolean
 }
 
 const initialState:initialStateInterface = {
@@ -15,7 +16,8 @@ const initialState:initialStateInterface = {
     accountOptionToggle:false,
     createPlaylistOverlay:false,
     editVideoOverlay:false,
-    deleteVideoOverlay:false
+    deleteVideoOverlay:false,
+    visibilityVideoOverlay:false
 }
 
 export const toggleSlice = createSlice({
@@ -39,10 +41,14 @@ export const toggleSlice = createSlice({
         },
         toggleDeleteVideoOverlay:(state)=>{
             state.deleteVideoOverlay=!state.deleteVideoOverlay
+        },
+        toggleVideoVisibility:(state)=>{
+            state.visibilityVideoOverlay=!state.visibilityVideoOverlay
         }
     }
 })
 
-export const {toggleSideBar,messageModal,openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay,toggleDeleteVideoOverlay} = toggleSlice.actions;
+
+export const {toggleSideBar,messageModal,openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay,toggleVideoVisibility,toggleDeleteVideoOverlay} = toggleSlice.actions;
 
 export default toggleSlice.reducer

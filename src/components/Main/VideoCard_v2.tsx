@@ -13,7 +13,7 @@ interface VideoCardProps {
 
     onDelete?: (
         e: React.MouseEvent,
-        arg: string
+        arg: VideoType
     ) => void | Promise<void>;
 
     onTogglePublish?: (
@@ -85,7 +85,7 @@ export const VideoCard_v2 = memo(({data:par,onDelete,onTogglePublish,onEdit,inde
                         <section className='absolute top-[110%] right-[50%] bg-[rgb(20,20,20)] border border-gray-600 flex flex-col items-start  z-20'>
                         <button className='flex items-center gap-2 border-b border-gray-400 p-1 cursor-pointer text-xs md:text-base hover:bg-[#444]' role="button" onClick={(e)=>onTogglePublish?.(e,par)}>
                             {!par.isPublished?<Eye className='w-3 lg:w-4 h-[12x] lg:h-4 ' />:<EyeClosed className='w-3 lg:w-4 h-[12x] lg:h-4 ' />}
-                            {par.isPublished?"Private":"Public"}</button>
+                            Visibility</button>
                          <button onClick={(e)=>onEdit?.(e,par)} className='w-full flex items-center gap-2 p-1 cursor-pointer border-b border-gray-400 text-xs md:text-base hover:bg-[#444]'>
                             <Pencil className='w-3 h-3 lg:w-4 lg:h-4' />Edit</button>
                         <p onClick={(e)=>onDelete?.(e,par)} className='w-full flex items-center gap-2 p-1 cursor-pointer text-xs md:text-base hover:bg-[#444]'>
