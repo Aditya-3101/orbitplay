@@ -59,20 +59,33 @@ interface channelPlaylistInterface {
     __v:number,
 }
 
+interface postType{
+    _id: string,
+    content: string,
+    createdAt: string,
+    likeCount: number,
+    isLiked: boolean,
+    avatar: string,
+    username: string,
+    owner:{
+        _id:string
+    }
+}
+
 interface channelPostsType{
     statusCode: number,
     data:{
-            _id: string,
-            content: string,
-            createdAt: string,
-            likeCount: number,
-            isLiked: boolean,
-            avatar: string,
-            username: string,
-            owner:{
-                _id:string
-            }
-        }[],
+    _id: string,
+    content: string,
+    createdAt: string,
+    likeCount: number,
+    isLiked: boolean,
+    avatar: string,
+    username: string,
+    owner:{
+        _id:string
+    }
+    }[],
     message: string,
     success: number
 }
@@ -145,6 +158,13 @@ export const channelDetailSlice = createSlice({
                     channelPost.likeCount = channelPost.isLiked?channelPost.likeCount+1:channelPost.likeCount-1;
                 }
             }
+        },
+        deleteChannelPost:(state,action)=>{
+            const postId=action.payload
+            if(state.channelPosts){
+                const filtered = state.channelPosts.data.filter(v=>v._id!==postId)
+                state.channelPosts.data=filtered;
+            }
         }
     },
     extraReducers(builder){
@@ -154,7 +174,6 @@ export const channelDetailSlice = createSlice({
         })
         .addCase(getChannelDetails.fulfilled,(state,action)=>{
             state.channelUserDetail=action.payload.channelUserDetails;
-            // state.channelPlaylist=action.payload.userPlaylist;
             state.loading=false;
             state.error=null;
         })
@@ -175,10 +194,7 @@ export const channelDetailSlice = createSlice({
             }else{
                 const existingId = new Set(state.channelVideos.data.allVideos.map(v=>v._id))
                 const filtered = action.payload.data.allVideos.filter(v=>!existingId.has(v._id))
-                // console.log(filtered)
-                state.channelVideos.data.allVideos.push(...filtered);
-                // state.channelVideos = { ...action.payload, data: { ...action.payload.data, allVideos: [ ...state.channelVideos.data.allVideos, ...filtered ] } };
-            }
+                state.channelVideos.data.allVideos.push(...filtered);            }
             state.channelVideosLoading=false;
         })
         .addCase(getChannelVideos.rejected,(state)=>{
@@ -202,6 +218,6 @@ export const channelDetailSlice = createSlice({
     }
 })
 
-export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser,toggleChannelSubscription,likeChannelPosts} = channelDetailSlice.actions
+export const {updateVideoVisibility,deleteVideo,resetChannelVideos,resetChannelUser,toggleChannelSubscription,likeChannelPosts,deleteChannelPost} = channelDetailSlice.actions
 
 export default channelDetailSlice.reducer;
