@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {ListPlus, ListVideo,SquarePen} from 'lucide-react'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { VideoCard_v2 } from '../Main/VideoCard_v2';
-import { CommentsCard } from '../Main/CommentsCard.tsx'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +12,8 @@ import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
 import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
 import no_results from '../../assets/no_results.svg';
+import { ShowPosts } from '../Pages/ShowPosts.tsx';
+import { getSelectedUserPost } from '../../app/slices/postSlice.ts';
 
 
 interface channelPlaylistInterface {
@@ -57,6 +58,7 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
     const user = useSelector((state:RootState)=>state.user.userTemp)
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
     const location = useLocation()
+    const navigate = useNavigate()
 
     function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
@@ -84,6 +86,12 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
         dispatch(toggleCreatePlaylistOverlay())
         dispatch(openAccountBar(false))
     }
+
+    const handlePostEdit = (post:channelPostsType) =>{
+        dispatch(getSelectedUserPost(post))
+        navigate('/my-posts')
+    }
+
 
     function checkUserLocation():boolean{
         const isAccountPath = location.pathname === "/account";
@@ -171,8 +179,8 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
                             <Link aria-label='write a post' to="/my-posts" className=' bg-[#25c0ef] w-fit p-1.5 rounded-xl cursor-pointer flex gap-2 items-center justify-between'>Write a post <SquarePen size={14} /></Link>
                         </div>
                 </div>}
-                    {(channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par,index)=>{
-                        return <CommentsCard chPosts={par} key={par._id} index={index} />
+                    {(channelPosts!==null&&channelPosts.data.length!==0?channelPosts.data.map((par)=>{
+                        return <ShowPosts key={par._id} post={par} onEdit={handlePostEdit} />
                     }):
                     <div className='w-full h-[10rem] md:h-[20rem] flex items-center justify-center'>
                     <p className='font-roboto text-slate-300'>No Posts found :(</p>
