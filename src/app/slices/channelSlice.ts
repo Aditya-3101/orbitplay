@@ -135,9 +135,6 @@ export const channelDetailSlice = createSlice({
             if(typeof state.channelUserDetail?.isSubscribed==="boolean"&&state.channelUserDetail.isSubscribed!==undefined){
              state.channelUserDetail.isSubscribed=action.payload
             }
-            // console.log(state.channelUserDetail?.isSubscribed)
-            // let currentSubscriptionDetail=state.channelUserDetail?.isSubscribed
-            // if (state.channelUserDetail?.isSubscribed!==undefined&&currentSubscriptionDetail!==undefined) state.channelUserDetail.isSubscribed=action.payload
         },
         likeChannelPosts:(state,action)=>{
             const selectedPost=action.payload

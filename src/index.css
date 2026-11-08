@@ -67,8 +67,6 @@
 }
 
 
-
-
 .layout {
     display: grid;
     grid-template-areas: "header"
@@ -133,7 +131,20 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 20px;
 }
 
+  ul{
+    list-style-type: circle;
+    list-style-position: inside;
+  }
 
+  li > p {
+  display: inline;
+  margin: 0;
+}
+
+  ol{
+    list-style-type: decimal;
+    list-style-position: inside;
+  }
 
 @media (min-width: 1024px) {
     .layout {

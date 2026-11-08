@@ -65,3 +65,923 @@ Port 5174 is in use, trying another one...
 6:47:17 PM [vite] (client) hmr update /src/components/Profile/Channel.tsx, /src/index.css
 6:49:24 PM [vite] (client) page reload src/Constants.ts
 6:49:58 PM [vite] (client) hmr update /src/components/Profile/Account.tsx, /src/index.css
+
+> yttube@1.5.1 dev
+> vite
+
+
+  VITE v8.0.0  ready in 1029 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+> yttube@1.5.1 dev
+> vite
+
+
+  VITE v8.0.0  ready in 953 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+6:28:10 PM [vite] (client) hmr update /src/components/Pages/Posts.tsx, /src/index.css
+6:28:18 PM [vite] (client) ✨ new dependencies optimized: @tiptap/react, @tiptap/react/menus, @tiptap/starter-kit
+6:28:19 PM [vite] (client) ✨ optimized dependencies changed. reloading
+8:26:25 PM [vite] (client) hmr update /src/index.css, /src/features/Editor/Editor.tsx
+8:26:43 PM [vite] (client) hmr update /src/index.css, /src/features/Editor/Editor.tsx
+8:27:59 PM [vite] (client) hmr update /src/index.css, /src/features/Editor/Editor.tsx
+8:28:06 PM [vite] (client) Pre-transform error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+8:28:06 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:08 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:10 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:11 PM [vite] (client) ✨ new dependencies optimized: @tiptap/extension-list
+8:28:11 PM [vite] (client) ✨ optimized dependencies changed. reloading
+8:28:11 PM [vite] (client) Pre-transform error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+8:28:12 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:13 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:13 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:14 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:15 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:15 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:15 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:16 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:16 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:17 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:17 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:17 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:18 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:18 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:18 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:19 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:19 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:19 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:20 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:20 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:20 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:21 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:21 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:21 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:22 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:22 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:22 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:23 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:23 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:23 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:24 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:24 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:24 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:25 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:25 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:25 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:26 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:26 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:26 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:27 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:27 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:27 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:28 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:28 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:29 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:29 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:30 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:30 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:30 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:31 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:31 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:32 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:32 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:32 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:33 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:33 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:34 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:34 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:34 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:35 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:35 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:36 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:36 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:36 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:37 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:37 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:38 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:38 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:38 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:38 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)
+8:28:39 PM [vite] Internal server error: Preprocessor dependency "sass-embedded" not found. Did you install it? Try `npm install -D sass-embedded`.
+  Plugin: vite:css
+  File: /home/aadi/projects/yttube/src/features/Editor/styles.scss
+      at loadPreprocessorPath (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21249:8)
+      at loadSassPackage (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21255:10)
+      at process (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:21342:22)
+      at compileCSSPreprocessors (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20790:33)
+      at compileCSS (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20818:36)
+      at TransformPluginContext.handler (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:20343:53)
+      at EnvironmentPluginContainer.transform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:29998:51)
+      at async loadAndTransform (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24133:26)
+      at async viteTransformMiddleware (file:///home/aadi/projects/yttube/node_modules/vite/dist/node/chunks/node.js:24941:20)

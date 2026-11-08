@@ -6,13 +6,12 @@ import { CommentsCard } from '../Main/CommentsCard.tsx'
 import VideoCard_v2_skeleton from '../Main/VideoCard_v2_skeleton';
 import { emptyArr } from '../../utility/emptyArrays';
 import { useDispatch, useSelector } from 'react-redux';
-import { openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay,toggleDeleteVideoOverlay } from '../../app/slices/toggleSlice';
+import { openAccountBar,toggleCreatePlaylistOverlay,toggleEditVideoOverlay,toggleDeleteVideoOverlay,toggleVideoVisibility } from '../../app/slices/toggleSlice';
 import {selectedVideo} from '../../app/slices/videoSlice.ts'
 import { RootState } from '../../app/store/store';
 import { useLocation } from 'react-router';
 import type { VideoType } from "../../types/video.ts";
 import type { GetChannelVideosResponse } from "../../features/Accounts/accounts.types.ts"
-import { useToggleVideoPublish } from '../../features/alerts/alerts.queries.ts';
 import no_results from '../../assets/no_results.svg';
 
 
@@ -59,8 +58,6 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
     const channelUser = useSelector((state:RootState)=>state.channel.channelUserDetail)
     const location = useLocation()
 
-    const { mutate: togglePublish } = useToggleVideoPublish();
-
     function tabChanger(e:React.MouseEvent<HTMLButtonElement>):void{
         setDefaultTab(e.currentTarget.name)
     }
@@ -79,7 +76,8 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
 
     function handleToggle(e:React.MouseEvent<HTMLButtonElement>,arg:VideoType):void{
         e.preventDefault();
-        togglePublish(arg._id)
+        dispatch(selectedVideo(arg))
+        dispatch(toggleVideoVisibility())
     }
 
     function openCreatePlaylistOverLay():void{
@@ -93,8 +91,6 @@ export const AccountTabs = ({videos,playlists,loading,channelPosts }:AccountTabs
         if(isAccountPath&&user?._id!==null){
             return true
         }
-
-
         if(isChannelPath){
             if(user?._id===channelUser?._id) return true
             if(user?._id!==channelUser?._id) return false

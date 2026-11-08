@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { toggleEditVideoOverlay } from "../../app/slices/toggleSlice"
 import {useMutation,useQueryClient} from '@tanstack/react-query';
 import { useDispatch, useSelector } from "react-redux"
@@ -24,7 +24,6 @@ export function OpenVideoModal():React.JSX.Element{
         const fileInputRef = useRef<HTMLInputElement>(null);
         const [updateError,setUpdatedError] = useState<string>('')
 
-
         const {mutate,isPending} = useMutation({
             mutationFn:updateVideoDetails,
             onSuccess:async()=>{
@@ -37,6 +36,11 @@ export function OpenVideoModal():React.JSX.Element{
                 )
             }
         });
+
+        useEffect(()=>{
+          window.scrollTo(0,0)
+        },[])
+        
         
         function closeEditVideoOverlay():void{
             dispatch(()=>dispatch(toggleEditVideoOverlay()))

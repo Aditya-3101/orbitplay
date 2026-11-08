@@ -12,11 +12,12 @@ interface userPostDataType{
 }
 
 interface userPostResponseType{
-    "statusCode": number|null,
-    "data": userPostDataType[]|null,
-    "message": string|null,
-    "success": number|null
-    "error": string|null
+    statusCode: number|null,
+    data: userPostDataType[]|null,
+    message: string|null,
+    success: number|null
+    error: string|null,
+    selectedPost:userPostDataType|null
 }
 
 const initialState:userPostResponseType = {
@@ -24,7 +25,8 @@ const initialState:userPostResponseType = {
     data:null,
     message:null,
     success:null,
-    error:null
+    error:null,
+    selectedPost:null
 }
 
 export const userPostsDetail = createSlice({
@@ -64,6 +66,9 @@ export const userPostsDetail = createSlice({
               }
             }
         },
+        getSelectedUserPost:(state,action)=>{
+            state.selectedPost=action.payload
+        }
     },
     extraReducers(builder) {
         builder.addCase(getUserPosts.pending,(state)=>{
@@ -90,6 +95,6 @@ export const userPostsDetail = createSlice({
     },
 })
 
-export const {updateIsLikedBy,deletePostById,updateUserPost} = userPostsDetail.actions
+export const {updateIsLikedBy,deletePostById,updateUserPost,getSelectedUserPost} = userPostsDetail.actions
 
 export default userPostsDetail.reducer;

@@ -18,6 +18,7 @@ import {OpenVideoModal} from './OpenVideoEditModal.tsx'
 import {convertImageExtension} from '../../utility/covertImageFormat.ts'
 import { OpenPlaylistModal } from './OpenPlaylistModal.tsx';
 import {OpenDeleteVideoModal} from './OpenDeleteVideoModal.tsx'
+import {OpenVisibilityModal} from './OpenVisibilityModal.tsx'
 
 
 interface userType{
@@ -43,7 +44,7 @@ const Account = ():React.JSX.Element => {
     })
     const dispatch = useDispatch<AppDispatch>()
     const params = useParams<string>();
-    const {deleteVideoOverlay,editVideoOverlay:openEditVideoOverLay,createPlaylistOverlay:openCreatePlaylistOverLay} = useSelector((state:RootState)=>state.toggle)
+    const {deleteVideoOverlay,editVideoOverlay:openEditVideoOverLay,createPlaylistOverlay:openCreatePlaylistOverLay,visibilityVideoOverlay} = useSelector((state:RootState)=>state.toggle)
     const videoContainerRef = useRef(null)
 
     const pageCallback = useCallback(()=>{
@@ -125,11 +126,19 @@ const Account = ():React.JSX.Element => {
     }
 
     const currentUser = params.channelName ? channelData.channelUserDetail : user;
+
+    function precheckModalStatus(){
+        if(openCreatePlaylistOverLay===false&&openEditVideoOverLay===false&&deleteVideoOverlay===false&&visibilityVideoOverlay===false){
+            return true
+        }
+
+        return false;
+    }
    
 
   return (
     <React.Fragment>
-    {(openCreatePlaylistOverLay===false&&openEditVideoOverLay===false&&deleteVideoOverlay===false)?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
+    {precheckModalStatus()?<div className={`relative ${(openCreatePlaylistOverLay||openEditVideoOverLay||deleteVideoOverlay)&&'h-dvh overflow-hidden'}`}>
     
         <section className='bg-[rgba(0,0,0,0.95)]'>
             <div className='relative'>
@@ -174,6 +183,7 @@ const Account = ():React.JSX.Element => {
     {openCreatePlaylistOverLay===true&&<OpenPlaylistModal/>}
     {openEditVideoOverLay===true&&<OpenVideoModal/>}
     {deleteVideoOverlay===true&&<OpenDeleteVideoModal/>}
+    {visibilityVideoOverlay===true&&<OpenVisibilityModal/>}
     </React.Fragment>
   )
 }
