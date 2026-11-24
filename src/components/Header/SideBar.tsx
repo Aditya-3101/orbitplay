@@ -32,7 +32,7 @@ const SideBarComponent = ():React.JSX.Element => {
   return (
     <div className={sideBarStatus?"grid-area-sideBar":"hidden"}>
 
-        <div className="bg-[rgba(0, 0, 0, 0.9)] h-full border-r border-gray-400 sidebar">
+        <div className="bg-[rgba(0, 0, 0, 0.9)] sidebar sticky z-10 top-[var(--header-h)] h-[calc(100dvh-var(--header-h))">
             {sideBarItems.map(({ to, label, icon }) => (
                 <NavLink
                     key={to}

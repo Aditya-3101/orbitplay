@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import {Search} from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -11,10 +11,15 @@ export const SearchVideos = () =>{
     
     const [search,setSearch] = useState<string>('');
     const [searchSuggestions,setSearchSuggestions]=useState<allVideoTypes[]>()
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const navigate = useNavigate()
 
-    const debouncedSearch = useDebounce(search,350)
+    const debouncedSearch = useDebounce(search,350);
+
+    useEffect(()=>{
+        inputRef?.current?.focus();
+    },[])
 
     useEffect(()=>{
     const AutoSearchSuggestions = async(param:string)=>{
@@ -54,7 +59,7 @@ export const SearchVideos = () =>{
       
     return<div className="relative flex flex-col">
     <form className='relative font-teko flex items-center border border-gray-400 rounded-xl' onSubmit={onSubmit}>
-        <input className='w-[80%] md:w-[90%] h-10 p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
+        <input ref={inputRef} className='w-[80%] md:w-[90%] h-10 p-2 text-gray-200 font-roboto focus:outline-0' title="search-bar" autoFocus={false} autoComplete='off' value={search} onChange={changeHandler} type='search' placeholder='Search anything.....' />
         <Search className='text-gray-200 w-[20%] md:w-[10%] cursor-pointer' onClick={onSubmit} />
     </form>
     <div className='bg-black my-2 absolute z-10 left-0 right-0 top-full max-h-64 overflow-y-auto no-scrollbar'>
