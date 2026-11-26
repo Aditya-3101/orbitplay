@@ -30,7 +30,7 @@ const SideBarComponent = ():React.JSX.Element => {
     [username])
 
   return (
-    <div className={sideBarStatus?"grid-area-sideBar":"hidden"}>
+    <div className={sideBarStatus?"grid-area-sideBar border-r border-gray-400":"hidden"}>
 
         <div className="bg-[rgba(0, 0, 0, 0.9)] sidebar sticky z-10 top-[var(--header-h)] h-[calc(100dvh-var(--header-h))">
             {sideBarItems.map(({ to, label, icon }) => (

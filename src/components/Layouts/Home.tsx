@@ -26,14 +26,14 @@ MainContainer.displayName = "MainContainer";
 
 export const HomeLayout = ():React.JSX.Element => {
     const headerRef = useHeaderHeight();
-    const sideBarStatus = useSelector((state: RootState) => state.toggle.sideBar);
-
+    //const sideBarStatus = useSelector((state: RootState) => state.toggle.sideBar);
+//
     return<MainContainer>
         <div ref={headerRef} className="grid-area-header sticky top-0 z-10 bg-black">
             <Header />
         </div>
         <SideBar/>
-        <div className={`grid-area-content min-h-dvh ${sideBarStatus&& "border-l border-gray-400"}`}>
+        <div className={`grid-area-content min-h-dvh `}>
             <Suspense fallback={<h2 className="p-4 text-xl">Loading....</h2>}>
             <Outlet/>
             </Suspense>

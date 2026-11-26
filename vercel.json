@@ -1,9 +1,6 @@
 {
     "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/"
-        }
+        { "source": "/api/:path*", "destination": "https://api-orbitplay.onrender.com/api/:path*" }
     ],
     "headers": [
         {
